@@ -1,0 +1,53 @@
+body{
+    margin: 0 0 0 0;
+}
+.Top{
+    height: 100%;
+    width:auto;
+    font-family: sans-serif;
+    font-size: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.Top-Header{
+    margin-top: 50px;
+    line-height: 5px;
+}
+.Top-Text{
+    line-height:1px;
+    color: grey;
+    font-size: 16px;
+}
+.Top-Table{
+    border-collapse:separate;
+    border-spacing:5em;
+    margin: 25px 0 0 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    width:100%;
+
+
+}
+.Table-Header{
+    line-height: 5px;
+}
+.Top-Text-Table{
+    line-height:1px;
+    color: grey;
+    font-size: 20px;
+    text-align:center;
+}
+.button-delete{
+    background-color: red;
+    border-radius: 25px;
+    color:white;
+    border: none;
+    font-size: 25px;
+    height:90px;
+    width: 350px;
+    padding: 5px 15px 5px 15px;
+    text-decoration: none;
+}
