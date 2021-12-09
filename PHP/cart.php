@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    setcookie('UserCart', '301',time() + 86400, '/');
+?>
 <html>
 <head>
     <title>My Cart</title>
@@ -50,7 +54,15 @@ function insert($hiker_id, $item_id, $group_id,$location, $departure_date, $arri
 
     $conn = mysqli_connect($servername, $username, $password, $db);
     $sql = "insert into cart(hiker_id, item_id,group_id,location,departure_Date, arrival_Date,price) values ('".$hiker_id." ', '".$item_id."', '".$group_id."','".$location."','".$departure_date."','".$arrival_Date."','".$price."')";
-    $conn->query($sql) or die($conn->error);
+    if($conn->query($sql)){
+        $_COOKIE['id'] = $_SESSION['id'];
+        $_COOKIE['item_id'] = $_SESSION["$item_id"];
+        $_COOKIE['group_id'] = $_SESSION["$group_id"];
+        $_COOKIE['location'] = $_SESSION["$location"];
+        $_COOKIE['departure_date'] = $_SESSION["$departure_date"];
+        $_COOKIE['arrival_Date'] = $_SESSION["$arrival_Date"];
+        $_COOKIE['price'] = $_SESSION["$price"];
+    }
     $conn->close();
 }
 function edit($hiker_id,$item_id){
@@ -77,7 +89,7 @@ function edit($hiker_id,$item_id){
         <p class = "Top-Text">Your cart. Feel free to edit!</p>
         <?php
         select(101);
-        //  insert(101, 100, 900,'aswan','10/11/2021','15/11/2021','900 EGP');
+        //insert(101, 100, 900,'aswan','10/11/2021','15/11/2021','900 EGP');
         //insert(101, 103, 905,'Dahab','20/11/2021','25/11/2021','1700 EGP');
         //insert(101, 105, 910,'Mount Everest','20/12/2021','25/12/2021','17000 EGP');
         //insert(101, 110, 880,'Denali','30/1/2022','2/2/2022','17000 EGP');
