@@ -1,55 +1,9 @@
-@import url('./images');
-body{
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
+/* .navbar{
+    padding:0px;
+    margin: -130px 0px 100px 0px;
 }
-.top{
-    position: relative;
-    background-image: url("images/background.png");
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100vh;
-    overflow: auto;
-}
-.rock{
-    background-size: contain;
-    position: absolute;
-    bottom: 0;
-    top: 70%;
-    margin: auto;
-    padding: 0 0 0 0;
-    
-
-}
-.mainHeader{
-    position: absolute;
-    font-family: sans-serif;
-    font-weight: bold;
-    color: white;
-    font-size: 120px;
-    bottom: 0;
-    top: 25%;
-    left: 25%;
-    right: auto;
-}
-.subtitle{
-    position: absolute;
-    text-align: center;
-    font-family: sans-serif;
-    color: white;
-    font-size: 30px;
-    margin: auto;
-}
-.navbar {
-    background: none;
-}
-.middle{
-    height: 100px;
-    width: 100px;
-    background-color: red;
-}
-.bottom{
-    height: 100px;
-    width: 100px;
-    background-color: blue;
-}
+.navbar-Dark {
+    font-weight: 900;
+    color: #FFFFFF;
+    background-color:rgba(128,128,128,0.75);
+} */
