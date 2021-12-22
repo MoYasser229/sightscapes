@@ -5,7 +5,6 @@
     $_SESSION['username']=123;
     /////////
 
-    //192.168.1.39
     $conn=new mysqli("localhost","root","","project");
     if($conn->connect_error)
     die ("cannot connect to the database");
