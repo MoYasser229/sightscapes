@@ -39,7 +39,7 @@ if($row = $resultAdmins->fetch_assoc()){
     $_SESSION["Password"]=$row["pswrd"];
     if(isset($row['pic']))
         $_SESSION['profilepic'] = $row['pic'];
-     header("Location: /home.php");
+    header("Location: /project/home.php");
 }
 else{
     $sql="SELECT * FROM Auditors WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
@@ -52,7 +52,7 @@ else{
         $_SESSION["Password"]=$row["pswrd"];
         if(isset($row['pic']))
             $_SESSION['profilepic'] = $row['pic'];
-        // header("Location:home.php");
+        header("Location: /project/home.php");
     }
     else{
         $sql="SELECT * FROM HRs WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
@@ -65,7 +65,7 @@ else{
             $_SESSION["Password"]=$row["pswrd"];
             if(isset($row['pic']))
               $_SESSION['profilepic'] = $row['pic'];
-            // header("Location:home.php");
+            header("Location: /project/home.php");
         }
         else{
             echo "<script>errorInCorrect = true</script>";
@@ -118,7 +118,7 @@ if(isset($_POST['Submit']) && $_POST['Password'] === ""){
                 <a class="nav-link" href="#">Contact Us</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="Login&Signup/Login.php">Log In<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="users/Login.php">Log In<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="">Sign Up</a>

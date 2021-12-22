@@ -85,7 +85,7 @@ session_start();
                 <a class="nav-link" href="#">Settings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="signOut.php">Sign Out</a>
+                <a class="nav-link" href="users/signOut.php">Sign Out</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="cart/cart.php">Cart</a>
@@ -114,10 +114,10 @@ session_start();
                 <a class="nav-link" href="#">Contact Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Login&Signup/Login.php">Log In</a>
+                <a class="nav-link" href="users/Login.php">Log In</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Login&Signup/Signup.php">Sign Up</a>
+                <a class="nav-link" href="users/Signup.php">Sign Up</a>
             </li>
             </ul>
         </div>
