@@ -65,6 +65,7 @@ session_start();
   <?php
     if(isset($_SESSION['Email'])){
         ?>
+        <?php if($_SESSION['Role'] === 'Hikers') {?>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,16 +86,94 @@ session_start();
                 <a class="nav-link" href="#">Settings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="users/signOut.php">Sign Out</a>
+                <a class="nav-link" href="cart/cart.php">Cart</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="cart/cart.php">Cart</a>
+                <a class="nav-link" href="viewprofile/projecthome.php">Profile Page</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="users/signOut.php">Sign Out</a>
             </li>
             </ul>
         </div>
         </nav>
 <?php
     }
+    else if($_SESSION['Role'] === 'Admins'){
+        ?>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="controlgroups/addgroup.php">Groups</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Settings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="orders/orders.php">Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="admincontrol/admin.php">Data Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="viewprofile/projecthome.php">Profile Page</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="users/signOut.php">Sign Out</a>
+            </li>
+            </ul>
+        </div>
+        </nav>
+        <h1>Welcome Admin</h1>
+        <?php
+    }
+    else{
+        ?>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="controlgroups/groupadminview.php">Groups</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Settings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="cart/cart.php">Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="viewprofile/projecthome.php">Profile Page</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="users/signOut.php">Sign Out</a>
+            </li>
+            </ul>
+        </div>
+        </nav>
+        <?php
+    }
+}
     else{
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -124,7 +203,7 @@ session_start();
         </nav>
 <?php
 }
-include_once "createtb.php";
+include_once "createdb.php";
 ?>
 
     <!-- Optional JavaScript -->

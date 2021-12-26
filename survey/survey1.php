@@ -14,8 +14,6 @@ session_start();
     if($conn->connect_error)
     die ("cannot connect to the database");
 
-    include_once 'createtb.php';
-
     $surveytype='satisfaction survey';
     $startdate='DATE: Auto CURDATE()';
     $enddate='2022-12-31';

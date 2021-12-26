@@ -5,7 +5,7 @@
 
 <?php
 $hn='localhost';
-$db='projectF';
+$db='project';
 $un='root';
 $pw='';
 //require_once 'login.php'; //gets php code from another file
@@ -26,15 +26,17 @@ $result=$conn->query($query); //executes query 3ala el database w returns result
 if(!$result) die ("fatal error in executing code");
 
 while($row= $result->fetch_array(MYSQLI_ASSOC)){
-echo "<tr> <td> ".$row['Name']."</td>";
-echo "<td> ".$row['GID']."</td>";
-echo "<td> ".$row['Price']."</td>";
-echo "<td> ".$row['Rating']."</td>";
-echo "<td> ".$row['DepartureTime']."</td>";
-echo "<td> ".$row['ArrivalTime']."</td>";
-echo "<td> ".$row['Description']."</td>";
-
-"</tr>";
+	if($row['avgrating']==null){
+		$row['avgrating'] = "No customer reviews";
+	}
+	echo "<tr> <td> ".$row['Name']."</td>";
+	echo "<td> ".$row['GID']."</td>";
+	echo "<td> ".$row['Price']."</td>";
+	echo "<td> ".$row['avgrating']."</td>";
+	echo "<td> ".$row['DepartureTime']."</td>";
+	echo "<td> ".$row['ArrivalTime']."</td>";
+	echo "<td> ".$row['Description']."</td>";
+	echo "</tr>";
 }
 ?>
 </table>

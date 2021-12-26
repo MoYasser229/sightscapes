@@ -1,7 +1,6 @@
 <?php session_start();?>
 
 <?php
-    include_once 'createtb.php';
     $_SESSION['username']=123;
     /////////
 

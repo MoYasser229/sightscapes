@@ -20,7 +20,7 @@ Price:<br>
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "projectf";
+$dbname = "project";
 if(isset($_POST['Submit'])){
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {

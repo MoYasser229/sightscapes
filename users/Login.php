@@ -11,7 +11,6 @@ $username = "root";
 $password = "";
 $dbname = "project";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 if(isset($_POST['Submit']) && filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)){ //check if form was submitted
 $sql="SELECT * FROM Hikers WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
@@ -23,49 +22,53 @@ if($row=$result->fetch_assoc())
     $_SESSION["LName"]=$row["lname"];
     $_SESSION["Email"]=$row["email"];
     $_SESSION["Password"]=$row["pswrd"];
+    $_SESSION['Role'] = "Hikers";
     if(isset($row['pic']))
         $_SESSION['profilepic'] = $row['pic'];
-        header("Location: /project/home.php");
+        header("Location: ../../project/home.php");
 }
 else 
 {
 $sql="SELECT * FROM Admins WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
 $resultAdmins = mysqli_query($conn, $sql) or die($conn->error); 
 if($row = $resultAdmins->fetch_assoc()){
-    $_SESSION["ID"]=$row['hikerID'];
+    $_SESSION["ID"]=$row['adminID'];
     $_SESSION["FName"]=$row["fname"];
     $_SESSION["LName"]=$row["lname"];
     $_SESSION["Email"]=$row["email"];
     $_SESSION["Password"]=$row["pswrd"];
+    $_SESSION['Role'] = "Admins";
     if(isset($row['pic']))
         $_SESSION['profilepic'] = $row['pic'];
-    header("Location: /project/home.php");
+    header("Location: ../../project/home.php");
 }
 else{
     $sql="SELECT * FROM Auditors WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
     $resultAuditor = $conn->query($sql) or die($conn->error);
     if($row = $resultAuditor->fetch_assoc()){
-        $_SESSION["ID"]=$row['hikerID'];
+        $_SESSION["ID"]=$row['auditorID'];
         $_SESSION["FName"]=$row["fname"];
         $_SESSION["LName"]=$row["lname"];
         $_SESSION["Email"]=$row["email"];
         $_SESSION["Password"]=$row["pswrd"];
+        $_SESSION['Role'] = "Auditors";
         if(isset($row['pic']))
             $_SESSION['profilepic'] = $row['pic'];
-        header("Location: /project/home.php");
+        header("Location: ../../project/home.php");
     }
     else{
         $sql="SELECT * FROM HRs WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
         $resultHRs = $conn->query($sql)  or die($conn->error);
         if($row = $resultHRs->fetch_assoc()){
-            $_SESSION["ID"]=$row['hikerID'];
+            $_SESSION["ID"]=$row['hrID'];
             $_SESSION["FName"]=$row["fname"];
             $_SESSION["LName"]=$row["lname"];
             $_SESSION["Email"]=$row["email"];
             $_SESSION["Password"]=$row["pswrd"];
+            $_SESSION['Role'] = "HRs";
             if(isset($row['pic']))
               $_SESSION['profilepic'] = $row['pic'];
-            header("Location: /project/home.php");
+            header("Location: ../../project/home.php");
         }
         else{
             echo "<script>errorInCorrect = true</script>";
@@ -86,7 +89,6 @@ if(isset($_POST['Submit']) && $_POST['Password'] === ""){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
         <title>LOGIN</title>
@@ -109,7 +111,7 @@ if(isset($_POST['Submit']) && $_POST['Password'] === ""){
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/project/home.php">Home</a>
+                <a class="nav-link" href="../../project/home.php">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Groups</a>

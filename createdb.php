@@ -1,8 +1,24 @@
 <?php
+    
+    /////////////CREATE DATABASE/////////////
+
+    $conn=new mysqli("localhost","root","");
+    if($conn->connect_error)
+    die ("Connection failed: ".$conn->connect_error);
+
+    $sql="CREATE DATABASE IF NOT EXISTS project;";
+    if($conn->query($sql)===FALSE)
+    die("Error: ".$conn->error);
+
+    $conn->close();
+
+    /////////////////CONNECT/////////////////
+
     $conn=new mysqli("localhost","root","","project");
     if($conn->connect_error)
-    die ("cannot connect to the database");
-    /////////////////survey/////////////////
+    die ("Connection failed: ".$conn->connect_error);
+
+    /////////////////SURVEY/////////////////
     $sql="CREATE TABLE IF NOT EXISTS Survey(
         surveyID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         surveyType TEXT UNIQUE KEY,
@@ -38,7 +54,7 @@
         hikerID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         fname TEXT NOT NULL,
         lname TEXT NOT NULL,
-        email TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
         pswrd TEXT NOT NULL,
         pic TEXT
         );";
@@ -49,7 +65,7 @@
         adminID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         fname TEXT NOT NULL,
         lname TEXT NOT NULL,
-        email TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
         pswrd TEXT NOT NULL,
         pic TEXT 
         );";
@@ -60,7 +76,7 @@
         auditorID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         fname TEXT NOT NULL,
         lname TEXT NOT NULL,
-        email TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
         pswrd TEXT NOT NULL,
         pic TEXT
         );";
@@ -71,7 +87,7 @@
         hrID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         fname TEXT NOT NULL,
         lname TEXT NOT NULL,
-        email TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
         pswrd TEXT,
         pic TEXT
         );";
@@ -81,21 +97,21 @@
     //
     ////////////////////////////////////////////////////////////
 
-    /////////////////chat/////////////////
+    /////////////////CHAT/////////////////
 
-    // $sql="CREATE TABLE IF NOT EXISTS chat(
-    //     chatID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    //     hikerID INT NOT NULL ,
-    //     adminID INT NOT NULL ,
-    //     auditorID INT ,
-    //     chatText TEXT NOT NULL,
-    //     chatTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
-    //     FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID),
-    //     FOREIGN KEY (adminID) REFERENCES Admins(adminID), 
-    //     FOREIGN KEY (auditorID) REFERENCES Auditors(auditorID)
-    //     );";
-    // if($conn->query($sql)===FALSE)
-    // die("Error: ".$conn->error);
+    $sql="CREATE TABLE IF NOT EXISTS chat(
+        chatID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        hikerID INT NOT NULL ,
+        adminID INT NOT NULL ,
+        auditorID INT ,
+        chatText TEXT NOT NULL,
+        chatTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+        FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID),
+        FOREIGN KEY (adminID) REFERENCES Admins(adminID), 
+        FOREIGN KEY (auditorID) REFERENCES Auditors(auditorID)
+        );";
+    if($conn->query($sql)===FALSE)
+    die("Error: ".$conn->error);
 // //HR//
 
         $sql="CREATE TABLE IF NOT EXISTS Warnings(
@@ -120,14 +136,12 @@
 //     if($conn->query($sql)===FALSE)
 //     die("Error: ".$conn->error);
 
-    
-
     /////////////////GROUPS/////////////////
 
     $sql="CREATE TABLE IF NOT EXISTS Groups(
         GID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         price INT NOT NULL,
-        rating INT,
+        avgrating INT,
         Loc TEXT NOT NULL, 
         departureTime DATE NOT NULL,
         arrivalTime DATE NOT NULL,
@@ -137,16 +151,15 @@
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
 
-    $sql="CREATE TABLE IF NOT EXISTS Hikers_Group(
+    $sql  = "CREATE TABLE IF NOT EXISTS Orders(
+        OrderID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         GID INT NOT NULL,
         hikerID INT NOT NULL,
-        PRIMARY KEY (GID,hikerID),
         FOREIGN KEY (GID) REFERENCES Groups(GID),
         FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID)
-        );";
+    );";
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
-
     /////////////////REVIEWS/////////////////
 
     $sql="CREATE TABLE IF NOT EXISTS Reviews(
@@ -186,4 +199,6 @@
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
     
+
+    $conn->close();
 ?>

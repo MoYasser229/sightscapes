@@ -8,29 +8,30 @@
 
     <table border=1>
 <tr>
-  <th> Name </th>
+ 
   <th> GID </th>
-  <th> Rating </th>
-  <th> Price </th>
-  <th> DepartureTime</th>
-   <th> ArrivalTime</th>
-   <th> Description</th>
+   <th> price </th>
+  <th> rating </th>
+  <th> Loc </th>
+  <th> departureTime</th>
+   <th> arrivalTime</th>
+   <th> descrip</th>
+   <th> pic</th>
    
   
 </tr>
 
-<form action ='addgroup.php' method ='post'>
- <button type="submit"> Add</button>
+
 
     <?php 
  
 
-        $conn = new mysqli("localhost" , "root" , "" , "projectf");
+        $conn = new mysqli("localhost" , "root" , "" , "project");
 
         if($conn-> connect_error)
             die("fatal error - cannot connect to the DB");
 
-        $query = "select * from grptable where Name='".$_POST['groups']."'";
+        $query = "select * from Groups where GID='".$_POST['groups']."'";
         $results = $conn-> query($query);
 
 
@@ -39,20 +40,21 @@
 
 
              <tr>
-                 <td> <?php echo $row['Name'] ?></td>
                  <td> <?php echo $row['GID'] ?></td>
-                 <td> <?php echo $row['Rating'] ?></td>
-                 <td> <?php echo $row['Price'] ?></td>
-                 <td> <?php echo $row['DepartureTime'] ?></td>
-                 <td> <?php echo $row['ArrivalTime'] ?></td>
-                  <td> <?php echo $row['Description'] ?></td>
+                 <td> <?php echo $row['price'] ?></td>
+                 <td> <?php echo $row['rating'] ?></td>
+                  <td> <?php echo $row['Loc'] ?></td>
+                 <td> <?php echo $row['departureTime'] ?></td>
+                 <td> <?php echo $row['arrivalTime'] ?></td>
+                  <td> <?php echo $row['descrip'] ?></td>
+                  <td> <?php echo $row['pic'] ?></td>
                  <td> <a href=groupedit.php?id=<?php echo $row['GID'] ?> > Edit</a></td>
                  <td> <a href=groupdelete.php?id=<?php echo $row['GID'] ?> >Delete</a></td>
                 
              </tr>
 
              <?php
-			
+      
         }
         ?>
 <table>

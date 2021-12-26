@@ -1,43 +1,38 @@
-<table>
+<html>
+<body>
 <table border =1>
-<tr> <th> Mobile </th> <th> password </th>  </tr>
+<tr> <th> pswrd</th>  </tr>
 
 <?php
-//session
 $hn='localhost';
-$db='projectF';
+$db='project';
 $un='root';
 $pw='';
 session_start();
-
+$id=$_SESSION["ID"];
+//role
+$role = $_SESSION["Role"];
+//role id
+$roleid = substr($role,0,strlen($role)-1) . "ID";
 //require_once 'login.php'; //gets php code from another file
-$conn=new mysqli("localhost","$un","$pw","$db");//conn=object men el database , connection to database
+$conn=new mysqli("localhost","$un","$pw","$db") or die ("fatal error cannot connect to DB");
 
 
-if($conn->connect_error) 
-	die ("fatal error cannot connect to DB");
+$sql = "SELECT * FROM $role WHERE $roleid = $id";
 
-//echo "connected successfully to DB";
-
-
-
-$query="select Mobile, password from trial1 where ID = 4"; //preperation for query
-
-$result=$conn->query($query); //executes query 3ala el database w returns result
+ //preperation for query
+$result=$conn->query($sql); //executes query 3ala el database w returns result
 if(!$result) die ("fatal error in executing code");
-
-$row= $result->fetch_array(MYSQLI_ASSOC);
-echo "<tr> <td> Mobile is  ".$row['Mobile']."</td>";
-echo "<td> password is ".$row['password']."</td>";
-
+	$row= $result->fetch_array(MYSQLI_ASSOC);
+echo "<tr> <td> ".$row['pswrd']."</td>";
 echo "</tr>";
+
+
 
 ?>
 </table>
-<?php
-$_SESSION["password"]=$row["password"];
-	$_SESSION["Mobile"]=$row["Mobile"];
-?>
-
- <form action ='Editinfopt2.php' method ='post'>
+<form action ='Editinfopt2.php' method ='post'>
  <button type="submit"> Edit </button>
+</form>
+</body>
+</html>

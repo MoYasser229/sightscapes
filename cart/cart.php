@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>My Cart</title>
-    <link rel="stylesheet" href="/project/styles/cartStyle.css" type="text/css">
+    <link rel="stylesheet" href="../../project/styles/cartStyle.css" type="text/css">
 </head>
 <body>
     <?php
@@ -72,7 +72,7 @@ function edit($hiker_id,$group_id){
         //insert(101, 103, 905,'Dahab','20/11/2021','25/11/2021','1700 EGP');
         //insert(101, 105, 910,'Mount Everest','20/12/2021','25/12/2021','17000 EGP');
         //insert(101, 110, 880,'Denali','30/1/2022','2/2/2022','17000 EGP');
-
+////////////
         ?>
     </div>
 </body>

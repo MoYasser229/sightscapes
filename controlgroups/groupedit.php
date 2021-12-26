@@ -14,33 +14,44 @@
 
         <?php
 
-            $conn = new mysqli("localhost" , "root" , "" , "projectF");
+            $conn = new mysqli("localhost" , "root" , "" , "project");
 
 
             if($conn-> connect_error)
                 die("fatal error - cannot connect to the DB");
 
 
-            $query = "SELECT * FROM grptable WHERE GID=1" ;
+            $query = "SELECT * FROM Groups WHERE GID=2" ;
             $results = $conn-> query($query);
 
             if(!$results)
                 die("Fatal error in executing the query");
 
+ while($row = $results->fetch_array(MYSQLI_ASSOC)) {
 
-            while($row = $results->fetch_array(MYSQLI_ASSOC)) {
-                echo 'Name:<br>';
-                echo "<input type = text name=Name value = ".$row["Name"] . "><br>";
-                echo 'Price:<br>';
-                echo "<input type = text name=Price value = ".$row["Price"] . "><br>";
-                 echo 'ArrivalTime:<br>';
-                echo "<input type = text name=ArrivalTime value = ".$row["ArrivalTime"] . "><br>";
-                 echo 'DepartureTime:<br>';
-                echo "<input type = text name=DepartureTime value = ".$row["DepartureTime"] . "><br>";
+                
+                echo 'price:<br>';
+                echo "<input type = text name=price value = ".$row["price"] . "><br>";
+
+
+
+                echo 'Location:<br>';
+                echo "<input type = text name=Loc value = ".$row["Loc"] . "><br>";
+
+                 echo 'departureTime:<br>';
+                echo "<input type = DATE name=departureTime value = ".$row["departureTime"] . "><br>";
+
+                 echo 'arrivalTime:<br>';
+                echo "<input type = DATE name=arrivalTime value = ".$row["arrivalTime"] . "><br>";
+                
+
                  echo 'Description:<br>';
-                echo "<input type = text name=Description value = ".$row["Description"] . "><br>";
-            }
+                echo "<input type = text name=descrip value = ".$row["descrip"] . "><br>";
 
+                echo 'picture:<br>';
+                echo "<input type = text name=pic value = ".$row["pic"] . "><br>";
+               
+            }
         ?>
 
         <input type="submit" name="submit">
@@ -48,18 +59,19 @@
     <?php
     
       if(isset($_POST["submit"])){
-    $query="update grptable set Name=\"".$_POST["Name"]."\",
-    Price=\"".$_POST["Price"]."\",
-    ArrivalTime=\"".$_POST["ArrivalTime"]."\",
-    DepartureTime=\"".$_POST["DepartureTime"]."\",
-     Description=\"".$_POST["Description"]."\"
+    $query="update Groups set
+    price=\"".$_POST["price"]."\",
+    arrivalTime=\"".$_POST["arrivalTime"]."\",
+    departureTime=\"".$_POST["departureTime"]."\",
+     pic=\"".$_POST["pic"]."\",
+     descrip=\"".$_POST["descrip"]."\"
      where GID=1";
     
      $results = $conn-> query($query) or die ($conn->error);
     
      if($results)
     echo "Successfully updated...";
-	  }
+    }
         ?>
 
 

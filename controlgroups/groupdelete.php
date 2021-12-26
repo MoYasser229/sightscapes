@@ -1,3 +1,6 @@
+<?php 
+    session_start();
+?>
 <!doctype html>
 <html>
 <head>
@@ -11,51 +14,51 @@
         <?php 
 
             echo "<h2> Are you sure that you want to delete the below record? </h2>";
-            $conn = new mysqli("localhost" , "root" , "" , "projectF");
+            $conn = new mysqli("localhost" , "root" , "" , "project") or die("fatal error - cannot connect to the DB");
 
+            $query = "SELECT * FROM Groups WHERE GID = '". $_SESSION["ID"]."'";
 
-            if($conn-> connect_error)
-                die("fatal error - cannot connect to the DB");
-
-            $query = "SELECT * FROM grptable WHERE GID = 1";
-
-
-            $results = $conn-> query($query);
-
-            if(!$results)
-                die("Fatal error in executing the query");
-
+            $results = $conn-> query($query) or die("Fatal error in executing the query");
 
             while($row = $results->fetch_array(MYSQLI_ASSOC)) {
+                echo 'GroupID:<br>';
+                echo "<input type = text name=GID value = ".$row["GID"] . "><br>";
 
-                echo 'Name:<br>';
-                echo "<input type = text name=Name value = ".$row["Name"] . "><br>";
-                echo 'Price:<br>';
-                echo "<input type = text name=Price value = ".$row["Price"] . "><br>";
-                 echo 'ArrivalTime:<br>';
-                echo "<input type = text name=ArrivalTime value = ".$row["ArrivalTime"] . "><br>";
-                 echo 'DepartureTime:<br>';
-                echo "<input type = text name=DepartureTime value = ".$row["DepartureTime"] . "><br>";
+                echo 'price:<br>';
+                echo "<input type = text name=price value = ".$row["price"] . "><br>";
+
+                echo 'rating:<br>';
+                echo "<input type = text name=rating value = ".$row["rating"] . "><br>";
+
+                echo 'Location:<br>';
+                echo "<input type = text name=Loc value = ".$row["Loc"] . "><br>";
+
+                 echo 'departureTime:<br>';
+                echo "<input type = text name=departureTime value = ".$row["departureTime"] . "><br>";
+
+                 echo 'arrivalTime:<br>';
+                echo "<input type = text name=arrivalTime value = ".$row["arrivalTime"] . "><br>";
+                
+
                  echo 'Description:<br>';
-                echo "<input type = text name=Description value = ".$row["Description"] . "><br>";
+                echo "<input type = text name=descrip value = ".$row["descrip"] . "><br>";
+
+                echo 'picture:<br>';
+                echo "<input type = text name=pic value = ".$row["pic"] . "><br>";
                
             }
-
          ?>
-
-         <input type="submit" name="submit">
-		 
+         <input type="submit" name="submit">   
         <?php
-		if(isset($_POST["submit"])){
-            $query = "delete from grptable where GID =1";
+        if(isset($_POST["submit"])){
+            $query = "DELETE from Groups where GID ='".$_GET['id']."'";
 
             $results = $conn-> query($query);
 
             if($results)
-                echo "Successfully deleted ....";
+                header("Location: groupadminview.php");
  }
         ?>
-
     </form>
 
 </body>

@@ -82,9 +82,10 @@ if(isset($_POST['Submit'])){
             $_SESSION["LName"]=$row["lname"];
             $_SESSION["Email"]=$row["email"];
             $_SESSION["Password"]=$row["pswrd"];
+            $_SESSION['Role'] = $role;
             if(isset($row['pic']))
               $_SESSION['profilepic'] = $row['pic'];
-            header("Location:/project/home.php");
+            header("Location:../home.php");
         }
     }
     else
@@ -95,7 +96,7 @@ if(isset($_POST['Submit'])){
 }
 ?>
 
-<h1>SignUp</h1>
+<h1>Sign Up</h1>
 <form action="" method="post" enctype = 'multipart/form-data'>
   Sign up as:<br>
 <select name="role">
@@ -113,7 +114,7 @@ if(isset($_POST['Submit'])){
   Password:<br>
   <input type="Password" name="Password"><br>
   Profile Picture:<br>
-  <input type="file" name="picture"><br>
+  <input type="file" name="picture"><br><br>
   <input type="submit" value="Submit" name="Submit">
   <input type="reset">
 </form>
@@ -170,7 +171,7 @@ if(isset($_POST['Submit'])){
                 <a class="nav-link" href="#">Contact Us</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="users/Login.php">Log In<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="Login&Signup/Login.php">Log In<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="">Sign Up</a>
