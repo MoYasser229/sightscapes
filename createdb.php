@@ -45,9 +45,6 @@
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
 
-    
-    
-
     //////////////////////USERS//////////////////////
     //personname instead of personid
     $sql="CREATE TABLE IF NOT EXISTS Hikers(
@@ -94,8 +91,7 @@
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
     
-    //
-    ////////////////////////////////////////////////////////////
+    //////////////////////////////////////
 
     /////////////////CHAT/////////////////
 
@@ -107,12 +103,12 @@
         chatText TEXT NOT NULL,
         chatTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
         FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID),
-        FOREIGN KEY (adminID) REFERENCES Admins(adminID), 
+        FOREIGN KEY (adminID) REFERENCES Admins(adminID),
         FOREIGN KEY (auditorID) REFERENCES Auditors(auditorID)
         );";
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
-// //HR//
+    //HR//
 
         $sql="CREATE TABLE IF NOT EXISTS Warnings(
             warningID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -121,7 +117,7 @@
             auditorID INT NOT NULL,
             hrID INT NOT NULL,
             report boolean NOT NULL,
-            FOREIGN KEY (adminID) REFERENCES Admins(adminID)
+            FOREIGN KEY (adminID) REFERENCES Admins(adminID) ON DELETE CASCADE
             );";
         if($conn->query($sql)===FALSE)
         die("Error: ".$conn->error);
@@ -154,8 +150,10 @@
     $sql  = "CREATE TABLE IF NOT EXISTS Orders(
         OrderID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         GID INT NOT NULL,
+        Loc TEXT NOT NULL,
+        departureTime DATE NOT NULL,
+        arrivalTime DATE NOT NULL,
         hikerID INT NOT NULL,
-        FOREIGN KEY (GID) REFERENCES Groups(GID),
         FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID)
     );";
     if($conn->query($sql)===FALSE)
@@ -168,11 +166,12 @@
         hikerID INT NOT NULL,
         reviewText VARCHAR(255),
         rating INT NOT NULL,
-        FOREIGN KEY (GID) REFERENCES Groups(GID),
-        FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID)
+        FOREIGN KEY (GID) REFERENCES Groups(GID) ON DELETE CASCADE,
+        FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID) ON DELETE CASCADE
         );";
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
+    //////?
     $sql="CREATE TABLE IF NOT EXISTS Answer(
         surveyID INT NOT NULL ,
         questionID INT NOT NULL,
@@ -181,24 +180,25 @@
         otherText TEXT,
         PRIMARY KEY (surveyID,questionID,offeredAnswerID,hikerID),
         FOREIGN KEY (surveyID) REFERENCES Survey(surveyID),
-        FOREIGN KEY (questionID) REFERENCES Question(questionID),
-        FOREIGN KEY (offeredAnswerID) REFERENCES offeredAnswer(offeredAnswerID),
-        FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID)
+        FOREIGN KEY (questionID) REFERENCES Question(questionID) ON DELETE CASCADE,
+        FOREIGN KEY (offeredAnswerID) REFERENCES offeredAnswer(offeredAnswerID) ON DELETE CASCADE,
+        FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID) 
         );";
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
+    //?
+    
     /////////////////CART/////////////////
     
     $sql="CREATE TABLE IF NOT EXISTS cart(
         cartID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         GID INT NOT NULL,
         hikerID INT NOT NULL ,
-        FOREIGN KEY (GID) REFERENCES Groups(GID),
-        FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID)
+        FOREIGN KEY (GID) REFERENCES Groups(GID) ON DELETE CASCADE,
+        FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID) ON DELETE CASCADE
         );";
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
     
-
     $conn->close();
 ?>

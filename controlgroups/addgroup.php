@@ -69,22 +69,18 @@ if(isset($_POST['Submit'])){ //check if form was submitted
 
 <h1>Add</h1>
 <form action="" method="post" enctype="multipart/form-data">
-  price:<br>
+  Price:<br>
   <input type="text" name="price"><br> 
   Location:<br>
   <input type="text" name="Loc"><br> 
-  departureTime:<br>
+  Departure Time:<br>
   <input type="DATE" name="departureTime"><br>
-  arrivalTime:<br>
+  Arrival Time:<br>
   <input type="DATE" name="arrivalTime"><br>
-   description:<br>
+  Description:<br>
   <input type="text" name="descrip"><br>
-   picture:<br>
-  <input type="file" name="picture"><br>
-
-  
-
-
+  Picture:<br>
+  <input type="file" name="picture"><br><br>
   <input type="submit" value="Submit" name="Submit">
   <input type="reset">
 </form>

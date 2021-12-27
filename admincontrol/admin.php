@@ -3,11 +3,7 @@
 <head>
 <title>Admin</title>
 </head>
-<!-- file -->
-
-
 <body>
-
     <form method = "post" action="">
     <input type = "submit" name= "action" value ="Groups">
     <br><br>
@@ -15,17 +11,12 @@
     <br><br>
     <input type = "submit" name= "action" value = "Hikers">
     <br><br>
-
     </form>
-    
-    <?php 
-    
-
+<?php 
     if(isset($_POST['action'])){
         $conn=new mysqli("localhost","root","","project");
         if($_POST['action']=="Admins")
             {
-            
             $_GET['add']=false;
             $_GET['delete']=false;
             header("Location: otheradmin.php");
@@ -43,9 +34,7 @@
             $_GET['delete']=false;
             header("Location: /project/controlgroups/groupadminview.php");
         }
-
     }
-?>
-    
+?>  
 </body>
 </html>
