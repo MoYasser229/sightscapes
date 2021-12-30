@@ -3,7 +3,7 @@
     </head>
     <body>
         <form method="post" action="">
-            sort:<br>
+            SORT:<br>
             descending: <input type="radio" value = "DESC" name = "sortArrange"><br>
             ascending: <input type="radio" value = "ASC" name = "sortArrange"><br>
             by:<br>
