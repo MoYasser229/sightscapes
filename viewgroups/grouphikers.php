@@ -110,6 +110,43 @@
 <?php
 	
 	if(isset($_POST['Submit'])&&(isset($_POST['groups']))){
-		insert($_SESSION['ID'],$_POST['groups']);
+		$groups = $_POST['groups'];
+		
+		$sql = "SELECT * FROM groups WHERE GID = '$groups'";
+		$result = $conn->query($sql);
+		$found = false;
+		if($row = $result->fetch_assoc()) {
+			if(isset($_COOKIE['GroupsCart'])){
+				$cartItems = stripslashes($_COOKIE['GroupsCart']);
+        		$cart = json_decode($cartItems, true);
+				foreach($cart as $cartItem){
+					if($cartItem['ID'] == $groups && $cartItem['hikerID'] == $_SESSION['ID']){
+						$found = true;
+						break;
+					}
+				}
+			}
+			else{
+				$cart = array();
+			}
+			if($found === false){
+				$location = $row['Loc'];
+				$price = $row['price'];
+				$item = array(
+					'ID' => $groups,
+					'hikerID' => $_SESSION['ID'],
+					'location' => $location,
+					'price' => $price,
+				);
+				$cart[] = $item;
+				$jsonString = json_encode($cart);
+				insert($_SESSION['ID'],$jsonString);
+			}
+			else{
+				//header("Location: grouphikers.php");
+				echo "<script>alert('Item is already in Cart')</script>";
+			}
+		}
+		
 	}
 ?>

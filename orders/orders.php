@@ -7,16 +7,14 @@
             descending: <input type="radio" value = "DESC" name = "sortArrange"><br>
             ascending: <input type="radio" value = "ASC" name = "sortArrange"><br>
             by:<br>
-            id <input type="checkbox" value = "OrderID" name = "sort"><br>
-            location <input type="checkbox" value = "loc" name = "sort"><br>
-            departure time <input type="checkbox" value = "departureTime" name = "sort"><br>
-            arrival time <input type="checkbox" value = "arrivalTime" name = "sort"><br>
+            hiker name <input type="checkbox" value = "fname" name = "sort"><br>
+            location <input type="checkbox" value = "Loc" name = "sort"><br>
+            price <input type="checkbox" value = "ItemPrice" name = "sort"><br>
             Search <select name="searchlist" id="searchlist">
                 <option value="all" selected>All</option>
-                <option value="OrderID" >Order ID</option>
+                <option value="fname" >Hiker name</option>
                 <option value="Loc" >Group Location</option>
-                <option value="departureTime" >Departure Date</option>
-                <option value="arrivalTime" >Arrival Date</option>
+                <option value="ItemPrice" >price</option>
             </select>
             <input name = "search" id="search">
             <input type="submit" name="submit">
@@ -25,14 +23,11 @@
             var select=document.getElementById('searchlist');
             var type=document.getElementById('search')
             select.addEventListener('change', () => {
-            if((event.target.value=='departureTime')||(event.target.value=='arrivalTime'))
-            document.getElementById("search").type='date';
-            else
-            document.getElementById("search").type='text';
+                document.getElementById("search").type='text';
             })
         </script>
         <?php
-            $orderby = "Orders.OrderID";
+            $orderby = "hikers.hikerID";
             $sort = "ASC";
             $narrowedsearch='';
             $tb='';
@@ -43,11 +38,11 @@
                     if($_POST['sortArrange'] === "DESC")
                         $sort = "DESC";
                 if(isset($_POST['sort']))
-                    if($_POST['sort'] === 'loc' || $_POST['sort'] === 'departureTime' || $_POST['sort'] === 'arrivalTime')
-                        $orderby = 'groups.'.$_POST['sort'];
+                    if($_POST['sort'] === 'loc' )
+                        $orderby = 'orders.'.$_POST['sort'];
                 if(isset($_POST['search'])){
                     if($_POST['searchlist']!='all'){
-                        ($_POST['searchlist'] =='OrderID')?($tb='Orders.'):($tb='groups.');
+                        ($_POST['searchlist'] =='fname')?($tb='hikers.'):($tb='orders.');
                         $narrowedsearch=$tb.$_POST['searchlist'];
                     }
                     $txtsr=$_POST['search'];
@@ -61,31 +56,30 @@
             $conn = mysqli_connect($host, $username, $password,$db);
 
             if($txtsr=="")
-            $sql = "SELECT orders.orderID,groups.loc,groups.departureTime,groups.arrivalTime
-            FROM `orders`,`groups` WHERE orders.GID = groups.GID ORDER BY $orderby $sort;";
+                $sql = "SELECT groups.GID,orders.loc,hikers.fname,orders.ItemPrice
+                FROM `orders`,`groups`,`hikers` WHERE orders.GID = groups.GID AND orders.hikerid = hikers.hikerid ORDER BY $orderby $sort;";
             else if($txtsr!=""&&($_POST['searchlist']=='all'))
-            $sql = "SELECT orders.orderID,groups.loc,groups.departureTime,groups.arrivalTime
-            FROM `orders`,`groups` WHERE orders.GID = groups.GID AND concat(orders.orderID,groups.loc,
-            groups.departureTime,groups.arrivalTime) LIKE '%$txtsr%'
-            ORDER BY $orderby $sort;";
+                $sql = "SELECT groups.GID,orders.loc,hikers.fname,orders.ItemPrice
+                FROM `orders`,`groups`,`hikers` WHERE orders.GID = groups.GID AND orders.hikerid = hikers.hikerid AND concat(hikers.hikerID,groups.loc
+                ) LIKE '%$txtsr%'
+                ORDER BY $orderby $sort;";
             else if($txtsr!=""&&$narrowedsearch!="")
-            $sql = "SELECT orders.orderID,groups.loc,groups.departureTime,groups.arrivalTime
-            FROM `orders`,`groups` WHERE orders.GID = groups.GID AND $narrowedsearch='$txtsr'
-            ORDER BY $orderby $sort;";
+                $sql = "SELECT groups.GID,orders.loc,hikers.fname,orders.ItemPrice
+                FROM `orders`,`groups`,`hikers` WHERE orders.GID = groups.GID AND orders.hikerid = hikers.hikerid AND $narrowedsearch='$txtsr'
+                ORDER BY $orderby $sort;";
             
             $result = $conn->query($sql) or die($conn->error);
             if($txtsr!=""&&(mysqli_num_rows($result)) == 0)
                 echo "There are no results <br> Try searching again";
             else{
                 echo "<table border = 1>
-                <tr><th>Order ID</th><th>Group Location</th><th>Departure Date</th>
-                <th>Arrival Date</th></tr>";
+                <tr><th>Hiker Name</th><th>Group ID</th><th>Location</th><th>Group Price</th></tr>";
                 while($row2 = $result->fetch_assoc()) {
                     echo "<tr>
-                    <td>".$row2['orderID']."</td>
+                    <td>".$row2['fname']."</td>
+                    <td>".$row2['GID']."</td>
                     <td>".$row2['loc']."</td>
-                    <td>".$row2['departureTime']."</td>
-                    <td>".$row2['arrivalTime']."</td>
+                    <td>".$row2['ItemPrice']."</td>
                     </tr>";
                 }
             }

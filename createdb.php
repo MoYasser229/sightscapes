@@ -147,17 +147,7 @@
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
 
-    $sql  = "CREATE TABLE IF NOT EXISTS Orders(
-        OrderID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        GID INT NOT NULL,
-        Loc TEXT NOT NULL,
-        departureTime DATE NOT NULL,
-        arrivalTime DATE NOT NULL,
-        hikerID INT NOT NULL,
-        FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID)
-    );";
-    if($conn->query($sql)===FALSE)
-    die("Error: ".$conn->error);
+
     /////////////////REVIEWS/////////////////
 
     $sql="CREATE TABLE IF NOT EXISTS Reviews(
@@ -189,16 +179,17 @@
     //?
     
     /////////////////CART/////////////////
-    
-    $sql="CREATE TABLE IF NOT EXISTS cart(
-        cartID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    $sql  = "CREATE TABLE IF NOT EXISTS Orders(
+        ItemPrice INT,
         GID INT NOT NULL,
-        hikerID INT NOT NULL ,
-        FOREIGN KEY (GID) REFERENCES Groups(GID) ON DELETE CASCADE,
-        FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID) ON DELETE CASCADE
-        );";
+        Loc TEXT NOT NULL,
+        hikerID INT NOT NULL,
+        FOREIGN KEY (GID) REFERENCES Groups(GID),
+        FOREIGN KEY (hikerID) REFERENCES Hikers(hikerID)
+    );";
     if($conn->query($sql)===FALSE)
-    die("Error: ".$conn->error);
+    die("ErrorOrders: ".$conn->error);
     
     $conn->close();
+
 ?>

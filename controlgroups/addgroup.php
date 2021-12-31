@@ -23,7 +23,6 @@ if(isset($_POST['Submit'])){ //check if form was submitted
     $departureTime=$_POST['departureTime'];
     $arrivalTime=$_POST['arrivalTime'];
     $descrip=$_POST['descrip'];
-    
 
     if(empty($price)){
       echo "<script>errorInPrice = true</script>";
@@ -58,9 +57,9 @@ if(isset($_POST['Submit'])){ //check if form was submitted
     
     if($error === false){
     $sql="INSERT INTO groups(price,Loc,departureTime,arrivalTime,descrip,pic)
-    VALUES ('$price',' $Loc','$departureTime','$arrivalTime','$descrip','$pic')";
-    $result=mysqli_query($conn,$sql);
-    header("Location: /project/controlgroups/groupadminview.php");
+    VALUES ('$price','$Loc','$departureTime','$arrivalTime','$descrip','$pic')";
+    $result=mysqli_query($conn,$sql) or die($conn->error);
+    header("Location:/project/controlgroups/groupadminview.php");
   }
   }
 

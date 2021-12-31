@@ -78,12 +78,12 @@ else{
     </th><th> Location </th><th> Departure Date </th><th> Arrival Date 
     </th><th> Description </th><th> Picture </th></tr>";
     while($row= $result->fetch_array(MYSQLI_ASSOC)){
-        if($row['avgrating']==null){
-            $row['avgrating'] = "No customer reviews";
-        }
         echo "<td> ".$row['GID']."</td>";
         echo "<td> ".$row['price']."</td>";
-        echo "<td> ".$row['avgrating']."</td>";
+        if(!isset($row['avgrating']))
+            echo "<td>No customer reviews</td>";
+        else
+            echo "<td> ".$row['avgrating']."</td>";
         echo "<td> ".$row['Loc']."</td>";
         echo "<td> ".$row['departureTime']."</td>";
         echo "<td> ".$row['arrivalTime']."</td>";
