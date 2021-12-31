@@ -44,6 +44,14 @@ if(isset($_POST['Submit'])){ //check if form was submitted
       echo "<script>errorInDescription = true</script>";
       $error = true;
     }
+    if($departureTime < date("Y-m-d") || $arrivalTime > $departureTime){
+      $error = true;
+      echo "<script>alert('Departure Date is Invalid')</script>";
+    }
+    if($arrivalTime < date("Y-m-d") || $arrivalTime < $departureTime){
+      $error = true;
+      echo "<script>alert('Arrival Date is Invalid')</script>";
+    }
     $pic = "";
     $dir = "images/";
     if(!empty($_FILES['picture']['name'])){
