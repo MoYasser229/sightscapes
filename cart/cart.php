@@ -17,7 +17,7 @@
                 $table = "<table class = 'Top-Table'>";
                 
                 foreach($myCart as $cartItem){
-                    if($cartItem['hikerID'] == $_SESSION['ID']){
+                    if($cartItem['userID'] == $_SESSION['ID']){
                     $table .= "<tr>
                     <td>
                         <p><strong style = 'font-size: 25px;'>ID &nbsp &nbsp &nbsp</strong><span class = 'Top-Text-Table'>".strtoupper($cartItem['ID'])."</span></p>
@@ -58,7 +58,7 @@ function edit($group_id){
         if(isset($myCart[$i])){
                 $row = $myCart[$i];
                 echo "<script>alert({$row['ID']})</script>";
-                if($row['ID'] == $group_id && $row['hikerID'] == $_SESSION['ID']){
+                if($row['ID'] == $group_id && $row['userID'] == $_SESSION['ID']){
                     //unset($myCart[$i]);
                     array_splice($myCart,$i,1);
                     break;

@@ -63,7 +63,7 @@ $conn=new mysqli("localhost","$un","$pw","$db") or die("ERROR");
 if($txtsr=="")
     $query="SELECT * from Groups ORDER BY $orderby $sort"; 
 else if($txtsr!=""&&($_POST['searchlist']=='all'))
-    $query = "SELECT * from Groups WHERE concat(GID,price,avgrating,Loc,departureTime,arrivalTime,descrip)
+    $query = "SELECT * from Groups WHERE concat(GID,price,avgrating,loc,departureTime,arrivalTime,descrip)
     LIKE '%$txtsr%' ORDER BY $orderby $sort;";
 else if($txtsr!=""&&$narrowedsearch!="")
     $query = "SELECT * from Groups WHERE $narrowedsearch='$txtsr'
@@ -84,7 +84,7 @@ else{
             echo "<td>No customer reviews</td>";
         else
             echo "<td> ".$row['avgrating']."</td>";
-        echo "<td> ".$row['Loc']."</td>";
+        echo "<td> ".$row['loc']."</td>";
         echo "<td> ".$row['departureTime']."</td>";
         echo "<td> ".$row['arrivalTime']."</td>";
         echo "<td> ".$row['descrip']."</td>";

@@ -1,0 +1,132 @@
+body{
+    background-color: #0b1d26;
+}
+html {
+    scroll-behavior: smooth;
+  }
+.background{
+    background-color: #0b1d26;
+    height: 75px;
+}
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+.topClass{
+    background-image: url(../bckgrnd/mountainGroup.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    padding-top: 25vh;
+}
+.topClass h1{
+     font-size: 120px;
+    text-align: center;
+    color: white;
+}
+.formStyle{
+    background-color: white;
+    width: 25%;
+    margin-left: 38.5%;
+    height: 125px;
+    border-radius: 20px;
+}
+.formStyle .searchBarContainer{
+    background-color: #0b1d26;
+    width: 100%;
+    height: 50px;
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-left: 10px;;
+}
+.formStyle .searchBar::-webkit-calendar-picker-indicator{
+    filter: invert(1);
+}
+.formStyle .searchBar{
+    border: none;
+    width: 70%;
+    border-radius: 20px;
+    background-color: #0b1d26;
+    color: white;
+}
+.formStyle .searchBar::placeholder{
+    color: white;
+}
+.formStyle .searchBar::focus
+{
+    background-color:#0b1d26;
+}
+.formStyle .searchBarContainer select{
+    width: 25%;
+    color: white;
+    background-color: #0b1d26;
+    border: none;
+}
+.filterArea{
+    text-align: center; 
+}
+.filterArea a i{
+    color: white;
+    background-color: #173f53;
+    width: 20%;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 30px;
+}
+.filterArea a i:before {
+    position: relative;
+    top: 50%;
+        transform: translateY(-50%);
+        display: block;
+    }
+.filterArea select{
+    border: none;
+    color: white;
+    background-color: #0b1d26;
+    width: 40%;
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 14px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.bckColor{
+    color: white;
+    background-color: #173f53;
+    padding: 0;
+    border: none;
+    width: 90px;
+    height: 60px;
+    border-radius: 10px;
+}
+.bg-grey {
+    background: #0b1d26;
+ }
+ footer{
+        margin-top: 100px;
+        color: white;
+ }
+ footer p, a {
+font-size: 12px;
+font-family: 'Roboto', sans-serif;
+}
+footer h6 {
+font-family: 'Playfair Display', serif;
+margin-bottom: 40px;
+position: relative;
+}
+footer h6:after {
+position: absolute;
+content: "";
+background: grey;
+width: 12%;
+height: 1px;
+left: 0;
+bottom: -20px;
+}
+ .social .fa {
+color: gray;
+font-size: 22px;
+padding: 10px 15px;
+background: #3c3c3c;
+}

@@ -24,31 +24,10 @@ if(isset($_POST['Submit'])){
     $email=$_POST['Email'];
     $password=$_POST['Password'];
     $role = $_POST['role'];
-  $sql="SELECT * FROM hikers WHERE hikers.Email='$email'";
+  $sql="SELECT * FROM users WHERE email='$email'";
         $result = $conn->query($sql)  or die($conn->error);
         if($row = $result->fetch_assoc()){
           echo "<script>used = true</script>"; $error = true;
-        }
-        else{
-          $sql="SELECT * FROM admins WHERE admins.Email='$email'";
-        $result = $conn->query($sql)  or die($conn->error);
-        if($row = $result->fetch_assoc()){
-          echo "<script>used = true</script>"; $error = true;
-        }
-        else{
-          $sql="SELECT * FROM auditors WHERE auditors.Email='$email'";
-        $result = $conn->query($sql)  or die($conn->error);
-        if($row = $result->fetch_assoc()){
-          echo "<script>used = true</script>"; $error = true;
-        }
-        else{
-          $sql="SELECT * FROM hrs WHERE hrs.Email='$email'";
-        $result = $conn->query($sql)  or die($conn->error);
-        if($row = $result->fetch_assoc()){
-          echo "<script>used = true</script>"; $error = true;
-        }
-        }
-        }
         }
   if(empty($_POST['Email']) || !filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL))
     {echo "<script>errorInEmail = true</script>"; $error = true;}
@@ -69,12 +48,12 @@ if(isset($_POST['Submit'])){
     else
     $profilePic = 'default.png';
     
-    $sql="INSERT INTO $role (fname,lname,email,pswrd,pic) VALUES('$fname','$lname','$email','$password','$profilePic')";
+    $sql="INSERT INTO users (fname,lname,email,pswrd,pic,userRole) VALUES('$fname','$lname','$email','$password','$profilePic','$role')";
     $queryResult=mysqli_query($conn,$sql);
     if($queryResult) 
     {
       echo $_POST['role'];
-      $sql="SELECT * FROM $role WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
+      $sql="SELECT * FROM users WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
         $result = $conn->query($sql)  or die($conn->error);
         if($row = $result->fetch_assoc()){
             $_SESSION["ID"]=$row[0];
@@ -82,7 +61,7 @@ if(isset($_POST['Submit'])){
             $_SESSION["LName"]=$row["lname"];
             $_SESSION["Email"]=$row["email"];
             $_SESSION["Password"]=$row["pswrd"];
-            $_SESSION['Role'] = $role;
+            $_SESSION['userRole'] = $role;
             if(isset($row['pic']))
               $_SESSION['profilepic'] = $row['pic'];
             header("Location:../home.php");
@@ -100,10 +79,10 @@ if(isset($_POST['Submit'])){
 <form action="" method="post" enctype = 'multipart/form-data'>
   Sign up as:<br>
 <select name="role">
-  <option value="Hikers">Hiker</option>
-  <option value="HRs">HR</option>
-  <option value="Admins">Admin</option>
-  <option value="Auditors">Auditor</option>
+  <option value="hiker">Hiker</option>
+  <option value="hr">HR</option>
+  <option value="admin">Admin</option>
+  <option value="auditor">Auditor</option>
 </select><br>
   First Name:<br>
   <input type="text" name="fname"><br> 

@@ -11,7 +11,7 @@
         Email <input type='checkbox' value = 'email' name = 'sort'><br>
         Search <select name='searchlist' id='searchlist'>
         <option value='all' selected>All</option>
-        <option value='hikerID' >Hiker ID</option>
+        <option value='userID' >Hiker ID</option>
         <option value='fname' >First Name</option>
         <option value='lname' >Last Name</option>
         <option value='email' >Email</option>
@@ -21,7 +21,7 @@
         <input type='submit' name='submit'>
         </form>";
 
-    $orderby = "hikerID";
+    $orderby = "userID";
     $sort = "ASC";
     $narrowedsearch='';
     $txtsr='';
@@ -41,12 +41,12 @@
         }
     }
     if($txtsr=="")
-    $sql="SELECT * FROM Hikers ORDER BY $orderby $sort";
+    $sql="SELECT * FROM users WHERE userRole = 'hiker' ORDER BY $orderby $sort";
     else if($txtsr!=""&&($_POST['searchlist']=='all'))
-    $sql = "SELECT * FROM Hikers WHERE concat(hikerID,fname,lname,email,pswrd) LIKE '%$txtsr%'
+    $sql = "SELECT * FROM users WHERE concat(userID,fname,lname,email,pswrd) LIKE '%$txtsr%' AND userRole = 'hiker'
     ORDER BY $orderby $sort;";
     else if($txtsr!=""&&$narrowedsearch!="")
-    $sql = "SELECT * FROM Hikers WHERE $narrowedsearch='$txtsr'
+    $sql = "SELECT * FROM users WHERE $narrowedsearch='$txtsr' AND userRole = 'hiker'
     ORDER BY $orderby $sort;";
 
     $result=$conn->query($sql) or die($conn->error);
@@ -55,7 +55,7 @@
     else{
         echo "<table border = '1'><tr><th>Hiker ID</th><th>FirstName</th><th>LastName</th><th>Email</th><th>Password</th></tr>";
         while($row=$result->fetch_assoc()){
-        echo "<tr><td>" .$row['hikerID']. "</td><td>" .$row['fname']. "</td><td>" .$row['lname'] . "</td><td>" .$row['email'] . "</td><td>" .$row['pswrd'] . "</td></tr>";
+        echo "<tr><td>" .$row['userID']. "</td><td>" .$row['fname']. "</td><td>" .$row['lname'] . "</td><td>" .$row['email'] . "</td><td>" .$row['pswrd'] . "</td></tr>";
         }
     }
     echo "</table>";

@@ -13,70 +13,24 @@ $dbname = "project";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if(isset($_POST['Submit']) && filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)){ //check if form was submitted
-$sql="SELECT * FROM Hikers WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
+$sql="SELECT * FROM users WHERE email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
 $result = mysqli_query($conn,$sql) or die($conn->error); 
-if($row=$result->fetch_assoc()) 
-{
-    $_SESSION["ID"]=$row['hikerID'];
-    $_SESSION["FName"]=$row["fname"];
-    $_SESSION["LName"]=$row["lname"];
-    $_SESSION["Email"]=$row["email"];
-    $_SESSION["Password"]=$row["pswrd"];
-    $_SESSION['Role'] = "Hikers";
-    if(isset($row['pic']))
-        $_SESSION['profilepic'] = $row['pic'];
-        header("Location: ../../project/home.php");
-}
-else 
-{
-$sql="SELECT * FROM Admins WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
-$resultAdmins = mysqli_query($conn, $sql) or die($conn->error); 
-if($row = $resultAdmins->fetch_assoc()){
-    $_SESSION["ID"]=$row['adminID'];
-    $_SESSION["FName"]=$row["fname"];
-    $_SESSION["LName"]=$row["lname"];
-    $_SESSION["Email"]=$row["email"];
-    $_SESSION["Password"]=$row["pswrd"];
-    $_SESSION['Role'] = "Admins";
-    if(isset($row['pic']))
-        $_SESSION['profilepic'] = $row['pic'];
-    header("Location: ../../project/home.php");
-}
-else{
-    $sql="SELECT * FROM Auditors WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
-    $resultAuditor = $conn->query($sql) or die($conn->error);
-    if($row = $resultAuditor->fetch_assoc()){
-        $_SESSION["ID"]=$row['auditorID'];
-        $_SESSION["FName"]=$row["fname"];
-        $_SESSION["LName"]=$row["lname"];
-        $_SESSION["Email"]=$row["email"];
-        $_SESSION["Password"]=$row["pswrd"];
-        $_SESSION['Role'] = "Auditors";
-        if(isset($row['pic']))
-            $_SESSION['profilepic'] = $row['pic'];
-        header("Location: ../../project/home.php");
-    }
-    else{
-        $sql="SELECT * FROM HRs WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
-        $resultHRs = $conn->query($sql)  or die($conn->error);
-        if($row = $resultHRs->fetch_assoc()){
-            $_SESSION["ID"]=$row['hrID'];
+        if($row=$result->fetch_assoc()) 
+        {
+            $_SESSION["ID"]=$row['userID'];
             $_SESSION["FName"]=$row["fname"];
             $_SESSION["LName"]=$row["lname"];
             $_SESSION["Email"]=$row["email"];
             $_SESSION["Password"]=$row["pswrd"];
-            $_SESSION['Role'] = "HRs";
+            $_SESSION['userRole'] = $row["userRole"];
             if(isset($row['pic']))
-              $_SESSION['profilepic'] = $row['pic'];
-            header("Location: ../../project/home.php");
+                $_SESSION['profilepic'] = $row['pic'];
+                header("Location: ../../project/home.php");
         }
         else{
             echo "<script>errorInCorrect = true</script>";
         }
     }
-}
-}
-}
 else if (isset($_POST['Submit']) && !filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)){
     echo "<script>errorInEmail = true</script>";
 }

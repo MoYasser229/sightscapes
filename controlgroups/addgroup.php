@@ -44,9 +44,11 @@ if(isset($_POST['Submit'])){ //check if form was submitted
       echo "<script>errorInDescription = true</script>";
       $error = true;
     }
-    if($departureTime < date("Y-m-d") || $arrivalTime > $departureTime){
+    //|| $arrivalTime > $departureTime
+    if($departureTime < date("Y-m-d")){
       $error = true;
-      echo "<script>alert('Departure Date is Invalid')</script>";
+      // echo "<script>alert('Departure Date is Invalid ".date("Y-m-d")."')</script>";
+      echo "<script>alert('Departure Date is Invalid $departureTime')</script>";
     }
     if($arrivalTime < date("Y-m-d") || $arrivalTime < $departureTime){
       $error = true;

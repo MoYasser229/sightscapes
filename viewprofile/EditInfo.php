@@ -26,11 +26,6 @@ $id=$_SESSION["ID"];
 	echo "<input type= 'submit'  name= 'submit'  value= 'Submit' ><br>";
 	echo"</form>";
 //check if form is submitted and UPDATE the values
-	//$_SESSION['ID']=4;
-	//role
-	$role = $_SESSION["Role"];
-	//role id hikerID-adminID
-	$roleid = substr($role,0,strlen($role)-1) . "ID";
 	$error = false;
 	if(isset($_POST['submit'])){
 		if(empty($_POST['firstname'])){
@@ -52,7 +47,7 @@ $id=$_SESSION["ID"];
 		else{
 			$email=$_POST['email'];
 			$id = $_SESSION['ID'];
-			$sql = "SELECT * from $role where email = '$email' AND $roleid != '$id'";
+			$sql = "SELECT * from users where email = '$email' AND userID != '$id'";
 			$result = $conn->query($sql) or die($conn->error);
 			if($row = $result->fetch_assoc()){
 				echo "<script>errorEmailUsed = true</script>";
@@ -74,7 +69,7 @@ $id=$_SESSION["ID"];
 			$lname=$_POST['lastname'];
 			$email=$_POST['email'];
 			$r= false;
-			$sql="UPDATE $role set fname= '$fname', lname= '$lname', email= '$email' ,pic= '$profilePic' where $roleid = '$id'";
+			$sql="UPDATE users set fname= '$fname', lname= '$lname', email= '$email' ,pic= '$profilePic' where userID = '$id'";
 			$result= mysqli_query($conn,$sql) or die($conn->error);
 			$_SESSION["FName"]=$fname;
 			$_SESSION["LName"]=$lname;

@@ -19,7 +19,7 @@
     Email <input type='checkbox' value = 'email' name = 'sort'><br>
     Search <select name='searchlist' id='searchlist'>
     <option value='all' selected>All</option>
-    <option value='adminID' >Admin ID</option>
+    <option value='userID' >Admin ID</option>
     <option value='fname' >First Name</option>
     <option value='lname' >Last Name</option>
     <option value='email' >Email</option>
@@ -29,7 +29,7 @@
     <input type='submit' name='submit'>
     </form>";
 
-    $orderby = "adminID";
+    $orderby = "userID";
     $sort = "ASC";
     $narrowedsearch='';
     $txtsr='';
@@ -49,12 +49,12 @@
         }
     }
     if($txtsr=="")
-    $sql="SELECT * FROM Admins ORDER BY $orderby $sort";
+    $sql="SELECT * FROM users WHERE userRole = 'admin' ORDER BY $orderby $sort";
     else if($txtsr!=""&&($_POST['searchlist']=='all'))
-    $sql = "SELECT * FROM Admins WHERE concat(adminID,fname,lname,email,pswrd) LIKE '%$txtsr%'
+    $sql = "SELECT * FROM users WHERE concat(userID,fname,lname,email,pswrd) LIKE '%$txtsr%' AND userRole = 'admin'
     ORDER BY $orderby $sort;";
     else if($txtsr!=""&&$narrowedsearch!="")
-    $sql = "SELECT * FROM Admins WHERE $narrowedsearch='$txtsr'
+    $sql = "SELECT * FROM users WHERE $narrowedsearch='$txtsr' AND userRole = 'admin'
     ORDER BY $orderby $sort;";
     $result=$conn->query($sql) or die($conn->error);
     echo "<form method = 'post' action = '' >";
@@ -65,7 +65,7 @@
         <th>Admin ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Password</th><th>Delete</th>
         </tr>";
         while($row=$result->fetch_assoc()){
-            $id=$row['adminID'];
+            $id=$row['userID'];
             echo "<tr>
             <td>{$id}</td>
             <td>{$row['fname']}</td>
@@ -93,7 +93,7 @@
     }
     if(isset($_POST['delete'])){
         $id=$_POST['delete'];
-        $sql="DELETE FROM Admins WHERE adminID='$id'";
+        $sql="DELETE FROM users WHERE adminID='$id'";
         $queryResult=mysqli_query($conn,$sql);
         header("Location: otheradmin.php");
     }
@@ -118,7 +118,7 @@
         else
             $password=$_POST['Password'];
         if($error==false){
-            $sql="INSERT INTO Admins (fname,lname,email,pswrd) VALUES('$fname','$lname','$email','$password')";
+            $sql="INSERT INTO users (fname,lname,email,pswrd,userRole,pic) VALUES('$fname','$lname','$email','$password','admin','default.png')";
             $queryResult=mysqli_query($conn,$sql) or die($conn->error);
             header("Location: otheradmin.php");
         }

@@ -8,13 +8,13 @@
             ascending: <input type="radio" value = "ASC" name = "sortArrange"><br>
             by:<br>
             hiker name <input type="checkbox" value = "fname" name = "sort"><br>
-            location <input type="checkbox" value = "Loc" name = "sort"><br>
-            price <input type="checkbox" value = "ItemPrice" name = "sort"><br>
+            location <input type="checkbox" value = "loc" name = "sort"><br>
+            price <input type="checkbox" value = "totalPrice" name = "sort"><br>
             Search <select name="searchlist" id="searchlist">
                 <option value="all" selected>All</option>
                 <option value="fname" >Hiker name</option>
-                <option value="Loc" >Group Location</option>
-                <option value="ItemPrice" >price</option>
+                <option value="loc" >Group Location</option>
+                <option value="totalPrice" >price</option>
             </select>
             <input name = "search" id="search">
             <input type="submit" name="submit">
@@ -27,7 +27,7 @@
             })
         </script>
         <?php
-            $orderby = "hikers.hikerID";
+            $orderby = "users.userID";
             $sort = "ASC";
             $narrowedsearch='';
             $tb='';
@@ -39,10 +39,14 @@
                         $sort = "DESC";
                 if(isset($_POST['sort']))
                     if($_POST['sort'] === 'loc' )
-                        $orderby = 'orders.'.$_POST['sort'];
+                        $orderby = 'groups.'.$_POST['sort'];
+                    else if($_POST['sort'] === 'totalPrice')
+                        $orderby = "orders.{$_POST['sort']}";
                 if(isset($_POST['search'])){
                     if($_POST['searchlist']!='all'){
-                        ($_POST['searchlist'] =='fname')?($tb='hikers.'):($tb='orders.');
+                        ($_POST['searchlist'] =='fname')?($tb='users.'):($tb='groups.');
+                        if($_POST['searchlist'] === 'totalPrice')
+                            $tb = 'orders.';
                         $narrowedsearch=$tb.$_POST['searchlist'];
                     }
                     $txtsr=$_POST['search'];
@@ -56,16 +60,16 @@
             $conn = mysqli_connect($host, $username, $password,$db);
 
             if($txtsr=="")
-                $sql = "SELECT groups.GID,orders.loc,hikers.fname,orders.ItemPrice
-                FROM `orders`,`groups`,`hikers` WHERE orders.GID = groups.GID AND orders.hikerid = hikers.hikerid ORDER BY $orderby $sort;";
+                $sql = "SELECT groups.GID,users.fname,orders.totalPrice,groups.loc
+                FROM `orders`,`groups`,`users` WHERE orders.GID = groups.GID AND orders.userID = users.userID ORDER BY $orderby $sort;";
             else if($txtsr!=""&&($_POST['searchlist']=='all'))
-                $sql = "SELECT groups.GID,orders.loc,hikers.fname,orders.ItemPrice
-                FROM `orders`,`groups`,`hikers` WHERE orders.GID = groups.GID AND orders.hikerid = hikers.hikerid AND concat(hikers.hikerID,groups.loc
+                $sql = "SELECT groups.GID,users.fname,orders.totalPrice,groups.loc
+                FROM `orders`,`groups`,`users` WHERE orders.GID = groups.GID AND orders.userID = users.userID AND concat(users.userID,groups.loc
                 ) LIKE '%$txtsr%'
                 ORDER BY $orderby $sort;";
             else if($txtsr!=""&&$narrowedsearch!="")
-                $sql = "SELECT groups.GID,orders.loc,hikers.fname,orders.ItemPrice
-                FROM `orders`,`groups`,`hikers` WHERE orders.GID = groups.GID AND orders.hikerid = hikers.hikerid AND $narrowedsearch='$txtsr'
+                $sql = "SELECT groups.GID,groups.loc,users.fname,orders.totalPrice
+                FROM `orders`,`groups`,`users` WHERE orders.GID = groups.GID AND orders.userID = users.userID AND $narrowedsearch='$txtsr'
                 ORDER BY $orderby $sort;";
             
             $result = $conn->query($sql) or die($conn->error);
@@ -79,7 +83,7 @@
                     <td>".$row2['fname']."</td>
                     <td>".$row2['GID']."</td>
                     <td>".$row2['loc']."</td>
-                    <td>".$row2['ItemPrice']."</td>
+                    <td>".$row2['totalPrice']."</td>
                     </tr>";
                 }
             }
