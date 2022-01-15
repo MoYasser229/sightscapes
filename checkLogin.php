@@ -64,7 +64,7 @@ function checkLogin(){
                               <a class="nav-link" href="users/signOut.php"><h6>SIGN OUT</h6></a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+                              <a class="nav-link" href="viewprofile/profile.php"><h6>PROFILE</h6></a>
                             </li>
                               </ul>
                           </div>
@@ -102,7 +102,7 @@ function checkLogin(){
                               <a class="nav-link" href="users/signOut.php"><h6>SIGN OUT</h6></a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+                              <a class="nav-link" href="viewprofile/profile.php"><h6>PROFILE</h6></a>
                             </li>
                               </ul>
                           </div>
@@ -134,7 +134,7 @@ function checkLogin(){
                               <a class="nav-link" href="users/signOut.php"><h6>SIGN OUT</h6></a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+                              <a class="nav-link" href="viewprofile/profile.php"><h6>PROFILE</h6></a>
                             </li>
                               </ul>
                           </div>
@@ -166,7 +166,7 @@ function checkLogin(){
                               <a class="nav-link" href="users/signOut.php"><h6>SIGN OUT</h6></a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+                              <a class="nav-link" href="viewprofile/profile.php"><h6>PROFILE</h6></a>
                             </li>
                               </ul>
                           </div>

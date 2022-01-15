@@ -100,10 +100,10 @@
 						break;
 					}
 				}
+				//<img src='../controlgroups/images/
 				if($bought === false){
-					
 					echo "<div class = 'item'>";
-					echo "<img src='../controlgroups/images/".$row['pic']."' width= 500px height= 400px>";
+					echo "<a href='groupPage.php?GID={$row['GID']}'></a>".$row['pic']."' width= 500px height= 400px>";
 					echo "<p class='rating'> ".$row['avgrating']."</p>";
 					echo "<h2> <span style='margin-left: 10px; font-size: 12px'>LOCATION:</span>&nbsp".$row['loc']."</h2>";
 					echo "<p><span style='margin-left: 130px;font-size: 30px'>AT ONLY <strong>".$row['price']." EGP</strong></span></p>";
