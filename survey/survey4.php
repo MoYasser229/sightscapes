@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="../../project/styles/survey.css">
 <?php
 session_start();
 ?>
@@ -8,22 +9,22 @@ session_start();
     ///
     $usrn=$_SESSION['ID'];
     ///
-    echo "<h1> Lastly... </h1>";
+    echo "<span class = 'background2'><h1> Lastly... </h1></span>";
     
     $conn=new mysqli("localhost","root","","project");
     if($conn->connect_error)
     die ("cannot connect to the database");
 
-    $surveytype='satisfaction survey';
+    $surveytype=$_GET['surveytype'];
     $possibleans='other';
 
     $sql1 = "SELECT questionText from Question where questionType = '$possibleans'";
     $resultq=mysqli_query($conn,$sql1) or die (mysqli_error($conn));
     $qs=mysqli_fetch_all($resultq,MYSQLI_NUM) or die("Error: ".$conn->error);
 
-    echo "<br><b>".implode($qs[1])."</b><br><br>";
-    echo "<input type='text' name='otherfeedback' value=''>";
-    echo "<br><br> <input type='submit' name='Submittt' value='Submit'>";
+    echo "<span class = 'ques'></b><br><br>".implode($qs[1])."</b><br><br></span>";
+    echo "<span class = 'ans'><input type='text' name='otherfeedback' value=''></span>";
+    echo  "<span class = 'B3'>"."<input type='submit' name='submittt' value='Next'></span>";
     
     if(isset($_POST['Submittt'])===TRUE){ 
         if(isset($_POST['otherfeedback'])){
@@ -34,11 +35,11 @@ session_start();
         
         $ansv=$GLOBALS['otherfeedback'];
         if($ansv!=null){
-            $query="INSERT IGNORE INTO answer(otherText,surveyID,questionID,offeredAnswerID,hikerID)
+            $query="INSERT IGNORE INTO answer(otherText,surveyID,questionID,offeredAnswerID,userID)
             VALUES( '$ansv',(SELECT surveyID FROM survey where surveyType='$surveytype'),
             (SELECT questionID FROM question WHERE questiontext='$q' ),
             (SELECT offeredAnswerID FROM offeredAnswer WHERE offeredAnswerText='none'),
-            (SELECT hikerID FROM Hikers WHERE hikerID ='$usrn'));";
+            (SELECT userID FROM Users WHERE userID ='$usrn'));";
             $rs=$conn->query($query);
             if(!$rs)
             die("Error: ".$conn->error);
@@ -47,7 +48,7 @@ session_start();
             WHERE (offeredAnswerID=(SELECT offeredAnswerID from offeredAnswer where offeredAnswerText='none')) and
             (surveyID = (SELECT surveyID from survey where surveyType = '$surveytype')) and
             (questionID = (SELECT questionID from question where questionText = '$q'))and
-            (hikerID = $usrn);";
+            (userID = $usrn);";
             $rs1=$conn->query($query1);
             if(!$rs1)
             die("Error: ".$conn->error);
@@ -59,7 +60,7 @@ session_start();
     <body>
     <?php
     echo "<h1>Thank you for your feedback!</h1>";
-    echo "<br><a href='home.php'> return to homepage </a>";
+    echo "<br><a href='../../project/home.php'> return to homepage </a>";
     }
     $conn->close();
 ?>
