@@ -1,6 +1,10 @@
 body{
     margin: 0 0 0 0;
 }
+.background{
+    background-color: #0b1d26;
+    height: 75px;
+}
 .Top{
     height: 100%;
     width:auto;
@@ -8,15 +12,17 @@ body{
     font-size: 20px;
     margin-left: 40px;
     margin-right: 40px;
+    margin-top: 150px;
 }
 .Top-Header{
-    margin-top: 50px;
+    margin-top: 150px;
     line-height: 5px;
 }
 .Top-Text{
     line-height:1px;
     color: grey;
     font-size: 16px;
+    margin-top: 40px;
 }
 .Top-Table{
     border-collapse:separate;
@@ -54,3 +60,4 @@ body{
     background-color:green;
 
 }
+

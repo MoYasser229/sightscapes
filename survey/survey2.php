@@ -1,18 +1,15 @@
-<link rel="stylesheet" type="text/css" href="../../project/styles/survey.css">
 <?php
 session_start();
 ?>
 <html>
 <body>
-<div class="background"></div>
-<div class="square"></div>
 <form  method ="POST" action = "">
 <?php
     $q2='';
     $q3='';
     $usrn=$_SESSION['ID'];
     
-    echo "<span class = 'background2'><h1> About your experiences with our services and staff... </h1></span>";
+    echo "<h1> About your experiences with our services and staff... </h1>";
     
     $conn=new mysqli("localhost","root","","project");
     if($conn->connect_error)
@@ -30,28 +27,28 @@ session_start();
     $resulta=mysqli_query($conn,$sql2) or die (mysqli_error($conn));
     $ans=mysqli_fetch_all($resulta,MYSQLI_ASSOC) or die("Error: ".$conn->error);
 
-    echo "<span class = 'ques'></b><br><br>".implode($qs[0])."</b><br><br></span>";
+    echo "<br><b>".implode($qs[0])."</b><br><br>";
     for($i=2;$i<7;$i++){
         $j=implode($ans[$i]);
-        echo "<span class = 'ans'><input type='checkbox' name='chlist[]' value= '$j'> $j </span>";
+        echo "<input type='checkbox' name='chlist[]' value= '$j'> $j";
     }
     
-    echo "<span class = 'ques'></b><br><br>".implode($qs[1])."</b><br><br></span>";
-    echo "<span class = 'ans'><p style='display:inline'><i>Not well at all | </i></p></span>";
+    echo "<br><br><b>".implode($qs[1])."</b><br><br>";
+    echo "<p style='display:inline'><i>Not well at all | </i></p>";
     for($i=7;$i<12;$i++){
         $j=implode($ans[$i]);
-        echo  "<span class = 'ans'>"."<input type='radio' name='q1' value='$j'> $j | "."</span>";
+        echo "<input type='radio' name='q2' value='$j'> $j | ";
     }
-    echo "<span class = 'ans'><p style='display:inline'><i>  Extremely well</i></p></span>";
+    echo "<p style='display:inline'><i>  Extremely well</i></p>";
 
-    echo "<span class = 'ques'></b><br><br>".implode($qs[2])."</b><br><br></span>";
-    echo "<span class = 'ans'><p style='display:inline'><i>Not well at all | </i></p></span>";
+    echo "<br><br><b>".implode($qs[2])."</b><br><br>";
+    echo "<p style='display:inline'><i>Not well at all | </i></p>";
     for($i=7;$i<12;$i++){
         $j=implode($ans[$i]);
-        echo  "<span class = 'ans'>"."<input type='radio' name='q2' value='$j'> $j | "."</span>";
+        echo "<input type='radio' name='q3' value='$j'> $j | ";
     }
-    echo "<span class = 'ans'><p style='display:inline'><i>  Extremely well</i></p></span>";
-    echo  "<span class = 'B2'>"."<input type='submit' name='submit' value='Next'></span>";
+    echo "<p style='display:inline'><i>  Extremely well</i></p>";
+    echo "<br><br> <input type='submit' name='Submit' value='Next '>";
 
     if(isset($_POST['Submit'])===TRUE){ 
             if(isset($_POST['q2'])&&isset($_POST['q3'])){
@@ -74,17 +71,17 @@ session_start();
                 $query1="DELETE FROM answer
                 WHERE (surveyID = (SELECT surveyID from survey where surveyType = '$surveytype')) and
                 (questionID = (SELECT questionID from question where questionText = '$qv')) and
-                (userID = $usrn);";
+                (hikerID = $usrn);";
                 $rs1=$conn->query($query1);
                 if(!$rs1)
                 die("Error: ".$conn->error);
 
                 foreach($_POST['chlist'] as $ch) {
-                    $query="INSERT IGNORE INTO answer(surveyID,questionID,offeredAnswerID,userID) 
-                    SELECT surveyID, questionID, offeredAnswerID, userID
-                    FROM survey,question,offeredAnswer,Users WHERE surveyType='$surveytype' 
+                    $query="INSERT IGNORE INTO answer(surveyID,questionID,offeredAnswerID,hikerID) 
+                    SELECT surveyID, questionID, offeredAnswerID, hikerID
+                    FROM survey,question,offeredAnswer,Hikers WHERE surveyType='$surveytype' 
                     AND questiontext='$qv' AND 
-                    offeredAnswerText='$ch' AND userID='$usrn';";
+                    offeredAnswerText='$ch' AND hikerID='$usrn';";
                     $rs=$conn->query($query);
                     if(!$rs)
                     die("Error: ".$conn->error);
@@ -93,13 +90,13 @@ session_start();
             }
 
             else if (($i==1||$i==2) && $ansv!=null){
-                    $query="INSERT INTO answer(surveyID,questionID,offeredAnswerID,userID) 
-                    SELECT surveyID, questionID, offeredAnswerID, userID
-                    FROM survey,question,offeredAnswer,Users WHERE surveyType='$surveytype' 
+                    $query="INSERT INTO answer(surveyID,questionID,offeredAnswerID,hikerID) 
+                    SELECT surveyID, questionID, offeredAnswerID, hikerID
+                    FROM survey,question,offeredAnswer,Hikers WHERE surveyType='$surveytype' 
                     AND questiontext='$qv' AND 
-                    offeredAnswerText='$ansv' AND userID='$usrn'
+                    offeredAnswerText='$ansv' AND hikerID='$usrn'
                     AND NOT EXISTS (SELECT * from answer WHERE questionID = (SELECT questionID from question where questionText = '$qv') 
-                    and (userID = $usrn) and (surveyID = (SELECT surveyID from survey where surveyType = '$surveytype')) );";
+                    and (hikerID = $usrn) and (surveyID = (SELECT surveyID from survey where surveyType = '$surveytype')) );";
                     $rs=$conn->query($query);
                     if(!$rs)
                     die("Error: ".$conn->error);
@@ -108,7 +105,7 @@ session_start();
                     (SELECT offeredAnswerID from offeredAnswer where offeredAnswerText='$ansv')
                     WHERE (surveyID = (SELECT surveyID from survey where surveyType = '$surveytype')) and
                     (questionID = (SELECT questionID from question where questionText = '$qv'))and
-                    (userID = $usrn);";
+                    (hikerID = $usrn);";
                     $rs1=$conn->query($query1);
                     if(!$rs1)
                     die("Error: ".$conn->error);

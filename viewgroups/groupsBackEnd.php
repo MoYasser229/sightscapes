@@ -1,5 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <?php
+if(isset($_POST['checkAjax'])){
 	session_start();
 	$orderby = "GID";
 	$sort = "ASC";
@@ -40,7 +41,7 @@
 			background-color: #071a20;
 			color: white;
 		}
-		.viewGroups a{
+		.viewGroups .addtocart{
 			color: white;
 			font-size: 20px;
 			padding: 10px;
@@ -48,7 +49,7 @@
 			justify-content: center;
 			background-color: #173f53;
 		}
-		.viewGroups a:hover{
+		.viewGroups .addtocart:hover{
 			text-decoration: none;
 			background-color: #4c6b6e;
 		}
@@ -83,28 +84,31 @@
 		<div class= 'viewGroups'>
 		<h1>GROUPS</h1>
 		<div class = 'grid-container' >";
-		$selectGroups = "SELECT GID FROM orders WHERE userID = {$_SESSION['ID']}";
-		$groupsBought = $conn->query($selectGroups);
 		$groupsArray = [];
-		while($group = $groupsBought->fetch_assoc()){
-			array_push($groupsArray,$group['GID']);
+		if(isset($_SESSION['ID'])){
+			$selectGroups = "SELECT GID FROM orders WHERE userID = {$_SESSION['ID']}";
+			$groupsBought = $conn->query($selectGroups);
+			while($group = $groupsBought->fetch_assoc()){
+				array_push($groupsArray,$group['GID']);
+			}
 		}
 		$bought = false;
 			while($row= $result->fetch_array(MYSQLI_ASSOC)){
 				if($row['avgrating']==0){
 					$row['avgrating'] = "NO CUSTOMER REVIEWS";
 				}
+
 				foreach($groupsArray as $group){
 					if($group === $row['GID']){
 						$bought = true;
 						break;
 					}
 				}
-				//<img src='../controlgroups/images/
 				if($bought === false){
+					
 					echo "<div class = 'item'>";
-					echo "<a href='groupPage.php?GID={$row['GID']}'></a>".$row['pic']."' width= 500px height= 400px>";
-					echo "<p class='rating'> ".$row['avgrating']."</p>";
+					echo "<a class = 'groupPage' href='groupPage.php?GID={$row['GID']}'><img src='../controlgroups/images/".$row['pic']."' width= 500px height= 400px></a>";
+					echo "<p class='rating'>Rating: {$row['avgrating']}</p>";
 					echo "<h2> <span style='margin-left: 10px; font-size: 12px'>LOCATION:</span>&nbsp".$row['loc']."</h2>";
 					echo "<p><span style='margin-left: 130px;font-size: 30px'>AT ONLY <strong>".$row['price']." EGP</strong></span></p>";
 					if(isset($row['diffLevel']))
@@ -112,14 +116,14 @@
 					else
 						echo "<p style='margin-left: 150px;'>DIFFICULTY: NOT SPECIFIED</p>";
 					if(!empty($row['distance']))
-						echo "<p style='margin-left: 150px;'>DISTANCE: <strong>{$row['distance']} KM</strong></p>";
+						echo "<p style='margin-left: 150px;'>DISTANCE: <strong>{$row['distance']}</strong></p>";
 					else
 						echo "<p style='margin-left: 150px;'>DISTANCE: NOT SPECIFIED</p>";
 					// if(isset($row['distance']))
 					// 	echo "<p style='margin-left: 10px;'>GROUP SIZE: <strong>{$row['distance']} KM</strong></p>";
 					// else
 					// 	echo "<p style='margin-left: 10px;'>DISTANCE: NOT SPECIFIED</p>";
-					echo "<a href = 'groupAddToCart.php?groups={$row['GID']}'>ADD TO CART</a>";
+					echo "<a class = 'addtocart' href = 'groupAddToCart.php?groups={$row['GID']}'>ADD TO CART</a>";
 					echo "</div>";
 				}
 				else{
@@ -128,7 +132,10 @@
 			}
 			echo "</div></div>";
 		}
-		
+		}
+		else{
+			header('Location:../home.php');
+		}
 		
 ?>
 

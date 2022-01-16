@@ -22,7 +22,8 @@ if(isset($_POST['Submit'])){
     $fname=$_POST['fname'];
     $lname = $_POST['lname']; 
     $email=$_POST['Email'];
-    $password=$_POST['Password'];
+    $password=mysqli_real_escape_string($conn,$_POST['Password']);
+    $password = md5($password);
     $role = $_POST['role'];
   $sql="SELECT * FROM users WHERE email='$email'";
         $result = $conn->query($sql)  or die($conn->error);
@@ -52,11 +53,12 @@ if(isset($_POST['Submit'])){
     $queryResult=mysqli_query($conn,$sql);
     if($queryResult) 
     {
-      echo $_POST['role'];
-      $sql="SELECT * FROM users WHERE Email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
+      $password=mysqli_real_escape_string($conn,$_POST['Password']);
+      $password = md5($password);
+      $sql="SELECT * FROM users WHERE Email='".$_POST['Email']."'"." AND pswrd='".$password."'";
         $result = $conn->query($sql)  or die($conn->error);
         if($row = $result->fetch_assoc()){
-            $_SESSION["ID"]=$row[0];
+            $_SESSION["ID"]=$row['userID'];
             $_SESSION["FName"]=$row["fname"];
             $_SESSION["LName"]=$row["lname"];
             $_SESSION["Email"]=$row["email"];

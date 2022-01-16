@@ -12,8 +12,11 @@ $password = "";
 $dbname = "project";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
+
 if(isset($_POST['Submit']) && filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)){ //check if form was submitted
-$sql="SELECT * FROM users WHERE email='".$_POST['Email']."'"." AND pswrd='".$_POST['Password']."'";
+    $password=mysqli_real_escape_string($conn,$_POST['Password']);
+    $password = md5($password);
+$sql="SELECT * FROM users WHERE email='".$_POST['Email']."'"." AND pswrd='$password'";
 $result = mysqli_query($conn,$sql) or die($conn->error); 
         if($row=$result->fetch_assoc()) 
         {
@@ -50,38 +53,190 @@ if(isset($_POST['Submit']) && $_POST['Password'] === ""){
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
-    <body>
+    <body style = "background-color: #0b1d26;">
+    <?php
+        function checkLogin(){
+			if(!isset($_SESSION['ID']) && !isset($_SESSION['userRole'])){
+			?>
+			<nav class="navbar navbar-expand-md fixed-top navbar-dark bck">
+						<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+							<ul class="navbar-nav mr-auto">
+							<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+									</li>
+									<li class="nav-item">
+									<a class="nav-link" href="../viewGroups/grouphikers.php"><h6>GROUP</h6></a>
+									</li>
+							</ul>
+						</div>
+						<div class="mx-auto order-0">
+						<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+							<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+						</div>
+						<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+							<ul class="navbar-nav ml-auto">
+							<li class="nav-item">
+									<a class="nav-link" href="../users/Login.php"><h6>LOGIN</h6></a>
+									</li>
+									<li class="nav-item">
+									<a class="nav-link" href="../users/Signup.php"><h6>SIGN UP</h6></a>
+									</li>
+							</ul>
+						</div>
+						</nav>
+								<?php
+								}
+								else if ($_SESSION['userRole'] === "admin"){
+									?>
+											<nav class="navbar navbar-expand-md fixed-top navbar-dark background">
+										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+											<ul class="navbar-nav mr-auto">
+												<li class="nav-item">
+												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="orders/orders.php"><h6>ORDERS</h6></a>
+											</li>
+											</ul>
+										</div>
+										<div class="mx-auto order-0">
+										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+												<span class="navbar-toggler-icon"></span>
+											</button>
+										</div>
+										<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+											<ul class="navbar-nav ml-auto">
+											<li class="nav-item">
+											<a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+										</li>
+											</ul>
+										</div>
+									</nav>
+									<?php
+								}
+								else if($_SESSION['userRole'] === 'hiker'){
+									?>
+									<nav class="navbar navbar-expand-md fixed-top navbar-dark background">
+										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+											<ul class="navbar-nav mr-auto">
+												<li class="nav-item">
+												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="../viewgroups/grouphikers.php"><h6>GROUPS</h6></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="../cart/cart.php"><h6>CART</h6></a>
+											</li>
+											</ul>
+										</div>
+										<div class="mx-auto order-0">
+										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+												<span class="navbar-toggler-icon"></span>
+											</button>
+										</div>
+										<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+											<ul class="navbar-nav ml-auto">
+											<li class="nav-item">
+											<a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+										</li>
+											</ul>
+										</div>
+									</nav>
+									<?php
+								}
+								else if($_SESSION['userRole'] === "auditor"){
+									?>
+									<nav class="navbar navbar-expand-md fixed-top navbar-dark background">
+										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+											<ul class="navbar-nav mr-auto">
+												<li class="nav-item">
+												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+											</li>
+											<li class="nav-item">
+											<a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
+										</li>
+											</ul>
+										</div>
+										<div class="mx-auto order-0">
+										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+												<span class="navbar-toggler-icon"></span>
+											</button>
+										</div>
+										<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+											<ul class="navbar-nav ml-auto">
+										<li class="nav-item">
+											<a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+										</li>
+											</ul>
+										</div>
+									</nav>
+									<?php
+								}
+								else if($_SESSION['userRole'] == 'hr'){
+									?>
+									<nav class="navbar navbar-expand-md fixed-top navbar-dark background">
+										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+											<ul class="navbar-nav mr-auto">
+												<li class="nav-item">
+												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+											</li>
+											<li class="nav-item">
+											<a class="nav-link" href=""><h6>CHAT REPORTS</h6></a>
+										</li>
+											</ul>
+										</div>
+										<div class="mx-auto order-0">
+										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+												<span class="navbar-toggler-icon"></span>
+											</button>
+										</div>
+										<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+											<ul class="navbar-nav ml-auto">
+										<li class="nav-item">
+											<a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+										</li>
+											</ul>
+										</div>
+									</nav>
+									<?php
+								}
+			}
+		checkLogin();
+    ?>
     <div class="top">
                 
         <div class="background">
             <div class = "INFO">
                 <p>Enter Your Login </p><p>Information</p>
             </div>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="../../project/home.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Groups</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Contact Us</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="users/Login.php">Log In<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="">Sign Up</a>
-            </li>
-            </ul>
-        </div>
-        </nav>
             </div>
         <div class = "login">
             <h1>LOGIN</h1>

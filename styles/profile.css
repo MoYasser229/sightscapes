@@ -1,0 +1,163 @@
+html{
+    height: 500px;
+    width: 500px;
+}
+body {
+  scroll-behavior: smooth !important;
+  margin: 0 !important;
+  width:100% !important;
+  height: 100% !important;
+  overflow-x: hidden !important;
+}
+.squareB {
+  width: 150% !important;
+  height: 30% !important;
+  bottom:500px;
+    position:relative;
+    padding: 500px;
+    background-color: #3e7077
+  }
+  .squareA {
+    width: 150% !important;
+    height: 50% !important;
+    bottom:1200px;
+      position:relative;
+      padding: 500px;
+      background-color: #0b1d26
+      
+    }
+    .squareC {
+      position:relative;
+      width: 50% !important;
+      height: 5px !important;
+      left:100px;
+      bottom:2250px;
+        padding: 500px;
+        background-color: #00070a
+      }
+   
+  .note{
+    position:relative;
+    left:200px;
+    bottom:3200px;
+    font-size: 1.2em;
+    font-family: sans-serif;
+    color: rgb(252, 252, 249);
+  }
+  .note1 {
+    position:relative;
+    left:200px;
+    bottom:3160px;
+    font-size: 1.2em;
+    font-family: sans-serif;
+    color: rgb(252, 252, 249);
+  }
+  .note2 {
+    border-radius: 50%;
+    font-size: 1.1em;
+    font-family: sans-serif;
+    position:relative;
+    z-index: 99999;
+   top: 100px;
+   left:20px;
+  }
+  .button{
+    background-color: #0b1d26;
+    border: none;
+    color: white;
+    width: 50% !important;
+    height: 10% !important;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    position:relative;
+    bottom:3000px;
+    left:1000px;
+    cursor: pointer;
+  }
+  .button:hover {background-color: #3e7077}
+  .button:active {
+    background-color: #3e7077;
+    box-shadow: 0 5px #3e7077;
+    transform: translateY(4px);
+  }
+  
+  .button3{
+    background-color: #0b1d26;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    position:relative;
+    bottom:3000px;
+    left:200px;
+    cursor: pointer;
+  }
+  .button3:hover {background-color: #3e7077}
+  .button3:active {
+    background-color: #3e7077;
+    box-shadow: 0 5px #3e7077;
+    transform: translateY(4px);
+  }
+  .button4{
+    background-color: #0b1d26;
+    border: none;
+    width: 50% !important;
+    height: 10% !important;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    position:relative;
+    bottom:2800px;
+    left:400px;
+    cursor: pointer;
+  }
+  .button4:hover {background-color: #e03018}
+  .button4:active {
+    background-color: #e03018;
+    box-shadow: 0 5px #e03018;
+    transform: translateY(4px);
+  }
+  .button5{
+    background-color: #3e7077;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    position:relative;
+    bottom:3850px;
+    left:1150px;
+    cursor: pointer;
+  }
+  .button5:hover {background-color: #01080c}
+  .button5:active {
+    background-color: #01090e;
+    box-shadow: 0 5px #01080c;
+    transform: translateY(4px);
+  }
+  .note3 {
+    position:relative;
+    left:200px;
+    bottom:3090px;
+    font-size: 1.4em;
+    color: rgb(252, 252, 249);
+  }
+  .x{
+    position:relative;
+    left:200px;
+    bottom:3000px;
+    font-size: 200%;
+    font-family: sans-serif;
+    color: rgb(252, 252, 249);
+  }

@@ -1,3 +1,11 @@
+<?php
+include_once '../errorHandler/errorHandlers.php';
+set_error_handler("customError",E_ALL);
+?>
+<?php
+session_start();
+if($_SESSION['userRole'] === 'admin'){
+?>
 <html>
     <head>
     </head>
@@ -92,3 +100,9 @@
         
     </body>
 </html>
+<?php
+}
+else{
+    header("Location:../home.php");
+}
+?>

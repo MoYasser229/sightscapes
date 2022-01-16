@@ -1,5 +1,7 @@
 <?php
     session_start();
+    include_once '../errorHandler/errorHandlers.php';
+    set_error_handler('loginError',E_ALL);
     $userID = $_SESSION['ID'];
     $conn = new mysqli("localhost" , "root" , "" , "project");
     $sql = "SELECT * FROM WARNINGS WHERE userID = $userID";

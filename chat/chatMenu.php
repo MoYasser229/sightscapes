@@ -1,29 +1,243 @@
-<?php
-session_start();
+<?php session_start();
+include_once '../errorHandler/errorHandlers.php';
+//set_error_handler('customError',E_ALL);
 ?>
 <html>
-<body>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/1d1d7fdffa.js" crossorigin="anonymous"></script>
+        <link href='../styles/chatStyles.css' type='text/css' rel="stylesheet">
+        <meta charset="utf-8">
+        <title>Sightscape</title>
+
+    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+<body style="background-color: #0b1d26">
 
 <?php
     $id=$_SESSION['ID'];
+    function checkLogin(){
+			if(!isset($_SESSION['ID']) && !isset($_SESSION['userRole'])){
+			?>
+			<nav class="navbar navbar-expand-md fixed-top navbar-dark background">
+						<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+							<ul class="navbar-nav mr-auto">
+							<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+									</li>
+									<li class="nav-item">
+									<a class="nav-link" href="../viewGroups/grouphikers.php"><h6>GROUP</h6></a>
+									</li>
+							</ul>
+						</div>
+						<div class="mx-auto order-0">
+						<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+							<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+						</div>
+						<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+							<ul class="navbar-nav ml-auto">
+							<li class="nav-item">
+									<a class="nav-link" href="../users/Login.php"><h6>LOGIN</h6></a>
+									</li>
+									<li class="nav-item">
+									<a class="nav-link" href="../users/Signup.php"><h6>SIGN UP</h6></a>
+									</li>
+							</ul>
+						</div>
+						</nav>
+								<?php
+								}
+								else if ($_SESSION['userRole'] === "admin"){
+									?>
+											<nav class="navbar navbar-expand-md fixed-top navbar-dark background">
+										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+											<ul class="navbar-nav mr-auto">
+												<li class="nav-item">
+												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="orders/orders.php"><h6>ORDERS</h6></a>
+											</li>
+											</ul>
+										</div>
+										<div class="mx-auto order-0">
+										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+												<span class="navbar-toggler-icon"></span>
+											</button>
+										</div>
+										<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+											<ul class="navbar-nav ml-auto">
+											<li class="nav-item">
+											<a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+										</li>
+											</ul>
+										</div>
+									</nav>
+									<?php
+								}
+								else if($_SESSION['userRole'] === 'hiker'){
+									?>
+									<nav class="navbar navbar-expand-md fixed-top navbar-dark background">
+										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+											<ul class="navbar-nav mr-auto">
+												<li class="nav-item">
+												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="../viewgroups/grouphikers.php"><h6>GROUPS</h6></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="../cart/cart.php"><h6>CART</h6></a>
+											</li>
+											</ul>
+										</div>
+										<div class="mx-auto order-0">
+										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+												<span class="navbar-toggler-icon"></span>
+											</button>
+										</div>
+										<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+											<ul class="navbar-nav ml-auto">
+											<li class="nav-item">
+											<a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+										</li>
+											</ul>
+										</div>
+									</nav>
+									<?php
+								}
+								else if($_SESSION['userRole'] === "auditor"){
+									?>
+									<nav class="navbar navbar-expand-md fixed-top navbar-dark background">
+										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+											<ul class="navbar-nav mr-auto">
+												<li class="nav-item">
+												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+											</li>
+											<li class="nav-item">
+											<a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
+										</li>
+                                        <li class="nav-item">
+											<a class="nav-link" href="../survey/survey.php"><h6>SURVEY</h6></a>
+										</li>
+											</ul>
+										</div>
+										<div class="mx-auto order-0">
+										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+												<span class="navbar-toggler-icon"></span>
+											</button>
+										</div>
+										<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+											<ul class="navbar-nav ml-auto">
+										<li class="nav-item">
+											<a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+										</li>
+											</ul>
+										</div>
+									</nav>
+									<?php
+								}
+								else if($_SESSION['userRole'] == 'hr'){
+									?>
+									<nav class="navbar navbar-expand-md fixed-top navbar-dark background">
+										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+											<ul class="navbar-nav mr-auto">
+												<li class="nav-item">
+												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+											</li>
+											<li class="nav-item">
+											<a class="nav-link" href=""><h6>CHAT REPORTS</h6></a>
+										</li>
+											</ul>
+										</div>
+										<div class="mx-auto order-0">
+										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+												<span class="navbar-toggler-icon"></span>
+											</button>
+										</div>
+										<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+											<ul class="navbar-nav ml-auto">
+										<li class="nav-item">
+											<a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+										</li>
+											</ul>
+										</div>
+									</nav>
+									<?php
+								}
+	}
+	checkLogin();
     $conn=new mysqli("localhost","root","","project");
     if($conn->connect_error)
     die ("cannot connect to the database");
+    //close/open form HERE
     if($_SESSION['userRole'] === 'hiker'){
-?>
-<form  method ="POST" action = "">
-<input type='submit' name='msg' value='Support Messages'><br>
-<input type='submit' name='recgrp' value='Recommend a group'><br>
-<input type='submit' name='issues' value='Issues'>
-</form>
-<?php
+        ?>
+        <div class="con">
+            <div class="child-con">
+                <h1>Welcome to Sightscapes Help</h1>
+            </div>
+            <div class="child-con">
+                <form  method ="POST" action = "chatMenu.php#chats">
+                    <hr>
+                    <a href='chatMenu.php#previousChat' onClick='ajaxLoader()'>LOAD PREVIOUS MESSAGES</a><br>
+                    <p> Have all your previous issues and group suggestions all in one place.</p>
+                    <hr>
+                    <input type='submit' name='recgrp' value='RECOMMEND A GROUP'><br>
+                    <p>Not Interested in any of our offerings? You can submit a form to add a group of your choice. Send the desired location from the link above and one of our adminstrators will reply soon.</p>
+                    <hr>
+                    <input type='submit' name='issues' value='CREATE AN ISSUE CHAT'>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div id = 'previousChat' class = 'previousChat'>
+        </div>
+        <?php
     }
     else if($_SESSION['userRole'] === 'admin'){
-        displayChats();
+        ?>
+        <div class="adminMidChat">
+            <h1>Your Chats</h1>
+            <hr>
+            <?php displayChats(); ?>
+        </div>
+        <?php
     }
     else if($_SESSION['userRole'] === 'auditor'){
         $sql = "SELECT * FROM chat";
         $result = $conn->query($sql);
+        echo "<div id='chats'>";
+        echo "<h1>CHATS</h1><hr>";
         while($row = $result->fetch_assoc()){
             $chatid = $row['chatID'];
             $chattype = $row['chatType'];
@@ -41,13 +255,48 @@ session_start();
                 $sendername = implode($result2->fetch_assoc());
             else
                 $sendername = "";
-            echo "<p><a href='chat.php?chatID=$chatid'>$chattype<br>Reciever Name:$receivername Sender Name: $sendername</a></p>";
+            
+            echo "<p><a href='chat.php?chatID=$chatid'>$chattype<br>ADMIN:$receivername<br>  HIKER: $sendername</a></p><hr>";
+            
         }
+        echo "</div>";
     }
     else if($_SESSION['userRole'] === 'hr'){
         $conn = new mysqli("localhost","root","","project");
         $sql = "SELECT * FROM Warnings WHERE report = '0'";
         $result = $conn->query($sql);
+        ?>
+            <style>
+                .chatReported a{
+                    margin-left: 100px;
+                    color: white;
+                    font-family: serif;
+                    font-size: 30px;
+                }
+                .chatReported a:hover{
+                    text-decoration: none;
+                    color: goldenrod;
+                }
+                .chatReported hr{
+                    background-color: goldenrod;
+                    width: 90%;
+                }
+                .textReports{
+                    color: white;
+                    font-family: serif;
+                    text-align: center;
+                    font-size: 20px;
+                    width: 30%;
+                    margin-left: 35%;
+                }
+            </style>
+            <h1 style = 'margin-top: 200px; text-align: center; color: white; font-size: 50px'>ADMIN REPORTS</h1>
+            <p class = 'textReports'>
+                In here, you can see all reported chats between admins and hikers. These reports are
+                from an auditor who can view all chats in the website and report some of them to you.
+            </p>
+            <hr style = 'background-color: goldenrod; width: 90%'>
+        <?php
         while($row = $result->fetch_assoc()){
             $chatid = $row['chatID'];
             $admin = $row['userID'];
@@ -57,7 +306,8 @@ session_start();
             if($row = $result->fetch_assoc()){
                 $adminName = $row['fname'];
             }
-            echo "<p><a href='chat.php?chatID=$chatid'>$adminName</a></p>";
+            
+            echo "<div class = 'chatReported'><a href='chat.php?chatID=$chatid'>$adminName</a><hr></div>";
         }
     }
     /////////////RECOMMEND PAGES
@@ -124,20 +374,66 @@ session_start();
             $chatid=$row['chatID'];
             $chattypee=$row['chatType'];
             
-            //     echo "<p><a href='chat.php?chatID=$chatid'><b>$chattypee</b><br><b>$receivername</b></a></p>";
-            // echo "<br><br>";
+            $admin = $row['receiverID'];
+
             $sql = "SELECT seen FROM msg WHERE chatID='$chatid' AND seen = '0'";
 
             $result3=$GLOBALS['conn']->query($sql) or die("Error: ".$GLOBALS['conn']->error);
             // $seen=$result3->fetch_assoc();
             if(mysqli_num_rows($result3) != 0){
-                echo "<p><a href='chat.php?chatID=$chatid&seen=1'><b>$chattypee</b><br><b>$receivername</b></a></p>";
-
+                echo "<p><a href='chat.php?chatID=$chatid&seen=1&admin=$admin'><b>$chattypee</b><br><b>$receivername</b></a></p>";
             }
             else{
-                echo "<p><a href='chat.php?chatID=$chatid'><em>$chattypee</em><br><em>$receivername</em></a></p>";
+                echo "<p><a href='chat.php?chatID=$chatid&admin=$admin'><em>$chattypee</em><br><em>$receivername</em></a></p>";
             }
-            echo "<br><br>";
+            echo "<hr>";
         }
     }
 ?>
+<script>
+    $(document).ready(function(){
+        ajaxLoader()
+    })
+    function ajaxLoader() {
+        $.ajax({
+            method: 'POST',
+            url: 'displayChat.php',
+            success: (chats) => {
+                $('.previousChat').html(chats)
+            }
+            })
+    }
+</script>
+<footer class="container-fluid bg-grey py-5">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                            <div class="logo-part">
+                                <img src="../bckgrnd/logo.png" class="w-75 logo-footer" >
+                            </div>
+                            </div>
+                            <div class="col-md-6 px-4">
+                            <h6> About Company</h6>
+                            <p>A website that connects all hikers in one place. We are here to give all hikers opportunity to view various hiking groups to different locations.</p>
+                            <p>Our goal is to provide a service that organize hiking trips to all hikers on earth.</p>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-md-6">
+                            <h6> Newsletter</h6>
+                            <div class="social">
+                                <a href="https://facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="https://instagram.com"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                <a href="https://twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="https://youtube.com"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </footer>
+</body>
+</html>

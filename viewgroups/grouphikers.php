@@ -110,7 +110,7 @@
 										<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 											<ul class="navbar-nav ml-auto">
 											<li class="nav-item">
-											<a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
+											<a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
@@ -261,7 +261,8 @@
 								'filter': filterList, 
 								'order':orderList,
 								'search':searchItem,
-								'searchlist': searchListItem
+								'searchlist': searchListItem,
+								'checkAjax': '1'
 							},
 							success: function(groups){
 								$('#div1').html(groups);
@@ -277,7 +278,8 @@
 								'filter': '', 
 								'order':'',
 								'search':'',
-								'searchlist': ''
+								'searchlist': '',
+								'checkAjax': '1'
 							},
 							success: function(groups){
 								$('#div1').html(groups);
@@ -335,7 +337,7 @@
 
     $message = '
 			  <div class="text-center fixed-top" style="margin-top:75px;">
-                <button class="btn btn-success" id="Db" style="width:50%"><i class="fa fa-cart-plus" aria-hidden="true"></i> Course is Added to your cart</button>
+                <button class="btn btn-success" id="Db" style="width:50%"><i class="fa fa-cart-plus" aria-hidden="true"></i> Group is successfully added to your cart</button>
               </div>
     ';
 

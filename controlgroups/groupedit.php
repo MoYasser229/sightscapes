@@ -9,15 +9,15 @@
     $conn = new mysqli("localhost" , "root" , "" , "project");
     if($conn-> connect_error) die("fatal error - cannot connect to the DB");
     $id=$_GET["id"];
-    $query = "SELECT * FROM Groups WHERE GID=$id";
+    $query = "SELECT * FROM Groups WHERE GID='$id'";
     $results = $conn-> query($query);
-    if(!$results) die("Fatal error in executing the query");
+    if(!$results) die($conn->error);
 
     while($row = $results->fetch_array(MYSQLI_ASSOC)) {
         echo 'Price:<br>';
         echo "<input type = text name=price value = ".$row["price"] . "><br>";
         echo 'Location:<br>';
-        echo "<input type = text name=Loc value = ".$row["Loc"] . "><br>";
+        echo "<input type = text name=Loc value = ".$row["loc"] . "><br>";
         echo 'Departure Time:<br>';
         echo "<input type = DATE name=departureTime value = ".$row["departureTime"] . "><br>";
         echo 'Arrival Time:<br>';

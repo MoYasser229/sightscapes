@@ -20,7 +20,7 @@
         echo 'Rating:<br>';
         echo "<input type = text name=rating value = ".$row["avgrating"]."><br>";
         echo 'Location:<br>';
-        echo "<input type = text name=Loc value = ".$row["Loc"]."><br>";
+        echo "<input type = text name=Loc value = ".$row["loc"]."><br>";
         echo 'Departure Time:<br>';
         echo "<input type = DATE name=departureTime value = ".$row["departureTime"]."><br>";
         echo 'Arrival Time:<br>';

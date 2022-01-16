@@ -31,13 +31,16 @@
     <td> <?php echo $row['GID'] ?></td>
     <td> <?php echo $row['price'] ?></td>
     <td> <?php echo $row['avgrating'] ?></td>
-    <td> <?php echo $row['Loc'] ?></td>
+    <td> <?php echo $row['loc'] ?></td>
     <td> <?php echo $row['departureTime'] ?></td>
     <td> <?php echo $row['arrivalTime'] ?></td>
     <td> <?php echo $row['descrip'] ?></td>
     <td> <?php echo $row['pic'] ?></td>
-    <td> <a href=groupedit.php?id=<?php echo $row['GID'] ?> > Edit</a></td>
-    <td> <a href=groupdelete.php?id=<?php echo $row['GID'] ?> >Delete</a></td>
+    <?php
+    echo "<td> <a href='groupedit.php?id={$row['GID']}'> Edit</a></td>
+    <td> <a href='groupdelete.php?id={$row['GID']}' >Delete</a></td>";
+    ?>
+    
 </tr>
 
 <?php }} ?>

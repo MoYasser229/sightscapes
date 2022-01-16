@@ -59,8 +59,8 @@ if(isset($_POST['Submit'])){
 
     $reviewText=$_POST['reviewText'];
     $rating=$_POST['rating'];
-$sql="INSERT INTO reviews(GID,userID,reviewText,rating) VALUES ((SELECT GID FROM groups WHERE GID='$id'),
-(SELECT userID FROM Users WHERE userID='$userID'),'$reviewText','$rating')";
+    $sql="INSERT INTO reviews(GID,userID,reviewText,rating) VALUES ((SELECT GID FROM groups WHERE GID='$id'),
+    (SELECT userID FROM Users WHERE userID='$userID'),'$reviewText','$rating')";
     $result=mysqli_query($conn,$sql) or die($conn->error);
     $sql1="SELECT AVG(rating) FROM reviews WHERE GID='$id'"; 
     $result=mysqli_query($conn,$sql1) or die($conn->error);

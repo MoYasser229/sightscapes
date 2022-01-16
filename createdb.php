@@ -77,8 +77,12 @@
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         seen BOOLEAN NOT NULL,
         chatID INT NOT NULL,
+        recieverID INT NOT NULL,
+        senderID INT NOT NULL,
         auditorComment VARCHAR(255),
-        FOREIGN KEY (chatID) REFERENCES chat(chatID) ON DELETE CASCADE
+        FOREIGN KEY (chatID) REFERENCES chat(chatID) ON DELETE CASCADE,
+        FOREIGN KEY (recieverID) REFERENCES Users(userID),
+        FOREIGN KEY (senderID) REFERENCES Users(userID)
         );";
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);

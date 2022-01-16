@@ -22,13 +22,7 @@ foreach($cart as $cartItem){
    $price = $cartItem['price'];
    $totalprice+=$price;
 }
-foreach($cart as $cartItem){
-    $GID = $cartItem['ID'];
-    $hikerID = $_SESSION['ID'];
-    $sql = "INSERT INTO orders(GID,userID,totalPrice)
-     VALUES('$GID','$hikerID','$totalprice')";
-    $result = $conn->query($sql) or die($conn->error);
- }
+
 ?>
 
 
@@ -153,7 +147,7 @@ function validate(form){
    <label><input type="radio" name="f1[]"  value="PWC" id="flip"> Pay With Card </label>
 
 
-   <div id="panel">  
+   <!-- <div id="panel">  
       <lable for="CN"><b>Card number</b></lable>
       <input type="CN" class="c-control" id="CN" placeholder="xxxx xxxx xxxx xxxx" name="CN">
       </br>  
@@ -164,12 +158,18 @@ function validate(form){
       </br> 
       <lable for="cvv"><b> CVV*</b></lable> 
       <input type="CVV" class="CVV" id="CVV" placeholder="xxx" name="CVV">
-   </div>
+   </div> -->
 </div>
 
 <div class = "cart-summary"><h3><b> Cart summary </b></h3></div>
-<div class="tp"><h5>Total Price:</h5> </div>
-<button class="button">Button</button>
+<?php
+if($totalprice != 0){ 
+   echo "<div class = 'tp'><h5>Total Price: $totalprice </h5></div>";
+}
+?>
+<form method = "POST" action = "">
+<button type = "submit" class="button" name = 'buyNow'>Buy Now</button>
+</form>
 </body>
 </html>
 <?php
@@ -191,10 +191,21 @@ foreach($myCart as $cartItem){
    $table .= "</table>";
    echo $table;
 
-   if($totalprice != 0){ 
    
-      echo "<span class = 'totalp'>". $totalprice."</span>";
-   }
 ?>
 
 </form>
+<?php
+if(isset($_POST['buyNow'])){
+   foreach($cart as $cartItem){
+      $GID = $cartItem['ID'];
+      $hikerID = $_SESSION['ID'];
+      $sql = "INSERT INTO orders(GID,userID,totalPrice)
+       VALUES('$GID','$hikerID','$totalprice')";
+      $result = $conn->query($sql) or die($conn->error);
+   }
+   $_COOKIE['GroupsCart'] = array();
+   echo "<script>window.location.replace('/project/home.php')</script>";
+   
+}
+?>
