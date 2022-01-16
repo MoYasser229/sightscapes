@@ -1,0 +1,149 @@
+body {
+  scroll-behavior: smooth !important;
+  margin: 0 !important;
+  width:100% !important;
+  height: 100% !important;
+  overflow-x: hidden !important;
+}
+
+.container{
+  width: inherit !important;
+  height: 60% !important;
+  /*background-color: rgb(172, 28, 117) !important;*/
+  background-image: url(../../project/bckgrnd/ch.jfif) !important;
+  background-position-y: 600px;
+  background-position-x: center;
+  background-size: 42cm;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  margin-left: 0 !important;
+}
+.Checkout h1{
+  position: relative; 
+  bottom:-5px;
+  left: 35px;
+  color: white;
+  font-family: 'Serif'; 
+  font-size: 40px;
+}
+.personalinfo h2{
+  position: relative; 
+  bottom:0px;
+  left: 5px;
+}
+.personalinfo{
+  border-style: inset;
+  border-color: black;
+  border-width: 5px;
+  border-radius: 5px;
+  position: relative; 
+  bottom:-130px;
+  left: 470px;
+  color: white;
+  background-color: #0b1d26;
+  height: 100%;
+  width: 40%;
+  font-size: 15px;
+}
+.Payment-method h3{
+  position: relative; 
+  bottom:10px;
+  left: 77px;
+  font-family: 'Serif';
+  font-size: 30px;
+  color:  gold;
+}
+.Payment-method {
+  position: relative; 
+  bottom:70px;
+  left: 40px;
+  border-style: groove;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-radius: 9px;
+  width:25%;
+  height: 35%;
+}
+#panel{
+border: solid 1px #c3c3c3;
+margin: 0 5px 0 0;
+background: #546f7b;
+border-radius: 5px;
+position: relative; 
+bottom:-10px;
+left: 30px;
+height: 55%;
+width: 310px;
+font-family: 'Serif';
+font-size: 14px;
+padding: 10px;
+display: none;
+}
+.c-control{
+  height: 30%;  
+  }
+.date{
+  height: 22%;  
+	width: 60px;
+}
+.CVV{
+  height: 22%;  
+	width: 50px;
+}
+.cart-summary h3{
+  position: relative; 
+  bottom:235px;
+  left: 1208px;
+  font-family: 'Serif';
+  font-size: 30px;
+  color:  gold;
+}
+.Top-Table{
+  border: solid 1px #c3c3c3;
+  margin: 0 5px;
+  position: relative; 
+  bottom:283px;
+  left: 1110px;
+  border-collapse:separate;
+  width: 380px;
+  height: 55%;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  border-spacing: 15px;
+}
+.Top-Text-Table{
+  position: relative; 
+  line-height:1px;
+  left:10px;
+  color: grey;
+  font-size: 17px;
+  text-align:center;
+}
+.tp h5{
+  position: relative; 
+  left:925px;
+  bottom: 77px;
+}
+.totalp {
+  position: relative; 
+  left:1000px;
+  bottom: 345px;
+}
+.button {
+  background-color: #0b1d26;
+  border: none;
+  color: #d8dfe2;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  position: relative; 
+  left:925px;
+  bottom: 80px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
