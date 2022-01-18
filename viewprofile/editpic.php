@@ -6,13 +6,12 @@
 	var errorEmailUsed = false
 	var errorInPicture = false
 </script>
-<link rel="stylesheet" type= "text/css" href="../../project/styles/EditInfo.css">
+<link rel="stylesheet" type= "text/css" href="../../project/styles/editpic.css">
 <div class='background'>
 </div>
 <div class='square'> </div>
-<div class="note4"><p> First Name : </p></div>
-<div class="note5"><p> Last Name : </p></div>
-<div class="note6"><p>Email : </p></div>
+<div class="note2"><p> picture : </p></div>
+<div class="note3"><p> Remove picture </p></div> 
 <?php 
 $servername = "localhost";
 $username = "root";
@@ -25,12 +24,12 @@ $id=$_SESSION["ID"];
  $conn = new mysqli($servername, $username, $password, $dbname);
 
 	echo "<form action='' method='post' enctype = 'multipart/form-data'>";
-	echo " <input type= 'text'class='note1'  name= 'firstname'  value=".$_SESSION['FName']."><br>";
-	echo " <input type= 'text' class='note2' name= 'lastname' value=".$_SESSION['LName']."><br>";
-	echo " <input type= 'text' class='note3' name= 'email'   value=".$_SESSION['Email']."><br>";
-	//echo "picture: <input type= 'file'  name= 'pic'  value=".$_SESSION['profilepic']."><br>";
-	//echo "Remove Picture <input type= 'checkbox'  name= 'picRemove'  value='remove'><br>";
-	echo "<input type= 'submit' class='button1' name= 'submit'  value= 'Submit' ><br>";
+	// echo " <input type= 'text'class='note1'  name= 'firstname'  value=".$_SESSION['FName']."><br>";
+	// echo " <input type= 'text' class='note2' name= 'lastname' value=".$_SESSION['LName']."><br>";
+	// echo " <input type= 'text' class='note3' name= 'email'   value=".$_SESSION['Email']."><br>";
+	echo " <input type= 'file'  name= 'pic' class='note1'  value=".$_SESSION['profilepic']."><br>";
+	echo " <input type= 'checkbox'  name= 'picRemove' class='note4'  value='remove'><br>";
+	echo "<input type= 'submit'  name= 'submit' class='button1' value= 'Submit' ><br>";
 	echo"</form>";
 //check if form is submitted and UPDATE the values
 	$error = false;
@@ -63,7 +62,7 @@ $id=$_SESSION["ID"];
 		}
 		
 		if($error === false){
-			/*
+			
 			$dir = "images/";
 			$profilePic = $_SESSION['profilepic'];
 			if(!empty($_FILES['pic']['name'])){
@@ -72,33 +71,19 @@ $id=$_SESSION["ID"];
 			}
 			else
 				$profilePic = ($_POST['picRemove'] === 'remove')?'default.png':$_SESSION['profilepic'];
-			*/
-			$fname=$_POST['firstname'];
-			$lname=$_POST['lastname'];
-			$email=$_POST['email'];
+			
+			//$fname=$_POST['firstname'];
+		//	$lname=$_POST['lastname'];
+			//$email=$_POST['email'];
 			$r= false;
-			$sql="UPDATE users set fname= '$fname', lname= '$lname', email= '$email' ,pic= '$profilePic' where userID = '$id'";
+			$sql="UPDATE users set pic= '$profilePic' where userID = '$id'";
 			$result= mysqli_query($conn,$sql) or die($conn->error);
-			$_SESSION["FName"]=$fname;
-			$_SESSION["LName"]=$lname;
-			$_SESSION["Email"]=$email;
+			//$_SESSION["FName"]=$fname;
+			//$_SESSION["LName"]=$lname;
+			//$_SESSION["Email"]=$email;
 			$_SESSION["profilepic"]=$pic;
 			header("Location:EditInfo.php");
 		}
 	}
 ?>
-<script>
-	var errors = ""
-	if(errorInFirstName === true)
-		errors += "First Name is not given"
-	if(errorInLastName === true)
-		errors += "Last Name is not given"
-	if(errorInEmail === true)
-		errors += "Email is not given"
-	if(errorEmailMistype === true)
-		errors += "Email is invalid"
-	if(errorEmailUsed === true)
-		errors += "Email is already used"
-	if(errors != "")
-		alert(errors)
-</script>
+

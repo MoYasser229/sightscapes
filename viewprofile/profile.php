@@ -1,45 +1,7 @@
-<!-- <?php 
-// session_start();
-// include_once '../errorHandler/errorHandlers.php';
-// set_error_handler('loginError',E_ALL);
-// ?>
-<html>
-<body>
-<table border =1>
-<tr> <th> firstname </th> <th> lastname </th>  <th> Email </th> <th> picture </th> </tr>
-
-<?php
-// $hn='localhost';
-// $db='project';
-// $un='root';
-// $pw='';
-
-// $id=$_SESSION["ID"];
-// //require_once 'login.php'; //gets php code from another file
-// $conn=new mysqli("localhost","$un","$pw","$db") or die ("fatal error cannot connect to DB");
-
-// $sql = "SELECT * FROM users WHERE userID = $id";
-//  //preperation for query
-// $result=$conn->query($sql) or die ("fatal error in executing code");
-// if($row= $result->fetch_array(MYSQLI_ASSOC)){
-// echo "<tr> <td> ".$row['fname']."</td>";
-// echo "<td>  ".$row['lname']."</td>";
-// echo "<td> ".$row['email']."</td>";
-// echo "<td>  ".$row['pic']."</td>";
-// echo "</tr>";
-// }
-?>
-</table>
-<form action ='Editinfo.php' method ='post'>
- <button type="submit"> Edit </button>
-</body>
-</html> -->
-
 <?php 
 session_start();
 ?>
 <html>
-    
 <body>
 
 <link rel="stylesheet" type= "text/css" href="../../project/styles/profile.css">
@@ -53,8 +15,9 @@ $pw='';
 $id=$_SESSION["ID"];
 //require_once 'login.php'; //gets php code from another file
 $conn=new mysqli("localhost","$un","$pw","$db") or die ("fatal error cannot connect to DB");
-
-$sql = "SELECT * FROM users WHERE userID = $id";
+if($_SESSION['userRole'] === 'admin')
+echo "<a href = 'warningPage.php'>WARNINGS</a>";
+$sql = "SELECT * FROM users WHERE userID = '$id'";
  //preperation for query
 $result=$conn->query($sql) or die ("fatal error in executing code");
 if($row= $result->fetch_array(MYSQLI_ASSOC)){
@@ -75,40 +38,49 @@ if($row= $result->fetch_array(MYSQLI_ASSOC)){
 // <?php echo "<span class = 'note2'>".$row['pic']."</span>";
 }
 
-  $dir = "/project/users/images/";
-        $profilePic = $_SESSION['profilepic'];
+  $dir = "images/";
+		$profilePic = $_SESSION['profilepic'];
         $pic=$dir.'/'.$profilePic;
   echo "<img src='$pic' width='250' height='250' class='note2'>";
 
 ?>
-    
 <div class='squareB'> </div>
 <div class='squareA'></div>
 <div class='squareC'></div>
-<div id='z' >
-<div class="note" id="z"><p> First Name </p></div>
-    <?php echo "<span class = 'note'id='z'>".$row['fname']."</span>";?>
+<div class="note" ><p> First Name </p></div>
+    <?php echo "<span class = 'note'>".$row['fname']."</span>";?>
     <div class="note1"><p> Last Name </p></div>
     <?php echo "<span class = 'note1'>".$row['lname']."</span>";?>
     <div class="note3"><p> Email </p>  </div>
     <?php echo "<span class = 'note3'>".$row['email']."</span>";?>
-</div>
 <form action ='Editinfo.php' method ='post'>
- <button type="submit" class="button" name="Submit" id="Submit"> Edit </button>
-<script> document.getElementById('Submit').addEventListener('click',x);
-function x(){
-   var u=document.getElementById('z');
-   u.style.visibility='hidden';
-}
-</script>
-
- 
+ <button type="submit" class="button" name="Submit" > Edit </button>
 </form>
+
 <form action ='Editinfopt2.php' method ='post'>
 <div class="x"><p>Password and Authentication</p></div>
  <button type="submit" class="button3"> change password </button>
- <button type="submit" class="button4"> Delete My Account </button>
+</form>
+<form action ='' method ='post'>
+ <button type="submit" class="button4" onclick="confirmAction()"> Delete My Account </button>
+</form>
+ <form action ='editpic.php' method ='post'>
  <button type="submit" class="button5">change photo </button>
 </form>
+
+<script>
+    function confirmAction() {
+        let confirmAction = confirm("Are you sure to execute this action?");
+        if (confirmAction) {
+          alert("Action successfully executed");
+         location.href = 'DeleteAcc.php'; 
+         //location.href = 'users/Login.php'; 
+        // header("Location:../users/Login.php");
+        } else {
+          
+          alert("Action canceled");
+        }
+      }
+    </script>
 </body>
 </html>

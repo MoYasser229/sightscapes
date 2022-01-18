@@ -117,7 +117,7 @@ body {
     font-size: 16px;
     position:relative;
     bottom:2800px;
-    left:400px;
+    left:500px;
     cursor: pointer;
   }
   .button4:hover {background-color: #e03018}
@@ -136,7 +136,7 @@ body {
     display: inline-block;
     font-size: 16px;
     position:relative;
-    bottom:3850px;
+    bottom:3900px;
     left:1150px;
     cursor: pointer;
   }
