@@ -44,9 +44,6 @@ function checkLogin(){
                                 <li class="nav-item">
                                   <a class="nav-link" href="../project/admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
                                 </li>
-                                <li class="nav-item">
-                                  <a class="nav-link" href="../project/orders/orders.php"><h6>ORDERS</h6></a>
-                                </li>
                               </ul>
                           </div>
                           <div class="mx-auto order-0">

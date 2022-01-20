@@ -15,11 +15,6 @@
         echo "<br><br><br>";
         $msg=($_POST['msgText']?$_POST['msgText']:'');
 
-            // msgID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            // msgText varchar(255) NOT NULL,
-            // msgTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            // seen update in receiver's side ig
-
             // chatID
             if($chatID!='')
             {
@@ -28,23 +23,30 @@
             }
             else
             {   
-                // $msg = 'hena';
-                $sql = "SELECT receiverID,senderID FROM chat WHERE chatID = '$chatID'";
-                $result = $conn->query($sql) or die("ErrorR: ".$conn->error);
+                $sql = "SELECT receiverID,senderID,chatID 
+                FROM chat 
+                WHERE chatID = (SELECT chatID FROM chat 
+                    WHERE senderID='$id' 
+                    and receiverID='$admin' 
+                    and chatType='$chatType' 
+                    and createdAt=(SELECT createdAt 
+                        from chat 
+                        where senderID='$id' 
+                        and receiverID= '$admin' 
+                        and chatType='$chatType' 
+                        ORDER BY createdAt DESC LIMIT 1)
+                )
+                ";
+                $resultReciever = $conn->query($sql) or die("Error: ".$conn->error);
                 $recieverID = '';
                 $senderID = '';
-                if($row = $result->fetch_assoc()){
-                    if($row['receiverID'] === $id){
-                        $recieverID = $row['senderID'];
-                        $senderID = $id;
-                    }
-                    if($row['senderID'] === $id){
-                        $recieverID = $row['recieverID'];
-                        $senderID = $id;
-                    }
+                if($rowReciever = $resultReciever->fetch_assoc()){
+                        $senderID = $rowReciever['senderID'];
+                        $recieverID = $rowReciever['receiverID'];
+                        $chatID = $rowReciever['chatID'];
                 }
-                $sql = "INSERT INTO msg(msgText,seen,chatID,senderID,recieverID) VALUES ('$msg','0','$chatID','$recieverID','$senderID')";
-                $result=$conn->query($sql) or die("ErrorR: ".$conn->error);
+                $sql = "INSERT INTO msg(msgText,seen,chatID,senderID,recieverID) VALUES ('$msg','0','$chatID','$senderID','$recieverID')";
+                $result=$conn->query($sql) or die("$recieverID <- $senderID ErrorR: ".$conn->error);
             }
 
             
@@ -56,33 +58,56 @@
         // }
     }
     else if(isset($_POST['loc'])&&$_POST['checkForm']==true){
-        $chatType=$_POST['chatType'];
         $admin=$_POST['admin'];
+        //<?php echo "chat.php?admin=$admin&chatType=Group Recommendation"
+        $sql = "INSERT INTO chat(senderID,receiverID,chatType)
+        VALUES ((SELECT userID from Users where userID='$id'),
+        '$admin','Group Recommendation');";
+        $result=$conn->query($sql) or die("Error: ".$conn->error);
+        $chatType=$_POST['chatType'];
         $loc=$_POST['loc'];
         $desc=$_POST['desc'];
         $link=$_POST['link'];
-        $pic=$_POST['pic'];
+        $pic = $_POST['pic'];
         $sql = "INSERT INTO groupRec(pic,link,descrip,userID) VALUES ('$pic','$link','$desc','$id')";
         $result=$conn->query($sql) or die("Error: ".$conn->error);
         $loc="Location: ".$_POST['loc'];
         $desc="Description: ".$_POST['desc'];
         $link="Link: ".$_POST['link'];
         $pic="Picture: ".$_POST['pic'];
-        $sql = "INSERT INTO msg(msgText,seen,chatID)
-                VALUES ('$loc','0',(SELECT chatID FROM chat WHERE senderID='$id' and
+        $sql = "INSERT INTO msg(msgText,seen,recieverID,senderID,chatID)
+                VALUES ('$loc','0','$admin','$id',(SELECT chatID FROM chat WHERE senderID='$id' and
                 receiverID='$admin' and chatType='$chatType' and createdAt=(SELECT createdAt from chat where
                 senderID='$id' and receiverID= '$admin' and chatType='$chatType' ORDER BY createdAt DESC LIMIT 1))),
-                ('$desc','0',(SELECT chatID FROM chat WHERE senderID='$id' and
+                ('$desc','0','$admin','$id',(SELECT chatID FROM chat WHERE senderID='$id' and
                 receiverID='$admin' and chatType='$chatType' and createdAt=(SELECT createdAt from chat where
                 senderID='$id' and receiverID= '$admin' and chatType='$chatType' ORDER BY createdAt DESC LIMIT 1))),
-                ('$link','0',(SELECT chatID FROM chat WHERE senderID='$id' and
+                ('$link','0','$admin','$id',(SELECT chatID FROM chat WHERE senderID='$id' and
                 receiverID='$admin' and chatType='$chatType' and createdAt=(SELECT createdAt from chat where
                 senderID='$id' and receiverID= '$admin' and chatType='$chatType' ORDER BY createdAt DESC LIMIT 1))),
-                ('$pic','0',(SELECT chatID FROM chat WHERE senderID='$id' and
+                ('$pic','0','$admin','$id',(SELECT chatID FROM chat WHERE senderID='$id' and
                 receiverID='$admin' and chatType='$chatType' and createdAt=(SELECT createdAt from chat where
                 senderID='$id' and receiverID= '$admin' and chatType='$chatType' ORDER BY createdAt DESC LIMIT 1)))";
                 $result=$conn->query($sql) or die("Error: ".$conn->error);
-                //DisplayMessages();
+
+                $getChatIDQuery = "SELECT chatID FROM chat WHERE senderID='$id' and
+                receiverID='$admin' and chatType='$chatType' and createdAt=(SELECT createdAt from chat where
+                senderID='$id' and receiverID= '$admin' and chatType='$chatType' ORDER BY createdAt DESC LIMIT 1)";
+                $getChatIDResult = $conn->query($getChatIDQuery);
+                if($chatIDRow = $getChatIDResult->fetch_assoc()){
+                    $chatID = $chatIDRow['chatID'];
+                    $sql = "SELECT * FROM msg WHERE chatID ='$chatID'";
+                    $result=$GLOBALS['conn']->query($sql) or die("Error: ".$GLOBALS['conn']->error);
+                    echo "<div class='messageContainerAuditor'>";
+                    while($row=$result->fetch_assoc()){
+                        if(str_contains($row['msgText'],'Picture:')){
+                            $picture = substr($row['msgText'],9,strlen($row['msgText']));
+                            echo "<div class = 'textMessage'><img src = 'images/$picture' width='300' height='300'></div><br>";
+                        }
+                        else
+                            echo "<div class = 'textMessage'>{$row['msgText']}</div><br>";}
+                   
+                }
     }
     else{
             DisplayMessages();
@@ -118,7 +143,12 @@
                                     }
                                     }
                                 else{
-                                    echo "<p class = 'textMessage'>{$row['msgText']}</p>";
+                                    if(str_contains($row['msgText'],'Picture:')){
+                                        $picture = substr($row['msgText'],9,strlen($row['msgText']));
+                                        echo "<div class = 'textMessage'><img src = 'images/$picture' width='300' height='300'></div><br>";
+                                    }
+                                    else
+                                        echo "<div class = 'textMessage'>{$row['msgText']}</div><br>";
                                 }
                             } 
                         }
@@ -126,21 +156,18 @@
                             //if($row[''])
                             if($row['senderID'] === $admin)
                                 echo "<div class = 'textMessageAdmin'>{$row['msgText']}</div><br><br><br>";
-                            else
-                                echo "<div class = 'textMessage'>{$row['msgText']}</div><br>";
+                            else{
+                                if(str_contains($row['msgText'],'Picture:')){
+                                    $picture = substr($row['msgText'],9,strlen($row['msgText']));
+                                    echo "<div class = 'textMessage'><img src = 'images/$picture' width='300' height='300'></div><br>";
+                                }
+                                else
+                                    echo "<div class = 'textMessage'>{$row['msgText']}</div><br>";}
                         }
                     }
-                    echo '<br>';
                 }
         }
         echo "</div>";
-        // if(isset($_POST['auditor'])){
-        //     if($_POST['auditor'] === '1'){
-        //         // echo "<input type = 'submit' name = 'submit'>";
-        //         //echo "</form>";
-        //     }
-        // }
-        
     }
     
 ?>

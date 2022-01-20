@@ -31,9 +31,6 @@
                             <li class="nav-item">
                                 <a class="nav-link active" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="orders/orders.php"><h6>ORDERS</h6></a>
-                            </li>
                             </ul>
                         </div>
                         <div class="mx-auto order-0">
@@ -45,13 +42,13 @@
                         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                             <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                            <a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
+                            <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+                            <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
                         </li>
                             </ul>
                         </div>
@@ -76,9 +73,45 @@
         <br><br>
         <input class = 'inputSide' type = "submit" name= "action" value = "Hikers">
         <br><br>
+        <input class = 'inputSide' type = "submit" name= "action" value = "Orders">
+        <br><br>
         </form>
     </div>
     <div class='mainAdmin'>
+    <div class="topTextAdmin">
+            <h1>Admins</h1>
+            <p>Right here, you can view all admins or add a new one.</p>
+            <hr>
+            <script>
+                    function openForm() {
+                    document.getElementById("myForm").style.display = "block";
+                    }
+
+                    function closeForm() {
+                    document.getElementById("myForm").style.display = "none";
+                    }
+                    </script>
+            <button class = 'createButton' type="submit" name = 'addTable' onclick="openForm()"> Add an Admin</button>
+            <!-- </form> -->
+            <div class="form-popup" id="myForm">
+                     <h5>Create a Group</h5>
+                     <form action='' method='post' class = 'form-container'>
+                        <p>First Name:
+                        <input type='text' name='fname' placeholder = 'First Name'></p><br> 
+                        <p>Last Name:
+                        <input type='text' name='lname' placeholder = 'Last Name'></p><br>
+                        <p>Email:
+                        <input type='text' name='Email' placeholder = 'ex: email@email.com'></p> <br>
+                        <p>Password:
+                        <input type='Password' name='Password' placeholder='Password'></p><br><br>
+                        <button type="submit" class="btn" name = 'Addsub' >SUBMIT</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                    </form>
+                    </div>
+            
+            <p>Add a new admin to operate with you.</p>
+            <hr>
+        </div>
     <?php
     
     if($_SESSION['userRole'] === 'admin'){
@@ -95,7 +128,7 @@
     <option value='fname' >First Name</option>
     <option value='lname' >Last Name</option>
     <option value='email' >Email</option>
-    </select><br><br>
+    </select>
     Search <select name='searchlist' id='searchlist'>
     <option value='all' selected>All</option>
     <option value='userID' >Admin ID</option>
@@ -141,35 +174,23 @@
     if($txtsr!=""&&(mysqli_num_rows($result)) == 0)
         echo "There are no results <br> Try searching again<br>";
     else{
-        echo "<table class = 'tableClass' border = '1'><tr>
-        <th>Admin ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Delete</th>
+        echo "<table class = 'tableClass'><tr>
+        <th>Admin ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th></th>
         </tr>";
         while($row=$result->fetch_assoc()){
             $id=$row['userID'];
-            echo "<tr>
-            <td>{$id}</td>
-            <td>{$row['fname']}</td>
-            <td>{$row['lname']}</td>
-            <td>{$row['email']}</td>
-            <td><button type = 'submit' name = 'delete' value = '$id' >DELETE</button></td>
-            </tr>";
+            if($id != $_SESSION['ID']){
+                echo "<tr>
+                <td>{$id}</td>
+                <td>{$row['fname']}</td>
+                <td>{$row['lname']}</td>
+                <td>{$row['email']}</td>
+                <td><button class = 'deleteButton' type = 'submit' name = 'delete' value = '$id' >DELETE</button></td>
+                </tr>";
+            }
         }
     }
-    echo "</table><input type = 'submit' name = 'add' value = 'add' ></form>";
-    if(isset($_POST['add'])){
-        echo "<form action='' method='post'>
-        First Name:<br>
-        <input type='text' name='fname'><br> 
-        Last Name:<br>
-        <input type='text' name='lname'><br>
-        Email:<br>
-        <input type='text' name='Email'> <br>
-        Password:<br>
-        <input type='Password' name='Password'><br><br>
-        <button type = 'submit' value='add' name='Addsub'>Submit</button>
-        <input type='reset'>
-        </form>";
-    }
+    echo "</table></form>";
     if(isset($_POST['delete'])){
         $id=$_POST['delete'];
         $sql="DELETE FROM users WHERE userID='$id'";
@@ -232,22 +253,19 @@
         $conn=new mysqli("localhost","root","","project");
         if($_POST['action']=="Admins")
             {
-            $_GET['add']=false;
-            $_GET['delete']=false;
             echo "<script>window.location.replace('otheradmin.php')</script>";
         }
 
         if($_POST['action']=="Hikers")
         {
-            $_GET['add']=false;
-            $_GET['delete']=false;
             echo "<script>window.location.replace('hikers.php')</script>";
         }
         
         if($_POST['action']=="Groups"){
-            $_GET['add']=false;
-            $_GET['delete']=false;
             echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
+        }
+        if($_POST['action']=="Orders"){
+            echo "<script>window.location.replace('/project/orders/orders.php')</script>";
         }
     }
 ?>  

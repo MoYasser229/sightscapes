@@ -72,6 +72,7 @@ if(isset($_POST['checkAjax'])){
 		.rating{
 			margin-left: 10px;
 			margin-top: -60px;
+			font-size: 20px;
 			line-height: 1px;
 		}
 		@media only screen and (min-width: 1900px) {
@@ -94,8 +95,9 @@ if(isset($_POST['checkAjax'])){
 		}
 		$bought = false;
 			while($row= $result->fetch_array(MYSQLI_ASSOC)){
-				if($row['avgrating']==0){
-					$row['avgrating'] = "NO CUSTOMER REVIEWS";
+				$avgRating = 'NO CUSTOMER REVIEWS';
+				if($row['avgrating']!=0){
+					$avgRating = $row['avgrating'] . " stars";
 				}
 
 				foreach($groupsArray as $group){
@@ -108,8 +110,8 @@ if(isset($_POST['checkAjax'])){
 					
 					echo "<div class = 'item'>";
 					echo "<a class = 'groupPage' href='groupPage.php?GID={$row['GID']}'><img src='../controlgroups/images/".$row['pic']."' width= 500px height= 400px></a>";
-					echo "<p class='rating'>Rating: {$row['avgrating']}</p>";
-					echo "<h2> <span style='margin-left: 10px; font-size: 12px'>LOCATION:</span>&nbsp".$row['loc']."</h2>";
+					echo "<p class='rating'>Rating: {$avgRating}</p>";
+					echo "<h2> <span style='margin-left: 10px; font-size: 12px'>LOCATION:</span>&nbsp".strtoupper($row['loc'])."</h2>";
 					echo "<p><span style='margin-left: 130px;font-size: 30px'>AT ONLY <strong>".$row['price']." EGP</strong></span></p>";
 					if(isset($row['diffLevel']))
 						echo "<p style='margin-left: 150px;'>DIFFICULTY: <strong>{$row['diffLevel']}</strong></p>";

@@ -1,4 +1,4 @@
-.background{
+/* .background{
     background-color: #0b1d26;
     width: 190% !important;
   height: 150% !important;
@@ -88,4 +88,66 @@
     background-color: #0b1d26;
     box-shadow: 0 5px #0b1d26;
     transform: translateY(4px);
+  } */
+ .midContainer{
+   margin-top: 100px;
+   background-color: #3e7077;
+   margin-left: 100px;
+   width: 90%;
+   padding-left: 50px;
+   padding-bottom: 50px;
+ }
+ .midContainer h1{
+   color: white;
+   font-size: 75px;
+
+ }
+  .midContainer .editForm h5{
+    color: white;
   }
+  .midContainer .editForm input[type="text"]{
+    width: 25%;
+    height: 50px;
+    padding: 10px;
+  }
+  .midContainer .editForm input[type = "file"]{
+    color: white;
+  }
+  .midContainer .editForm input[type = "checkbox"]{
+    width: 20px;
+    height: 20px;
+    margin-top: 1%;
+  }
+  .button1{
+    background-color: #010c11;
+    border: none;
+    color: white;
+    width: 25% !important;
+    height: 10% !important;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .button1:hover {background-color: #0b1d26}
+  .button1:active {
+    background-color: #0b1d26;
+    box-shadow: 0 5px #0b1d26;
+    transform: translateY(4px);
+  }
+  .note1{
+  color:#061c20;
+  font-size: 1.4em;
+    font-family: sans-serif;
+}
+.note2{
+    color:#061c20;
+    font-size: 1.4em;
+      font-family: sans-serif;
+}
+.note3{
+  color:#061c20;
+  font-size: 1.4em;
+    font-family: sans-serif;
+}

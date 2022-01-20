@@ -1,4 +1,4 @@
-html{
+/* html{
     height: 500px;
     width: 500px;
 }
@@ -9,6 +9,7 @@ body {
   height: 100% !important;
   overflow-x: hidden !important;
 }
+
 .squareB {
   width: 150% !important;
   height: 30% !important;
@@ -17,24 +18,7 @@ body {
     padding: 500px;
     background-color: #3e7077
   }
-  .squareA {
-    width: 150% !important;
-    height: 50% !important;
-    bottom:1200px;
-      position:relative;
-      padding: 500px;
-      background-color: #0b1d26
-      
-    }
-    .squareC {
-      position:relative;
-      width: 50% !important;
-      height: 5px !important;
-      left:100px;
-      bottom:2250px;
-        padding: 500px;
-        background-color: #00070a
-      }
+  
    
   .note{
     position:relative;
@@ -117,7 +101,7 @@ body {
     font-size: 16px;
     position:relative;
     bottom:2800px;
-    left:500px;
+    left:400px;
     cursor: pointer;
   }
   .button4:hover {background-color: #e03018}
@@ -136,7 +120,7 @@ body {
     display: inline-block;
     font-size: 16px;
     position:relative;
-    bottom:3900px;
+    bottom:3850px;
     left:1150px;
     cursor: pointer;
   }
@@ -160,4 +144,134 @@ body {
     font-size: 200%;
     font-family: sans-serif;
     color: rgb(252, 252, 249);
+  } */
+.TopContainer{
+  width: 100%;
+  height: 50%;
+  background-color: #3e7077;
+}
+.roundedProfilePicture{
+  border-radius: 150px;
+  margin-left: 150px;
+  margin-top: -75px;
+}
+.squareA {
+  width: 75% !important;
+  height: 50% !important;
+    background-color: #0b1d26;
+    margin-top: -160px;
+    margin-left: 12.5%;
   }
+  .squareA h1{
+    margin-left: 20%;
+    color: white;
+    font-size: 75px;
+  }
+  .squareA h4{
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+  }
+  .squareA table{
+    padding: 10px;
+  }
+  .squareA table .textRight{
+    display: flex;
+    justify-content: center;
+    font-weight: 300;
+    color: white;
+    font-size: 30px;
+    padding: 50px;
+  }
+  .squareA hr{
+    background-color: goldenrod;
+    width: 90%;
+  }
+  .button{
+    background-color: #0b1d26;
+    border: none;
+    color: white;
+    width: 40% !important;
+    height: 10% !important;
+    text-align: left;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px;
+  }
+  .button:hover {background-color: #3e7077}
+  .button:active {
+    background-color: #3e7077;
+    box-shadow: 0 5px #3e7077;
+    transform: translateY(4px);
+  }
+  .PasswordInfo h2{
+    color: white;
+  }
+  .PasswordInfo .passwordForm{
+    color: white;
+  }
+  .passwordForm h5{
+    color: white;
+    font-family: sans-serif;
+  }
+  .passwordForm input[type="password"]{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    color:white;
+    font-size: 1.4em;
+    font-family: sans-serif;
+    width: 25%;
+  }
+  .passwordForm input[type="password"]:focus{
+    outline: none;
+  }
+  .passwordForm input[type="password"]::placeholder{
+    color: white;
+    font-size: 16px;
+  }
+  .button1{
+    background-color: #0b1d26;
+    border: none;
+    width: 25% !important;
+    height: 10% !important;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .button1:hover {background-color: #3e7077}
+  .button1:active {
+    background-color: #0b1d26;
+    box-shadow: 0 5px #0b1d26;
+    transform: translateY(4px);
+  }
+  footer {
+    margin-top: 50%;
+    color: white;
+}
+footer p, a {
+font-size: 12px;
+font-family: 'Roboto', sans-serif;
+}
+footer h6 {
+font-family: 'Playfair Display', serif;
+margin-bottom: 40px;
+position: relative;
+}
+footer h6:after {
+position: absolute;
+content: "";
+background: grey;
+width: 12%;
+height: 1px;
+left: 0;
+bottom: -20px;
+}
+.social .fa {
+color: gray;
+font-size: 22px;
+padding: 10px 15px;
+background: #3c3c3c;
+}

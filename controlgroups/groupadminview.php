@@ -24,6 +24,8 @@ session_start();
             <br><br>
             <input class = 'inputSide' type = "submit" name= "action" value = "Hikers">
             <br><br>
+            <input class = 'inputSide' type = "submit" name= "action" value = "Orders">
+            <br><br>
             </form>
         </div>
         <?php
@@ -39,9 +41,6 @@ session_start();
                         <li class="nav-item">
                             <a class="nav-link active" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="orders/orders.php"><h6>ORDERS</h6></a>
-                        </li>
                         </ul>
                     </div>
                     <div class="mx-auto order-0">
@@ -53,13 +52,13 @@ session_start();
                     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                         <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                        <a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
+                        <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+                        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
                     </li>
                         </ul>
                     </div>
@@ -70,6 +69,60 @@ session_start();
         checkLogin();
     ?>
         <div class="mainAdmin">
+        <div class="topTextAdmin">
+            <h1>Groups</h1>
+            <p>Right here, you can view all groups, edit existing groups, or add a new one to the set.</p>
+            <hr>
+            
+            <!-- <form action ='' method ='post' class = 'addForm'> -->
+            <script>
+                    function openForm() {
+                    document.getElementById("myForm").style.display = "block";
+                    }
+
+                    function closeForm() {
+                    document.getElementById("myForm").style.display = "none";
+                    }
+                    function openForm2() {
+                    document.getElementById("myForm2").style.display = "block";
+                    }
+
+                    function closeForm2() {
+                    document.getElementById("myForm2").style.display = "none";
+                    }
+                    </script>
+            <button class = 'createButton' type="submit" name = 'addTable' onclick="openForm()"> Create a Group</button>
+            <!-- </form> -->
+            <div class="form-popup" id="myForm">
+                     <h5>Create a Group</h5>
+                    <form method='post' action='' enctype= 'multipart/form-data' class = 'form-container'>
+                        <p>Location:
+                        <input type="text" name="Loc" placeholder = 'Location'>
+                        Price:
+                        <input type="text" name="price" placeholder = 'Price'></p>
+                        
+                        <p>Departure Time:
+                        <input type="DATE" name="departureTime">
+                        Arrival Time:
+                        <input type="DATE" name="arrivalTime"></p>
+                        <p>Description:
+                        <input type="text" name="descrip" placeholder='Small Description'></p>
+                        <p>Distance:
+                        <input type="text" name="distance" placeholder="Distance In Miles">Difficulty Level:
+                        <input type= 'range' min="1" max="5" name='diffLevel' value = "1" id="myRange"> Level: <span id="diffValue"></span></p>
+                        
+                        <p>Picture:
+                        <input type="file" name="picture"></p><br>
+                        <button type="submit" class="btn" name = 'addSubmit' >SUBMIT</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                    </form>
+                    </div>
+            
+            <p>Create a new Group to be shown to hikers.</p>
+            <hr>
+        </div>
+        
+        <br>
         <form method="post" action="">
         <select name = 'sortArrange'>
             <option value='DESC' selected>descending</option>
@@ -82,7 +135,7 @@ session_start();
                 <option value="Loc" >Location</option>
                 <option value="departureTime" >Departure Date</option>
                 <option value="arrivalTime" >Arrival Date</option>
-            </select><br><br>
+            </select>
             Search <select name="searchlist" id="searchlist">
                 <option value="all" selected>All</option>
                 <option value="GID" >Group ID</option>
@@ -150,10 +203,11 @@ session_start();
         if($txtsr!=""&&(mysqli_num_rows($result)) == 0)
             echo "There are no results <br> Try searching again";
         else{
-            echo "<table class = 'tableClass' border =1><tr><th> Group ID </th><th> Price </th><th> Rating 
+            echo "<table class = 'tableClass'><tr><th></th><th> Group ID </th><th> Price </th><th> Rating 
             </th><th> Location </th><th> Departure Date </th><th> Arrival Date 
-            </th><th> Description </th><th> Picture </th><th>Difficulty Level</th><th>Distance</th><th>Edit</th><th>Delete</th></tr>";
+            </th><th>Difficulty Level</th><th>Distance</th><th></th><th></th></tr>";
             while($row= $result->fetch_array(MYSQLI_ASSOC)){
+                echo "<td> <img src = 'images/".$row['pic']."' width = '200' height = '200'</td>";
                 echo "<td> ".$row['GID']."</td>";
                 echo "<td> ".$row['price']."</td>";
                 if(!isset($row['avgrating']))
@@ -163,8 +217,7 @@ session_start();
                 echo "<td> ".$row['loc']."</td>";
                 echo "<td> ".$row['departureTime']."</td>";
                 echo "<td> ".$row['arrivalTime']."</td>";
-                echo "<td> ".$row['descrip']."</td>";
-                echo "<td> ".$row['pic']."</td>";
+                
                 echo "<td> ".$row['diffLevel']."</td>";
                 echo "<td> ".$row['distance']."</td>";
                 echo "<td> <a href='groupadminview.php?editId={$row['GID']}'> Edit</a></td>
@@ -174,9 +227,7 @@ session_start();
         }
         ?>
         </table>
-        <form action ='' method ='post'>
-        <button type="submit" name = 'addTable'> Add Table</button>
-        </form>
+        
         <script>
             var errorInPrice = false
             var errorInLocation = false
@@ -186,37 +237,14 @@ session_start();
             var errorInPicture = false
         </script>
         <?php
-            if(isset($_POST['addTable'])){
+            if(isset($_GET['editId'])){
                 ?>
-                <h1>Add</h1>
-                <form action="" method="post" enctype="multipart/form-data">
-                Price:<br>
-                <input type="text" name="price"><br> 
-                Location:<br>
-                <input type="text" name="Loc"><br> 
-                Departure Time:<br>
-                <input type="DATE" name="departureTime"><br>
-                Arrival Time:<br>
-                <input type="DATE" name="arrivalTime"><br>
-                Description:<br>
-                <input type="text" name="descrip"><br>
-                Distance:<br>
-                <input type="text" name="distance" placeholder="Distance In Miles"><br>
-                Difficulty Level:<br>
-                <input type= 'range' min="1" max="5" name='diffLevel' value = "1" id="myRange"><br>
-                <p>Level: <span id="diffValue"></span></p>
-                Picture:<br>
-                <input type="file" name="picture"><br><br>
-                <input type="submit" value="Submit" name="addSubmit">
-                <input type="reset">
-                </form>
                 
-                <?php
-            }
-            else if(isset($_GET['editId'])){
-                ?>
-                <h1>Edit</h1>
-                <form method = "post" action="" enctype="multipart/form-data">
+                <div class="form-popup" id="myForm2">
+                <script>
+                    openForm2()
+                </script>
+                     <h5>Edit a Group</h5>
                 <?php
                     $conn = new mysqli("localhost" , "root" , "" , "project");
                     if($conn-> connect_error) die("fatal error - cannot connect to the DB");
@@ -225,35 +253,40 @@ session_start();
                     $results = $conn-> query($query);
                     if(!$results) die($conn->error);
 
-                    while($row = $results->fetch_array(MYSQLI_ASSOC)) {
-                        echo 'Price:<br>';
-                        echo "<input type = text name=price value = ".$row["price"] . "><br>";
-                        echo 'Location:<br>';
-                        echo "<input type = text name=Loc value = ".$row["loc"] . "><br>";
-                        echo 'Departure Time:<br>';
-                        echo "<input type = DATE name=departureTime value = ".$row["departureTime"] . "><br>";
-                        echo 'Arrival Time:<br>';
-                        echo "<input type = DATE name=arrivalTime value = ".$row["arrivalTime"] . "><br>";
-                        echo 'Description:<br>';
-                        echo "<input type = text name=descrip value = ".$row["descrip"] . "><br>";
-                        echo "Difficulty Level: <br><input type = range min= 1 max = 5 name=diffLevel id='myRange' value = ".$row["diffLevel"] . "><br>";
-                        echo "<p>Level: <span id='diffValue'></span></p>";
-                        echo "Distance<br><input type = text name=distance value = ".$row["distance"] . "><br>";
-                        echo "Picture:<br>
-                        <input type='file' name='picture' value = ".$row["pic"]."><br><br>";
+                    if($row = $results->fetch_array(MYSQLI_ASSOC)) {
+                        ?>
+                            <form method='post' action='' enctype= 'multipart/form-data' class = 'form-container'>
+                            <p>Location:
+                            <input type="text" name="Loc" value = '<?php echo $row["loc"]?>'>
+                            Price:
+                            <input type="text" name="price" value = '<?php echo $row["price"]?>'></p>
+                            
+                            <p>Departure Time:
+                            <input type="DATE" name="departureTime" value = '<?php echo $row["departureTime"]?>'>
+                            Arrival Time:
+                            <input type="DATE" name="arrivalTime" value = '<?php echo $row["arrivalTime"]?>'></p>
+                            <p>Description:
+                            <input type="text" name="descrip" placeholder='Small Description' value = '<?php echo $row["descrip"]?>'></p>
+                            <p>Distance:
+                            <input type="text" name="distance" placeholder="Distance In Miles" value = '<?php echo $row["distance"]?>'>Difficulty Level:
+                            <input type= 'range' min="1" max="5" name='diffLevel' value = '<?php echo $row["diffLevel"]?>' id="myRange2"> Level: <span id="diffValue2"></span></p>
+                            
+                            <p>Picture:
+                            <input type="file" name="picture" value = '<?php echo $row["pic"]?>'></p><br>
+                        <?php
                     }
                 ?>
-                <input type="submit" name="editSubmit">
+                 <button type="submit" class="btn" name = 'editSubmit' >SUBMIT</button>
+                 <button type="button" class="btn cancel" onclick="closeForm2()">Close</button>
+                </form>
+                </div>
                 <?php
             }
             else if(isset($_GET['deleteId'])){
                 $id=$_GET["deleteId"];
-                ?>
-                <h2> Are you sure that you want to delete? </h2>
-                <form method = "post" action="">
-                <button type="submit" name="deleteSubmit">Delete</button>
-                <?php
-                
+                $query = "DELETE from Groups where GID ='$id'";
+                $results = $conn-> query($query);
+                if($results) echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
             }
         ?>
         </div>
@@ -264,6 +297,14 @@ session_start();
 
                     slider.oninput = function() {
                         output.innerHTML = this.value;
+                    }
+
+                    var slider2 = document.getElementById("myRange2");
+                    var output2 = document.getElementById("diffValue2");
+                    output2.innerHTML = slider2.value;
+
+                    slider2.oninput = function() {
+                        output2.innerHTML = this.value;
                     }
         </script>
     </body>
@@ -368,31 +409,23 @@ if(isset($_POST["editSubmit"])){
     $results = $conn-> query($query) or die ($conn->error);
     echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
 }
-if(isset($_POST["deleteSubmit"])){
-    $query = "DELETE from Groups where GID ='$id'";
-    $results = $conn-> query($query);
-    if($results) echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
-}
 if(isset($_POST['action'])){
     $conn=new mysqli("localhost","root","","project");
     if($_POST['action']=="Admins")
         {
-        $_GET['add']=false;
-        $_GET['delete']=false;
         echo "<script>window.location.replace('/project/admincontrol/otheradmin.php')</script>";
     }
 
     if($_POST['action']=="Hikers")
     {
-        $_GET['add']=false;
-        $_GET['delete']=false;
         echo "<script>window.location.replace('/project/admincontrol/hikers.php')</script>";
     }
     
     if($_POST['action']=="Groups"){
-        $_GET['add']=false;
-        $_GET['delete']=false;
         echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
+    }
+    if($_POST['action']=="Orders"){
+        echo "<script>window.location.replace('/project/orders/orders.php')</script>";
     }
 }
 ?>

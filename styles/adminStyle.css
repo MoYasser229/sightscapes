@@ -1,3 +1,4 @@
+
 .background{
     background-color: #0b1d26;
     height: 75px;
@@ -37,4 +38,174 @@
   }
   .mainAdmin .tableClass{
       width: 100%;
+      /* margin-left: 5%; */
+      text-align: center;
+      padding: 10px;
+      font-size: 20px;
   }
+  .mainAdmin .tableClass th{
+    background-color: #0b1d26;
+    color: white;
+  }
+  .mainAdmin .tableClass td a{
+    color: white;
+    background-color: #0b1d26;
+    border-radius: 10px;
+    padding: 15px;
+  }
+  .mainAdmin .tableClass td a:hover{
+    text-decoration: none;
+    background-color:#173c4e;
+  }
+  .topTextAdmin{
+    text-align: left;
+    margin-left: 100px;
+    padding-right: 100px;
+    margin-bottom: 50px;
+  }
+  .topTextAdmin h1{
+    font-size: 75px;
+    color: #0b1d26;
+  }
+  .topTextAdmin hr{
+    width: 100%;
+    background-color: #0b1d26;
+  }
+  .topTextAdmin .createButton{
+    padding: 0;
+    border: none;
+    color: #0b1d26;
+    font-size: 50px;
+    background-color: white;
+  }
+  .topTextAdmin  .createButton:focus{
+    outline: none;
+  }
+  .topTextAdmin  .createButton:hover{
+    color: goldenrod;
+  }
+
+  .deleteButton{
+    color: white;
+    outline: none;
+    border: none;
+    background-color: #0b1d26;
+    padding: 10px;
+    border-radius:10px;
+  }
+  .deleteButton:hover{
+    background-color:#173c4e;
+  }
+  .deleteButton:focus{
+    outline: none;
+  }
+  .stat{
+    text-align: center;
+    padding: 20px;
+  }
+  .stat h2{
+    font-size: 70px;
+  }
+  .rightInfo{
+    padding-left: 50%;
+  }
+   .smallText{
+    font-size: 20px;
+  }
+
+  .form-popup {
+    display: none;
+    position: fixed;
+    bottom: 10%;
+    top: 10%;
+    right: 30%;
+    left: 30%;
+    background-color: #0b1d26;
+    z-index: 9;
+    border-radius: 25px;
+    padding-top: 50px;
+}
+.form-popup h5{
+    color: white;
+    text-align: center;
+    font-size: 30px;
+}
+
+/* Add styles to the form container */
+.form-container {
+    /* max-width: 300px; */
+    padding: 10px;
+    height: 25%;
+    text-align: center;
+}
+.form-container input{
+    margin-bottom: 20px;
+    
+}
+/* Full-width input fields */
+.form-container input[type=text] {
+    border: none;
+    border-bottom: 2px solid white;
+    background-color: transparent;
+    color: white;
+    margin-right: 20px;
+}
+.form-container input[type=password] {
+  border: none;
+  border-bottom: 2px solid white;
+  background-color: transparent;
+  color: white;
+  margin-right: 20px;
+}
+.form-container input[type=text]:focus{
+    outline: none;
+}
+.form-container input[type=text]::placeholder{
+    color: gray;
+}
+.form-container input[type=date]{
+    margin-right: 20px;
+}
+.form-container p{
+    color: white;
+}
+.form-container input[type=file]{
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px;
+    
+}
+
+/* .form-container input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+} */
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+    background-color: white;
+    color:#0b1d26;
+    border: none;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+    background-color: red;
+    color: white;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}
+.form-container p{
+    color: white;
+    font-size: 20px;
+}
+.topText{
+    color: white;
+    text-align: center;
+
+}

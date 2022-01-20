@@ -26,6 +26,8 @@
         <br><br>
         <input class = 'inputSide' type = "submit" name= "action" value = "Hikers">
         <br><br>
+        <input class = 'inputSide' type = "submit" name= "action" value = "Orders">
+            <br><br>
         </form>
     </div>
     <?php
@@ -41,9 +43,6 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="orders/orders.php"><h6>ORDERS</h6></a>
-                        </li>
                         </ul>
                     </div>
                     <div class="mx-auto order-0">
@@ -55,13 +54,13 @@
                     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                         <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                        <a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
+                        <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+                        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
                     </li>
                         </ul>
                     </div>
@@ -72,9 +71,15 @@
         checkLogin();
     ?>
     <div class='mainAdmin'>
+    <div class="topTextAdmin">
+            <h1>Hikers</h1>
+            <p>Right here, you can view all admins.</p>
+            <hr>
+        </div>
     <?php
     
     if($_SESSION['userRole'] === 'admin'){
+        
         $conn=new mysqli("localhost","root","","project");
         ?>
             <form method='post' action=''>
@@ -87,7 +92,7 @@
             <option value='fname' >First Name</option>
             <option value='lname' >Last Name</option>
             <option value='email' >Email</option>
-            </select><br><br>
+            </select>
             Search <select name='searchlist' id='searchlist'>
             <option value='all' selected>All</option>
             <option value='userID' >Admin ID</option>
@@ -133,7 +138,7 @@
         if($txtsr!=""&&(mysqli_num_rows($result)) == 0)
             echo "There are no results <br> Try searching again";
         else{
-            echo "<table class = 'tableClass' border = '1'><tr><th>Hiker ID</th><th>FirstName</th><th>LastName</th><th>Email</th></tr>";
+            echo "<table class = 'tableClass' ><tr><th>Hiker ID</th><th>FirstName</th><th>LastName</th><th>Email</th></tr>";
             while($row=$result->fetch_assoc()){
             echo "<tr><td>" .$row['userID']. "</td><td>" .$row['fname']. "</td><td>" .$row['lname'] . "</td><td>" .$row['email'] . "</td></tr>";
             }
@@ -154,22 +159,19 @@
         $conn=new mysqli("localhost","root","","project");
         if($_POST['action']=="Admins")
             {
-            $_GET['add']=false;
-            $_GET['delete']=false;
             echo "<script>window.location.replace('otheradmin.php')</script>";
         }
 
         if($_POST['action']=="Hikers")
         {
-            $_GET['add']=false;
-            $_GET['delete']=false;
             echo "<script>window.location.replace('hikers.php')</script>";
         }
         
         if($_POST['action']=="Groups"){
-            $_GET['add']=false;
-            $_GET['delete']=false;
             echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
+        }
+        if($_POST['action']=="Orders"){
+            echo "<script>window.location.replace('/project/orders/orders.php')</script>";
         }
     }
 ?>  

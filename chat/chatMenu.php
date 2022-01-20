@@ -62,9 +62,6 @@ include_once '../errorHandler/errorHandlers.php';
 											<li class="nav-item">
 												<a class="nav-link" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
 											</li>
-											<li class="nav-item">
-												<a class="nav-link" href="orders/orders.php"><h6>ORDERS</h6></a>
-											</li>
 											</ul>
 										</div>
 										<div class="mx-auto order-0">
@@ -212,12 +209,134 @@ include_once '../errorHandler/errorHandlers.php';
                     <a href='chatMenu.php#previousChat' onClick='ajaxLoader()'>LOAD PREVIOUS MESSAGES</a><br>
                     <p> Have all your previous issues and group suggestions all in one place.</p>
                     <hr>
-                    <input type='submit' name='recgrp' value='RECOMMEND A GROUP'><br>
-                    <p>Not Interested in any of our offerings? You can submit a form to add a group of your choice. Send the desired location from the link above and one of our adminstrators will reply soon.</p>
-                    <hr>
+                   
+                    
                     <input type='submit' name='issues' value='CREATE AN ISSUE CHAT'>
                     <hr>
                 </form>
+                <style type="text/css">
+                    .open-button {
+                        background-color: transparent;
+                        color: white;
+                        font-size: 35px;
+                        font-family: serif;
+                        padding: 10px;
+                        border: none;
+                        margin-left: 25%;
+                    }
+                    
+                    /* The popup form - hidden by default */
+                    .form-popup {
+                        display: none;
+                        position: fixed;
+                        bottom: 15%;
+                        right: 15%;
+                        top: 15%;
+                        left: 15%;
+                        border: 3px solid #f1f1f1;
+                        background-color: #173f53;
+                        z-index: 9;
+                        border-radius: 25px;
+                        padding-top: 50px;
+                    }
+                    .form-popup h5{
+                        color: white;
+                        text-align: center;
+                        font-size: 30px;
+                    }
+                    
+                    /* Add styles to the form container */
+                    .form-container {
+                        background-color: #173f53;
+                        /* max-width: 300px; */
+                        padding: 10px;
+                        height: 25%;
+                    }
+                    
+                    /* Full-width input fields */
+                    .form-container input[type=text] {
+                        width: 100%;
+                        height: 50px;
+                        margin: 5px 0 22px 0;
+                        border: none;
+                        background-color: #0b1d26;
+                    }
+                    .form-container input[type=file]{
+                        text-align: center;
+                        font-size: 20px;
+                        color: white;
+                        margin-left: 40%;
+                        margin-right: 40%;
+                        margin-bottom: 20px;
+                    }
+                    
+                    /* When the inputs get focus, do something */
+                    .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+                        background-color: #ddd;
+                        outline: none;
+                    }
+                    
+                    /* Set a style for the submit/login button */
+                    .form-container .btn {
+                        background-color: #04AA6D;
+                        color: white;
+                        padding: 16px 20px;
+                        border: none;
+                        cursor: pointer;
+                        width: 10%;
+                        margin-bottom:10px;
+                        opacity: 0.8;
+                    }
+                    
+                    /* Add a red background color to the cancel button */
+                    .form-container .cancel {
+                        background-color: red;
+                    }
+                    
+                    /* Add some hover effects to buttons */
+                    .form-container .btn:hover, .open-button:hover {
+                        opacity: 1;
+                    }
+                    .form-container p{
+                        color: white;
+                        font-size: 20px;
+                    }
+                    .topText{
+                        color: white;
+                        text-align: center;
+
+                    }
+                </style>
+                 <button class = 'open-button' onclick = 'openForm()'>RECOMMEND A GROUP</button><br>
+                 <p class = 'topText'>Not Interested in any of our offerings? You can submit a form to add a group of your choice. Send the desired location from the link above and one of our adminstrators will reply soon.</p>
+                    <hr>
+                 <div class="form-popup" id="myForm">
+                     <h5>REQUEST A GROUP</h5>
+                    <form method='post' action='<?php 
+                        $sql = "SELECT userID FROM Users WHERE userRole='Admin' ORDER BY RAND() LIMIT 1;";
+                        $result=$conn->query($sql) or die("Error: ".$conn->error);
+                        $row = $result->fetch_assoc();
+                        $admin=$row['userID'];
+                        echo "chat.php?admin=$admin&chatType=Group Recommendation"
+                    ?>' enctype= 'multipart/form-data' class = 'form-container'>
+                            <p>LOCATION</p> <input type='text' name='loc'><br>
+                            <p>DESCRIPTION</p> <input type='text' name='desc'> <br>
+                            <p>PICTURE</p> <input type='file' name='pic'><br>
+                            <p>LINK</p> <input type='text' name='link'><br>
+                        <button type="submit" class="btn" name = 'submitRequest' >SUBMIT</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                    </form>
+                    </div>
+
+                    <script>
+                    function openForm() {
+                    document.getElementById("myForm").style.display = "block";
+                    }
+
+                    function closeForm() {
+                    document.getElementById("myForm").style.display = "none";
+                    }
+                    </script>
             </div>
         </div>
         <div id = 'previousChat' class = 'previousChat'>
@@ -322,7 +441,7 @@ include_once '../errorHandler/errorHandlers.php';
         '$admin','Group Recommendation');";
         $result=$conn->query($sql) or die("Error: ".$conn->error);
         ///validate
-        echo "<form method='post' action='chat.php?admin=$admin&chatType=Group Recommendation'>
+        echo "<form method='post' action='chat.php?admin=$admin&chatType=Group Recommendation' enctype= 'multipart/form-data'>
         Location <input type='text' name='loc'><br>
         Description <input type='text' name='desc'> <br>
         Picture <input type='file' name='pic'><br>
@@ -404,6 +523,7 @@ include_once '../errorHandler/errorHandlers.php';
             })
     }
 </script>
+
 <footer class="container-fluid bg-grey py-5">
             <div class="container ">
                 <div class="row">

@@ -32,9 +32,6 @@ if($_SESSION['userRole'] === 'admin'){
                             <li class="nav-item">
                                 <a class="nav-link active" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="orders/orders.php"><h6>ORDERS</h6></a>
-                            </li>
                             </ul>
                         </div>
                         <div class="mx-auto order-0">
@@ -46,13 +43,13 @@ if($_SESSION['userRole'] === 'admin'){
                         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                             <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                            <a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
+                            <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
+                            <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
                         </li>
                             </ul>
                         </div>
@@ -70,6 +67,8 @@ if($_SESSION['userRole'] === 'admin'){
         <br><br>
         <input class = 'inputSide' type = "submit" name= "action" value = "Hikers">
         <br><br>
+        <input class = 'inputSide' type = "submit" name= "action" value = "Orders">
+            <br><br>
         </form>
     </div>
     <div class='main'>
@@ -80,22 +79,19 @@ if($_SESSION['userRole'] === 'admin'){
         $conn=new mysqli("localhost","root","","project");
         if($_POST['action']=="Admins")
             {
-            $_GET['add']=false;
-            $_GET['delete']=false;
             header("Location: otheradmin.php");
         }
 
         if($_POST['action']=="Hikers")
         {
-            $_GET['add']=false;
-            $_GET['delete']=false;
             header("Location: hikers.php");
         }
         
         if($_POST['action']=="Groups"){
-            $_GET['add']=false;
-            $_GET['delete']=false;
             header("Location: /project/controlgroups/groupadminview.php");
+        }
+        if($_POST['action']=="Orders"){
+            echo "<script>window.location.replace('/project/orders/orders.php')</script>";
         }
     }
 ?>  

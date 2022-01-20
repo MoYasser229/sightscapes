@@ -37,18 +37,25 @@
 							$jsonString = json_encode($cart);
 							
 							insert($_SESSION['ID'],$jsonString);
+							// if(isset($_GET['oneGroupAccess']) && $_GET['oneGroupAccess'] === 1){
+							// 	header("Location: grouphikers.php?success=1");
+							// }
                             header("Location: grouphikers.php?success=1");
+							//echo "done";
 						}
 						else{
 							//echo "<script>alert('Item Already in cart')</script>";
                             header("Location: grouphikers.php?errorCart=1");
+							//echo "errorCart";
 						}
 					}
 				//}
 			}
 			else{
-				//echo "<script>alert('You need to Login/SignUp to add to cart')</script>";
+				// echo "<script>window.replace('grouphikers.php?errorRegister=1')</script>";
+				//echo "errorSign";
                 header("Location: grouphikers.php?errorRegister=1");
+				
 			}
 		//}
 ?>
