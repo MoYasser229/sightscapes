@@ -1,8 +1,4 @@
-<!-- <?php 
-// session_start();
-// include_once '../errorHandler/errorHandlers.php';
-// set_error_handler('loginError',E_ALL);
-// ?>
+<!-- 
 <html>
 <body>
 <table border =1>
@@ -37,6 +33,8 @@
 
 <?php 
 session_start();
+// include_once '../errorHandler/errorHandlers.php';
+// set_error_handler('loginError',E_ALL);
 ?>
 <html>
 <head>
@@ -283,6 +281,9 @@ if($row= $result->fetch_array(MYSQLI_ASSOC)){
       <h5>Enter new Password</h5><input type='password'  name='newPassword' placeholder= 'New Password'><br><br>
       <input type= 'submit'  name= 'submit' class='button1' value= 'SUBMIT' style='color: white' ><br>
       </form>
+      <h2>Delete Your Account</h2>
+      <p class = 'textDelete'>NOTE: Your account will be permanently deleted. You cant sign in with the account.</p>
+      <button class="button4" onclick="confirmAction()"> Delete My Account </button>
       <?php 
         if(isset($_POST['submit'])){
             $oldPassword = $_POST['oldPassword'];
@@ -312,6 +313,17 @@ if($row= $result->fetch_array(MYSQLI_ASSOC)){
     <script>
         if(errorInPassword === true)
             alert("Password is not given")
+
+            function confirmAction() {
+              let confirmAction = confirm("Are you sure to execute this action?");
+              if (confirmAction) {
+                alert("Action successfully executed");
+              location.href = 'deleteAcc.php'; 
+              } else {
+
+                alert("Action canceled");
+              }
+            }
     </script>
     </div>
   

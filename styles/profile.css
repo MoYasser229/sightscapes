@@ -275,3 +275,24 @@ font-size: 22px;
 padding: 10px 15px;
 background: #3c3c3c;
 }
+.button4{
+  background-color: #0b1d26;
+  border: none;
+  width: 50% !important;
+  height: 10% !important;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30px;
+  cursor: pointer;
+}
+.button4:hover {background-color: #e03018}
+.button4:active {
+  background-color: #e03018;
+  box-shadow: 0 5px #e03018;
+  transform: translateY(4px);
+}
+.textDelete{
+  color: white;
+}
