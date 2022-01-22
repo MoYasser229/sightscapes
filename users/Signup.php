@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start();
+include_once '../errorHandler/errorHandlers.php';
+set_error_handler('customError',E_ALL); ?>
 <script>
     var errorInEmail = false
     var used = false

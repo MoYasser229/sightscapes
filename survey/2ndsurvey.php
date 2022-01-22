@@ -1,11 +1,14 @@
 <link rel="stylesheet" type="text/css" href="../../project/styles/survey.css">
-<?php session_start(); ?>
+<?php session_start(); 
+include_once '../errorHandler/errorHandlers.php';
+set_error_handler('customError',E_ALL);
+?>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <script src="https://kit.fontawesome.com/1d1d7fdffa.js" crossorigin="anonymous"></script>
         <meta charset="utf-8">
-        <title>Sightscape</title>
+        <title>Sightscapes</title>
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">

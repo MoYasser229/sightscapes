@@ -48,14 +48,6 @@
                 $sql = "INSERT INTO msg(msgText,seen,chatID,senderID,recieverID) VALUES ('$msg','0','$chatID','$senderID','$recieverID')";
                 $result=$conn->query($sql) or die("$recieverID <- $senderID ErrorR: ".$conn->error);
             }
-
-            
-        // else if($chatID==''){
-        //     //session//auditor
-        // }
-        // else{
-
-        // }
     }
     else if(isset($_POST['loc'])&&$_POST['checkForm']==true){
         $admin=$_POST['admin'];
@@ -102,10 +94,13 @@
                     while($row=$result->fetch_assoc()){
                         if(str_contains($row['msgText'],'Picture:')){
                             $picture = substr($row['msgText'],9,strlen($row['msgText']));
-                            echo "<div class = 'textMessage'><img src = 'images/$picture' width='300' height='300'></div><br>";
+                            if($picture != '')
+                                echo "<div class = 'textMessage'><img src = 'images/$picture' width='300' height='300'></div><br>";
                         }
-                        else
-                            echo "<div class = 'textMessage'>{$row['msgText']}</div><br>";}
+                        else{
+                                echo "<div class = 'textMessage'>{$row['msgText']}</div><br>";
+                        }
+                    }
                    
                 }
     }
@@ -145,10 +140,12 @@
                                 else{
                                     if(str_contains($row['msgText'],'Picture:')){
                                         $picture = substr($row['msgText'],9,strlen($row['msgText']));
+                                        if($picture != '')
                                         echo "<div class = 'textMessage'><img src = 'images/$picture' width='300' height='300'></div><br>";
                                     }
-                                    else
-                                        echo "<div class = 'textMessage'>{$row['msgText']}</div><br>";
+                                    else{
+                                            echo "<div class = 'textMessage'>{$row['msgText']}</div><br>";
+                                    }
                                 }
                             } 
                         }
@@ -159,7 +156,8 @@
                             else{
                                 if(str_contains($row['msgText'],'Picture:')){
                                     $picture = substr($row['msgText'],9,strlen($row['msgText']));
-                                    echo "<div class = 'textMessage'><img src = 'images/$picture' width='300' height='300'></div><br>";
+                                    if($picture != '')
+                                        echo "<div class = 'textMessage'><img src = 'images/$picture' width='300' height='300'></div><br>";
                                 }
                                 else
                                     echo "<div class = 'textMessage'>{$row['msgText']}</div><br>";}

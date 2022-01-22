@@ -11,7 +11,7 @@ if($userID === 0){
     echo "<script> alert('Review Message is empty') </script>";
   }
   else{
-    $sqlCheck = "SELECT * FROM reviews WHERE userID = '$userID'";
+    $sqlCheck = "SELECT * FROM reviews WHERE GID = $id and userID = '$userID' and reviewText != ''";
     $result = $conn->query($sqlCheck);
     if($row5 = $result->fetch_assoc()){
       echo "<script> alert('You can only add one review') </script>";

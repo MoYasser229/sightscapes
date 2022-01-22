@@ -1,5 +1,5 @@
 <?php session_start(); $conn = new mysqli("localhost","root","","project"); 
-// include_once '../errorHandler/errorHandlers.php'; set_error_handler("customError",E_ALL); 
+include_once '../errorHandler/errorHandlers.php'; set_error_handler("customError",E_ALL); 
 ?>
 <html>
     <head>
@@ -94,7 +94,8 @@
             echo "<button class='picksurvey' id='$row1' style='position:absolute;top:40%; left:75%; width:22%;'> <div class='picksurveytext1' style='cursor:pointer'>View Survey Responses</div></button>";
             $sqlopen= "SELECT isOpen FROM survey WHERE surveyType='Satisfaction Survey'";
             $resultopen=$conn->query($sqlopen);
-            $rowopen=implode($resultopen->fetch_assoc());
+            if(mysqli_num_rows($resultopen) !== 0)
+                $rowopen=implode($resultopen->fetch_assoc());
             if($row1=='Satisfaction Survey'&&$rowopen=='1'){
                 $ssalreadythere=true;
             }
@@ -296,13 +297,14 @@
             sendtext.style.color = '#efefef';
             
             <?php
+            $groupSelected='';
             if($_POST['ssb']==0&&$_POST['psb']==0){
                 echo "errorInSurveyType = true;";
                 $error = true; 
             }
                 $startdate=$_POST['date1'];
                 $enddate=$_POST['date2'];
-                $groupSelected=$_POST['searchlist'];
+                if($_POST['psb']==1) $groupSelected=$_POST['searchlist'];
 
                 if(empty($_POST['date1'])){
                     $error = true; ?>
@@ -376,8 +378,5 @@
         send.style.backgroundColor = '#efefef'; 
         sendtext.style.color = '#141f27';
      </script>
-<?php include_once "../users/checkLogin.php"; checkLogin(); 
-
-?>
-
+<?php include_once "../users/checkLogin.php"; checkLogin(); ?>
 </html>

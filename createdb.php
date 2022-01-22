@@ -77,6 +77,7 @@
         );";
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
+
     //HR//
     $sql="CREATE TABLE IF NOT EXISTS Warnings(
         warningID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -114,7 +115,6 @@
         arrivalTime DATE NOT NULL,
         descrip TEXT NOT NULL,
         diffLevel TINYINT(1),
-        grpSize INT NOT NULL DEFAULT 0,
         distance VARCHAR(30) NOT NULL,
         tripLength VARCHAR(30) NOT NULL,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

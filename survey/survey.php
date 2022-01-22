@@ -1,6 +1,6 @@
 <?php session_start();
 include_once '../errorHandler/errorHandlers.php';
-// set_error_handler("customError",E_ALL);
+set_error_handler("customError",E_ALL);
 $conn = new mysqli("localhost","root","","project");
 ?>
 <html>

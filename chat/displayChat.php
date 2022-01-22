@@ -1,5 +1,7 @@
 <?php
 session_start();
+include_once '../errorHandler/errorHandlers.php';
+set_error_handler('customError',E_ALL);
 $id = $_SESSION['ID'];
 $conn = new mysqli("localhost" , "root" , "" , "project");
 $sql = "SELECT * FROM chat WHERE senderID='{$id}' OR receiverID = '{$id}'";
@@ -22,7 +24,6 @@ $sql = "SELECT * FROM chat WHERE senderID='{$id}' OR receiverID = '{$id}'";
             $sql = "SELECT seen FROM msg WHERE chatID='$chatid' AND seen = '0'";
 
             $result3=$conn->query($sql) or die("Error: ".$conn->error);
-            // $seen=$result3->fetch_assoc();
             if(mysqli_num_rows($result3) != 0){
                 echo "<p><a href='chat.php?chatID=$chatid&admin=$admin&seen=1'><b>Admin $receivername</b><br><b>$chattypee</b></a></p>";
 

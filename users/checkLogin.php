@@ -57,10 +57,10 @@ function checkLogin(){
         <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
+        <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
       </li>
         </ul>
       </div>
@@ -133,10 +133,10 @@ function checkLogin(){
         <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
+        <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
       </li>
         </ul>
       </div>
@@ -168,10 +168,10 @@ function checkLogin(){
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
+        <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
       </li>
         </ul>
       </div>
@@ -187,7 +187,7 @@ function checkLogin(){
           <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href=""><h6>CHAT REPORTS</h6></a>
+        <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT REPORTS</h6></a>
       </li>
         </ul>
       </div>
@@ -200,10 +200,10 @@ function checkLogin(){
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
+        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
+        <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
       </li>
         </ul>
       </div>

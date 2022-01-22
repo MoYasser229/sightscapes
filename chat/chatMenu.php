@@ -8,9 +8,7 @@ set_error_handler('customError',E_ALL);
         <script src="https://kit.fontawesome.com/1d1d7fdffa.js" crossorigin="anonymous"></script>
         <link href='../styles/chatStyles.css' type='text/css' rel="stylesheet">
         <meta charset="utf-8">
-        <title>Sightscape</title>
-
-    <!-- Bootstrap CSS -->
+        <title>Sightscapes</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
@@ -56,9 +54,9 @@ set_error_handler('customError',E_ALL);
                     .form-popup {
                         display: none;
                         position: fixed;
-                        bottom: 15%;
+                        bottom: 5%;
                         right: 15%;
-                        top: 15%;
+                        top: 10%;
                         left: 15%;
                         border: 3px solid #f1f1f1;
                         background-color: #173f53;
@@ -146,10 +144,10 @@ set_error_handler('customError',E_ALL);
                         $admin=$row['userID'];
                         echo "chat.php?admin=$admin&chatType=Group Recommendation"
                     ?>' enctype= 'multipart/form-data' class = 'form-container'>
-                            <p>LOCATION</p> <input type='text' name='loc'><br>
-                            <p>DESCRIPTION</p> <input type='text' name='desc'> <br>
+                            <p>LOCATION</p> <input type='text' name='loc' required><br>
+                            <p>DESCRIPTION</p> <input type='text' name='desc' required> <br>
                             <p>PICTURE</p> <input type='file' name='pic'><br>
-                            <p>LINK</p> <input type='text' name='link'><br>
+                            <p>LINK</p> <input type='text' name='link' required><br>
                         <button type="submit" class="btn" name = 'submitRequest' >SUBMIT</button>
                         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                     </form>
@@ -291,18 +289,6 @@ set_error_handler('customError',E_ALL);
 
         $result=$conn->query($sql) or die("Error: ".$conn->error);
         echo "<script>window.location.replace('chat.php?admin=$admin')</script>";
-        // $chattype="issues";
-        // $sql = "INSERT INTO chat(hikerID,adminID,auditorID,chatType) 
-        //         VALUES( (SELECT hikerID FROM Hikers WHERE hikerID ='$usrn'),
-        //         (SELECT adminID FROM Admins ORDER BY RAND() LIMIT 1),
-        //         (SELECT auditorID FROM Auditors ORDER BY RAND() LIMIT 1), $chattype )";
-        // $result=$conn->query($query) or die("Error: ".$conn->error);
-        
-        // $sql = "INSERT INTO chat(hikerID,adminID,auditorID,chatType) 
-        // VALUES( (SELECT hikerID FROM Hikers WHERE hikerID ='$usrn'),
-        // (SELECT adminID FROM Admins ORDER BY RAND() LIMIT 1),
-        // (SELECT auditorID FROM Auditors ORDER BY RAND() LIMIT 1), $chattype )";
-        // $result=$conn->query($query) or die("Error: ".$conn->error);
     }
     function displayChats(){
         $sql = "SELECT * FROM chat WHERE senderID='{$GLOBALS['id']}' OR receiverID = '{$GLOBALS['id']}'";
@@ -327,7 +313,7 @@ set_error_handler('customError',E_ALL);
             $result3=$GLOBALS['conn']->query($sql) or die("Error: ".$GLOBALS['conn']->error);
             // $seen=$result3->fetch_assoc();
             if(mysqli_num_rows($result3) != 0){
-                echo "<p><a href='chat.php?chatID=$chatid&seen=1&admin=$admin'><b>$chattypee</b><br><b>$receivername</b></a></p>";
+                echo "<p><a href='chat.php?chatID=$chatid&seen=1&admin=$admin'><b><u>$chattypee</u></b><br><b><u>$receivername</u></b></a></p>";
             }
             else{
                 echo "<p><a href='chat.php?chatID=$chatid&admin=$admin'><em>$chattypee</em><br><em>$receivername</em></a></p>";

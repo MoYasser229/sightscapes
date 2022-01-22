@@ -12,6 +12,8 @@
    
 <?php
 session_start();
+include_once '../errorHandler/errorHandlers.php';
+set_error_handler('customError',E_ALL);
 $cartItems = stripslashes($_COOKIE['GroupsCart']);
 $cart = json_decode($cartItems, true);
 $conn = new mysqli("localhost","root","","project");
@@ -139,26 +141,11 @@ function validate(form){
 
 
 <div class="Payment-method" ><h3><b> Payment method </b></h3>
-
    <img src="c2.png" alt="cash" width="40" height="40">
-   <lable><input type="radio" name="f1[]" value="COD"> <b>Cach On Delivery</b></label>
+   <lable><input type="radio" name="f1[]" value="COD"> <b>Cash On Delivery</b></label>
    </br>
    <img src="v2.png" alt="visa" width="40" height="40">
    <label><input type="radio" name="f1[]"  value="PWC" id="flip"> Pay With Card </label>
-
-
-   <!-- <div id="panel">  
-      <lable for="CN"><b>Card number</b></lable>
-      <input type="CN" class="c-control" id="CN" placeholder="xxxx xxxx xxxx xxxx" name="CN">
-      </br>  
-      <lable for="ED"><b>Expiration date</b></lable>
-
-      <input type="EM"class="date" id="EM" placeholder="Month" name="EM">
-      <input type="EY" class="date" id="EY" placeholder="Year" name="EY">
-      </br> 
-      <lable for="cvv"><b> CVV*</b></lable> 
-      <input type="CVV" class="CVV" id="CVV" placeholder="xxx" name="CVV">
-   </div> -->
 </div>
 
 <div class = "cart-summary"><h3><b> Cart summary </b></h3></div>

@@ -1,5 +1,7 @@
 <?php
 session_start();
+include_once '../errorHandler/errorHandlers.php';
+set_error_handler('customError',E_ALL);
 ?>
 <!DOCTYPE html>
     <html lang="en">
@@ -9,7 +11,7 @@ session_start();
         <link rel="stylesheet" href="../styles/adminStyle.css" type="text/css">
         <script src="https://kit.fontawesome.com/1d1d7fdffa.js" crossorigin="anonymous"></script>
         <meta charset="utf-8">
-        <title>Sightscape</title>
+        <title>Sightscapes</title>
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -29,43 +31,7 @@ session_start();
             </form>
         </div>
         <?php
-        function checkLogin(){
-            if ($_SESSION['userRole'] === "admin"){
-                ?>
-                        <nav class="navbar navbar-expand-md fixed-top navbar-dark background">
-                    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                            <a class="nav-link " aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
-                        </li>
-                        </ul>
-                    </div>
-                    <div class="mx-auto order-0">
-                    <a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-                    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                        <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                        <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../viewprofile/profile.php"><h6>PROFILE</h6></a>
-                    </li>
-                        </ul>
-                    </div>
-                </nav>
-                <?php
-            }
-        }
+        include_once"../users/checkLogin.php";
         checkLogin();
     ?>
         <div class="mainAdmin">
@@ -270,7 +236,15 @@ session_start();
                             <p>Distance:
                             <input type="text" name="distance" placeholder="Distance In Miles" value = '<?php echo $row["distance"]?>'>Difficulty Level:
                             <input type= 'range' min="1" max="5" name='diffLevel' value = '<?php echo $row["diffLevel"]?>' id="myRange2"> Level: <span id="diffValue2"></span></p>
-                            
+                            <script>
+                                        var slider2 = document.getElementById("myRange2");
+                                        var output2 = document.getElementById("diffValue2");
+                                        output2.innerHTML = slider2.value;
+
+                                        slider2.oninput = function() {
+                                            output2.innerHTML = this.value;
+                                        }
+                            </script>
                             <p>Picture:
                             <input type="file" name="picture" value = '<?php echo $row["pic"]?>'></p><br>
                         <?php
@@ -297,14 +271,6 @@ session_start();
 
                     slider.oninput = function() {
                         output.innerHTML = this.value;
-                    }
-
-                    var slider2 = document.getElementById("myRange2");
-                    var output2 = document.getElementById("diffValue2");
-                    output2.innerHTML = slider2.value;
-
-                    slider2.oninput = function() {
-                        output2.innerHTML = this.value;
                     }
         </script>
     </body>
@@ -387,6 +353,7 @@ if(isset($_POST["editSubmit"])){
     $query = '';
     if(empty($pic)){
         $query="UPDATE Groups set
+        loc='{$_POST['Loc']}',
         price='{$_POST["price"]}',
         arrivalTime='{$_POST["arrivalTime"]}',
         departureTime='{$_POST["departureTime"]}',
@@ -397,6 +364,7 @@ if(isset($_POST["editSubmit"])){
     }
     else{
         $query="UPDATE Groups set
+        loc='{$_POST['Loc']}',
         price='{$_POST["price"]}',
         arrivalTime='{$_POST["arrivalTime"]}',
         departureTime='{$_POST["departureTime"]}',
@@ -407,25 +375,25 @@ if(isset($_POST["editSubmit"])){
         WHERE GID='$id'";
     }
     $results = $conn-> query($query) or die ($conn->error);
-    echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
+    echo "<script>window.location.replace('/project/controlgroups/groupadminview.php');</script>";
 }
 if(isset($_POST['action'])){
     $conn=new mysqli("localhost","root","","project");
     if($_POST['action']=="Admins")
         {
-        echo "<script>window.location.replace('/project/admincontrol/otheradmin.php')</script>";
+        echo "<script>window.location.replace('/project/admincontrol/otheradmin.php');</script>";
     }
 
     if($_POST['action']=="Hikers")
     {
-        echo "<script>window.location.replace('/project/admincontrol/hikers.php')</script>";
+        echo "<script>window.location.replace('/project/admincontrol/hikers.php');</script>";
     }
     
     if($_POST['action']=="Groups"){
-        echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
+        echo "<script>window.location.replace('/project/controlgroups/groupadminview.php');</script>";
     }
     if($_POST['action']=="Orders"){
-        echo "<script>window.location.replace('/project/orders/orders.php')</script>";
+        echo "<script>window.location.replace('/project/orders/orders.php');</script>";
     }
 }
 ?>
@@ -445,5 +413,4 @@ if(isset($_POST['action'])){
                 error+= "Error: Price is not given"
                 if(error != "")
                 alert(error)
-                </script>
-
+</script>

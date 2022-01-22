@@ -1,10 +1,7 @@
 <?php
 	session_start();
 	include_once "../cart/insertCart.php";
-		//if(isset($_GET['groupID'])){
 			if(isset($_SESSION['ID'])){
-				//CHANGE THIS POST 
-				//if(isset($_POST['groups'])){
 					$groups = $_GET['groups'];
 					$conn = new mysqli("localhost","root","","project");
 					$sql = "SELECT * FROM groups WHERE GID = '$groups'";
@@ -37,25 +34,15 @@
 							$jsonString = json_encode($cart);
 							
 							insert($_SESSION['ID'],$jsonString);
-							// if(isset($_GET['oneGroupAccess']) && $_GET['oneGroupAccess'] === 1){
-							// 	header("Location: grouphikers.php?success=1");
-							// }
                             header("Location: grouphikers.php?success=1");
-							//echo "done";
 						}
 						else{
-							//echo "<script>alert('Item Already in cart')</script>";
                             header("Location: grouphikers.php?errorCart=1");
-							//echo "errorCart";
 						}
 					}
-				//}
 			}
 			else{
-				// echo "<script>window.replace('grouphikers.php?errorRegister=1')</script>";
-				//echo "errorSign";
                 header("Location: grouphikers.php?errorRegister=1");
 				
 			}
-		//}
 ?>

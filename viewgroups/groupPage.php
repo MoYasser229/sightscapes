@@ -7,7 +7,7 @@ session_start();
         <link href="../styles/previewStyles.css" rel="stylesheet" type="text/css">
         <script src="https://kit.fontawesome.com/1d1d7fdffa.js" crossorigin="anonymous"></script>
         <meta charset="utf-8">
-        <title>Sightscape</title>
+        <title>Sightscapes</title>
 
     <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -15,180 +15,7 @@ session_start();
     </head>
 <body style='background-color: rgba(11, 29, 38,1)'>
 <?php
-  function checkLogin(){
-    if(!isset($_SESSION['ID']) && !isset($_SESSION['userRole'])){
-    ?>
-    <nav class="navbar navbar-expand-md fixed-top navbar-dark background">
-          <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="../viewGroups/grouphikers.php"><h6>GROUP</h6></a>
-                </li>
-            </ul>
-          </div>
-          <div class="mx-auto order-0">
-          <a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          </div>
-          <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="../users/Login.php"><h6>LOGIN</h6></a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="../users/Signup.php"><h6>SIGN UP</h6></a>
-                </li>
-            </ul>
-          </div>
-          </nav>
-              <?php
-              }
-              else if ($_SESSION['userRole'] === "admin"){
-                ?>
-                    <nav class="navbar navbar-expand-md fixed-top navbar-dark background">
-                  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                    <ul class="navbar-nav mr-auto">
-                      <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="orders/orders.php"><h6>ORDERS</h6></a>
-                    </li>
-                    </ul>
-                  </div>
-                  <div class="mx-auto order-0">
-                  <a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                  </div>
-                  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                    <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                    <a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
-                  </li>
-                    </ul>
-                  </div>
-                </nav>
-                <?php
-              }
-              else if($_SESSION['userRole'] === 'hiker'){
-                ?>
-                <nav class="navbar navbar-expand-md fixed-top navbar-dark background">
-                  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                    <ul class="navbar-nav mr-auto">
-                      <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="../viewgroups/grouphikers.php"><h6>GROUPS</h6></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="../cart/cart.php"><h6>CART</h6></a>
-                    </li>
-                    </ul>
-                  </div>
-                  <div class="mx-auto order-0">
-                  <a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                  </div>
-                  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                    <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                    <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
-                  </li>
-                    </ul>
-                  </div>
-                </nav>
-                <?php
-              }
-              else if($_SESSION['userRole'] === "auditor"){
-                ?>
-                <nav class="navbar navbar-expand-md fixed-top navbar-dark background">
-                  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                    <ul class="navbar-nav mr-auto">
-                      <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
-                  </li>
-                    </ul>
-                  </div>
-                  <div class="mx-auto order-0">
-                  <a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                  </div>
-                  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                    <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                    <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
-                  </li>
-                    </ul>
-                  </div>
-                </nav>
-                <?php
-              }
-              else if($_SESSION['userRole'] == 'hr'){
-                ?>
-                <nav class="navbar navbar-expand-md fixed-top navbar-dark background">
-                  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                    <ul class="navbar-nav mr-auto">
-                      <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href=""><h6>CHAT REPORTS</h6></a>
-                  </li>
-                    </ul>
-                  </div>
-                  <div class="mx-auto order-0">
-                  <a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                  </div>
-                  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                    <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                    <a class="nav-link" href="../users/signOut.php"><h6>SIGN OUT</h6></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="../viewprofile/projecthome.php"><h6>PROFILE</h6></a>
-                  </li>
-                    </ul>
-                  </div>
-                </nav>
-                <?php
-              }
-    }
+  include_once "../users/checkLogin.php";
   checkLogin();
   $hn='localhost';
   $db='project';
@@ -247,7 +74,7 @@ if(isset($_POST['cartButton'])){
   <h1 class = 'midHeader'>Get Ready For The Adventure</h1>
   <hr>
   <img src="../controlgroups/images/<?php echo $row['pic'];?>" style="float: right; margin-right: 100px;"  width="500" height="500">
-  <p><?php echo $row['descrip']; ?></p>
+  <p style = 'margin-bottom: 300px;'><?php echo $row['descrip']; ?></p><br>
   <h1 id = 'dates' class = 'midHeader'>Mark Up The Dates</h1>
   <hr>
   <div class="container-Display2">
@@ -307,8 +134,11 @@ if(isset($_POST['cartButton'])){
                   alert('You have to sign in to add a rating')
                   location.reload()
                 }
+                else if(res == 'errorAlreadyAdded'){
+                  alert('Rating can be added once')
+                  location.reload()
+                }
                 else
-                // alert('You have to sign in to add a rating')
                   location.reload()
               }
             })
