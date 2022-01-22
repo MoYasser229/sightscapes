@@ -15,7 +15,7 @@
             //START UP PHP CODE//
       include_once "../createdb.php";//Database code
       session_start();
-      include_once "../checkLogin.php";//Navigation Bar Function Implementation
+      include_once "../users/checkLogin.php";//Navigation Bar Function Implementation
       checkLogin();
     ?>
 
