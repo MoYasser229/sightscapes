@@ -21,7 +21,7 @@
 						<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 							<ul class="navbar-nav mr-auto">
 							<li class="nav-item">
-									<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+									<a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
 									</li>
 									<li class="nav-item">
 									<a class="nav-link" href="../viewGroups/grouphikers.php"><h6>GROUP</h6></a>
@@ -29,7 +29,7 @@
 							</ul>
 						</div>
 						<div class="mx-auto order-0">
-						<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+						<a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
 							<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
 								<span class="navbar-toggler-icon"></span>
 							</button>
@@ -53,7 +53,7 @@
 										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 											<ul class="navbar-nav mr-auto">
 												<li class="nav-item">
-												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+												<a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
 											</li>
 											<li class="nav-item">
 												<a class="nav-link" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
@@ -64,7 +64,7 @@
 											</ul>
 										</div>
 										<div class="mx-auto order-0">
-										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+										<a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
 											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
 												<span class="navbar-toggler-icon"></span>
 											</button>
@@ -91,7 +91,7 @@
 										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 											<ul class="navbar-nav mr-auto">
 												<li class="nav-item">
-												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+												<a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
 											</li>
 											<li class="nav-item">
 												<a class="nav-link" href="../viewgroups/grouphikers.php"><h6>GROUPS</h6></a>
@@ -102,7 +102,7 @@
 											</ul>
 										</div>
 										<div class="mx-auto order-0">
-										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+										<a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
 											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
 												<span class="navbar-toggler-icon"></span>
 											</button>
@@ -129,7 +129,7 @@
 										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 											<ul class="navbar-nav mr-auto">
 												<li class="nav-item">
-												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+												<a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
 											</li>
 											<li class="nav-item">
 											<a class="nav-link" href="../chat/newChat.php"><h6>CHAT</h6></a>
@@ -137,7 +137,7 @@
 											</ul>
 										</div>
 										<div class="mx-auto order-0">
-										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+										<a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
 											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
 												<span class="navbar-toggler-icon"></span>
 											</button>
@@ -161,7 +161,7 @@
 										<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 											<ul class="navbar-nav mr-auto">
 												<li class="nav-item">
-												<a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+												<a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
 											</li>
 											<li class="nav-item">
 											<a class="nav-link" href=""><h6>CHAT REPORTS</h6></a>
@@ -169,7 +169,7 @@
 											</ul>
 										</div>
 										<div class="mx-auto order-0">
-										<a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+										<a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
 											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
 												<span class="navbar-toggler-icon"></span>
 											</button>

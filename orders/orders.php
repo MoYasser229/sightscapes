@@ -40,7 +40,7 @@ if($_SESSION['userRole'] === 'admin'){
                         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="../home.php"><h6>HOME</h6></a>
+                                <a class="nav-link " aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
@@ -48,7 +48,7 @@ if($_SESSION['userRole'] === 'admin'){
                             </ul>
                         </div>
                         <div class="mx-auto order-0">
-                        <a class="navbar-brand" href="../home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
+                        <a class="navbar-brand" href="../home/home.php"><img src="../bckgrnd/logo.png" width="100px" height="100px"></a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -92,26 +92,9 @@ if($_SESSION['userRole'] === 'admin'){
                         $totalRevenue += $row['totalPrice'];
                         $totalItems++;
                     }
-                    echo "<h2><span class = 'smallText'>Total Items</span>$totalItems<span class = 'smallText'>ITEMS</span>  <span class = 'rightInfo'><span class = 'smallText'>Total Revenue</span><span id = 'increaseRev'>0</span><span class = 'smallText'>EGP</span></span></h2>";
+                    echo "<h2><span class = 'smallText'>Total Items</span>$totalItems<span class = 'smallText'>ITEMS</span>  <span class = 'rightInfo'><span class = 'smallText'>Total Revenue</span>$totalRevenue<span class = 'smallText'>EGP</span></span></h2>";
                     
                 ?>
-                <script>
-                    var $increase2 = $("#increaseRev"),
-                    value = <?php echo $totalRevenue; ?>;
-                    $({percentage: 0}).stop(true).animate({percentage: value}, {
-                    duration : 1000,
-                    step: function () {
-                        // percentage with 1 decimal;
-                        var percentageVal = Math.round(this.percentage * 1);
-                        
-                        $increase2.text(percentageVal);
-                    }
-                    }).promise().done(function () {
-                        // hard set the value after animation is done to be
-                        // sure the value is correct
-                        $increase2.text(value);
-                    });
-                </script>
             </div>
             <hr>
             
@@ -233,6 +216,6 @@ if(isset($_POST['action'])){
 }
 }
 else{
-    header("Location:../home.php");
+    header("Location:../home/home.php");
 }
 ?>

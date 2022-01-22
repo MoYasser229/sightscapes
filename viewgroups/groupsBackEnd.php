@@ -136,7 +136,7 @@ if(isset($_POST['checkAjax'])){
 		}
 		}
 		else{
-			header('Location:../home.php');
+			header('Location:../home/home.php');
 		}
 		
 ?>

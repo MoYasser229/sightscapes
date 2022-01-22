@@ -205,7 +205,7 @@ if(isset($_POST['buyNow'])){
       $result = $conn->query($sql) or die($conn->error);
    }
    $_COOKIE['GroupsCart'] = array();
-   echo "<script>window.location.replace('/project/home.php')</script>";
+   echo "<script>window.location.replace('../home/home.php')</script>";
    
 }
 ?>

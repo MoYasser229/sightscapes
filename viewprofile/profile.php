@@ -1,36 +1,3 @@
-<!-- 
-<html>
-<body>
-<table border =1>
-<tr> <th> firstname </th> <th> lastname </th>  <th> Email </th> <th> picture </th> </tr>
-
-<?php
-// $hn='localhost';
-// $db='project';
-// $un='root';
-// $pw='';
-
-// $id=$_SESSION["ID"];
-// //require_once 'login.php'; //gets php code from another file
-// $conn=new mysqli("localhost","$un","$pw","$db") or die ("fatal error cannot connect to DB");
-
-// $sql = "SELECT * FROM users WHERE userID = $id";
-//  //preperation for query
-// $result=$conn->query($sql) or die ("fatal error in executing code");
-// if($row= $result->fetch_array(MYSQLI_ASSOC)){
-// echo "<tr> <td> ".$row['fname']."</td>";
-// echo "<td>  ".$row['lname']."</td>";
-// echo "<td> ".$row['email']."</td>";
-// echo "<td>  ".$row['pic']."</td>";
-// echo "</tr>";
-// }
-?>
-</table>
-<form action ='Editinfo.php' method ='post'>
- <button type="submit"> Edit </button>
-</body>
-</html> -->
-
 <?php 
 session_start();
 // include_once '../errorHandler/errorHandlers.php';
@@ -64,7 +31,7 @@ function checkLogin(){
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+                    <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
@@ -99,7 +66,7 @@ function checkLogin(){
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+                    <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="../viewgroups/grouphikers.php"><h6>GROUPS</h6></a>
@@ -137,7 +104,7 @@ function checkLogin(){
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+                    <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
                   </li>
                   <li class="nav-item">
                 <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
@@ -172,7 +139,7 @@ function checkLogin(){
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+                    <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
                   </li>
                   <li class="nav-item">
                 <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT REPORTS</h6></a>
@@ -281,6 +248,32 @@ if($row= $result->fetch_array(MYSQLI_ASSOC)){
       <h5>Enter new Password</h5><input type='password'  name='newPassword' placeholder= 'New Password'><br><br>
       <input type= 'submit'  name= 'submit' class='button1' value= 'SUBMIT' style='color: white' ><br>
       </form>
+      <?php if($_SESSION['userRole'] == 'admin') { ?>
+        <h2>Warnings</h2>
+        <p class = 'textDelete'>
+          <?php
+            $userID = $_SESSION['ID'];
+            $conn = new mysqli("localhost" , "root" , "" , "project");
+            $sql = "SELECT * FROM WARNINGS WHERE userID = $userID";
+            $result = $conn->query($sql);
+            if(mysqli_num_rows($result) === 0){
+              echo "You have no warnings";
+            }
+            while($row = $result->fetch_assoc()){
+              $chatID = $row['chatID'];
+              $senderName = '';
+              $sql = "SELECT fname from users WHERE userID = (SELECT senderID FROM chat WHERE chatID = $chatID)";
+              $result = $conn->query($sql);
+              if($FnameRow = $result->fetch_assoc()){
+                  $senderName = $FnameRow['fname'];
+              }
+              echo "PENALTY ADDED TO YOU FROM CHAT ID#$chatID <br>";
+              echo "THE HIKER IN THE CHAT WAS $senderName";
+              echo "<br>";
+          }
+          ?>
+        </p>
+      <?php } ?>
       <h2>Delete Your Account</h2>
       <p class = 'textDelete'>NOTE: Your account will be permanently deleted. You cant sign in with the account.</p>
       <button class="button4" onclick="confirmAction()"> Delete My Account </button>
@@ -310,6 +303,7 @@ if($row= $result->fetch_array(MYSQLI_ASSOC)){
 
         }
     ?>
+    
     <script>
         if(errorInPassword === true)
             alert("Password is not given")

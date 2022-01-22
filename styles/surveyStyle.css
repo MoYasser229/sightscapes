@@ -1,0 +1,44 @@
+.background{
+    background-color: #0b1d26;
+    height: 75px;
+}
+.sidenav {
+    margin-top: 75px;
+    /* height: 100%; */
+    height: calc(100vh - 75px);
+    width: 220px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #0b1d26;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 20px;
+    text-align: center;
+  }
+  .main {
+    margin-left: 200px;
+    margin-top: 25%;
+    text-align: center;
+  }
+  .mainAdmin{
+    margin-left: 200px;
+    margin-top: 5%;
+    text-align: center;
+  }
+  .inputSide a {
+      border: none;
+      background-color: transparent;
+      color: white;
+      width: 220px;
+      height: 75px;
+
+      font-size: 17px;
+  }
+  .inputSide:hover{
+    background-color: #173c4e;
+  }
+  .mainAdmin .tableClass{
+      width: 100%;
+  }

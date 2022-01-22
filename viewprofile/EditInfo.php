@@ -131,7 +131,7 @@ function checkLogin(){
 		  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 			  <ul class="navbar-nav mr-auto">
 				  <li class="nav-item">
-				  <a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+				  <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
 				</li>
 				<li class="nav-item">
 				  <a class="nav-link" href="../admincontrol/admin.php"><h6>DATA MANAGEMENT</h6></a>
@@ -166,7 +166,7 @@ function checkLogin(){
 		  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 			  <ul class="navbar-nav mr-auto">
 				  <li class="nav-item">
-				  <a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+				  <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
 				</li>
 				<li class="nav-item">
 				  <a class="nav-link" href="../viewgroups/grouphikers.php"><h6>GROUPS</h6></a>
@@ -204,7 +204,7 @@ function checkLogin(){
 		  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 			  <ul class="navbar-nav mr-auto">
 				  <li class="nav-item">
-				  <a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+				  <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
 				</li>
 				<li class="nav-item">
 			  <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT</h6></a>
@@ -239,7 +239,7 @@ function checkLogin(){
 		  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 			  <ul class="navbar-nav mr-auto">
 				  <li class="nav-item">
-				  <a class="nav-link active" aria-current="page" href="../home.php"><h6>HOME</h6></a>
+				  <a class="nav-link active" aria-current="page" href="../home/home.php"><h6>HOME</h6></a>
 				</li>
 				<li class="nav-item">
 			  <a class="nav-link" href="../chat/chatMenu.php"><h6>CHAT REPORTS</h6></a>

@@ -14,21 +14,12 @@
     die ("Connection failed: ".$conn->connect_error);
 
     /////////////////SURVEY/////////////////
-    $sql="CREATE TABLE IF NOT EXISTS Survey(
-        surveyID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        surveyType VARCHAR(50) UNIQUE KEY,
-        startDate DATE,
-        endDate DATE,
-        createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        isOpen BOOLEAN
-        );";
-    if($conn->query($sql)===FALSE)
-    die("Error: ".$conn->error);
     
     $sql="CREATE TABLE IF NOT EXISTS Question(
         questionID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         questionText VARCHAR(100) NOT NULL UNIQUE,
-        questionType VARCHAR(50) NOT NULL
+        questionType VARCHAR(50) NOT NULL,
+        questionConnotation TINYINT(1)
         );";
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
@@ -36,7 +27,8 @@
     $sql="CREATE TABLE IF NOT EXISTS offeredAnswer(
         offeredAnswerID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         offeredAnswerText VARCHAR(100) NOT NULL UNIQUE,
-        offeredAnswerType VARCHAR(50) NOT NULL 
+        offeredAnswerType VARCHAR(50) NOT NULL,
+        answerConnotation TINYINT(1)
         );";
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
@@ -51,7 +43,6 @@
         pswrd CHAR(32) NOT NULL, 
         pic VARCHAR(400),
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        modifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         userRole VARCHAR(10) NOT NULL DEFAULT 'Hiker' 
         );";
     if($conn->query($sql)===FALSE)
@@ -127,7 +118,6 @@
         distance VARCHAR(30) NOT NULL,
         tripLength VARCHAR(30) NOT NULL,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        modifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         pic TEXT NOT NULL
         );";
     if($conn->query($sql)===FALSE)
@@ -137,10 +127,8 @@
         OrderID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         GID INT NOT NULL,
         userID INT,
-        orderStatus BOOLEAN NOT NULL DEFAULT FALSE,
         totalPrice VARCHAR(50) NOT NULL,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        modifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE SET NULL
     );";
     if($conn->query($sql)===FALSE)
@@ -155,9 +143,24 @@
         reviewText VARCHAR(255),
         rating INT NOT NULL,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        modifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (GID) REFERENCES Groups(GID) ON DELETE CASCADE,
         FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE
+        );";
+    if($conn->query($sql)===FALSE)
+    die("Error: ".$conn->error);
+
+    $sql="CREATE TABLE IF NOT EXISTS Survey(
+        surveyID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        surveyType VARCHAR(50),
+        startDate DATE,
+        endDate DATE,
+        createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        isOpen BOOLEAN,
+        questionNo INT NOT NULL DEFAULT 0,
+        pages INT NOT NULL DEFAULT 0,
+        respondentsNo INT NOT NULL DEFAULT 0,
+        GroupSpecified INT DEFAULT NULL,
+        FOREIGN KEY (GroupSpecified) REFERENCES Groups(GID) ON DELETE SET NULL
         );";
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
@@ -169,7 +172,7 @@
         userID INT NOT NULL,
         otherText VARCHAR(255),
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        modifiedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        completionStatus BOOLEAN DEFAULT NULL,
         PRIMARY KEY (surveyID,questionID,offeredAnswerID,userID),
         FOREIGN KEY (surveyID) REFERENCES Survey(surveyID) ON DELETE CASCADE,
         FOREIGN KEY (questionID) REFERENCES Question(questionID) ON DELETE CASCADE,

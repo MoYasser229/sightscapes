@@ -1,29 +1,46 @@
+<link rel="stylesheet" type="text/css" href="../../project/styles/survey.css">
 <?php
-session_start();
+    session_start();
+    include_once '../errorHandler/errorHandlers.php';
+    //set_error_handler('customError',E_ALL);
 ?>
 <html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="https://kit.fontawesome.com/1d1d7fdffa.js" crossorigin="anonymous"></script>
+        <meta charset="utf-8">
+        <title>Sightscape</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
 <body>
+<style>
+        .background{
+                background-color: #0b1d26;
+                height: 75px;
+        }
+    </style>
+    <?php  
+        include_once"../users/checkLogin.php";
+        checkLogin();
+    ?>
+<div class="backgroundSquare">
+<h2> Before we start... </h2><p>(<i>optional</i>)</p><br>
+</div>
+<div class="square">
 <form  method ="POST" action = "">
 <?php
 
-///survey monkey & add survey
-
-    $usrn=$_SESSION['ID'];
-    echo "<h1 style='display:inline'> Before we start... </h1><p style='display:inline'>(<i>optional</i>)</p><br>";
+    $id=$_SESSION['ID'];
+    echo "<br><br><br>";
+    echo "<span class = 'background1'></span>";
     $conn=new mysqli("localhost","root","","project");
     if($conn->connect_error)
     die ("cannot connect to the database");
 
-    $surveytype='satisfaction survey';
-    $startdate='DATE: Auto CURDATE()';
-    $enddate='2022-12-31';
-    $isOpen=TRUE;
-
-    $query="INSERT IGNORE INTO Survey(surveyType,startDate,endDate,isOpen) 
-    VALUES('$surveytype','$startdate','$enddate',$isOpen)";
-    $result=$conn->query($query);
-    if(!$result)
-    die("Error: ".$conn->error);
+    $surveyID=$_GET["surveyID"];
 
     include_once 'Qs.php';
 
@@ -42,21 +59,21 @@ session_start();
     echo "<br><b>".implode($qs[0])."</b><br>";
     for($i=0;$i<5;$i++){
         $j=implode($ans[$i]);
-        echo "<input type='radio' name='q1' value= '$j'> $j";
+        echo "<input type='radio' name='q1' value= '$j'> $j"."<br>";
     }
     
-    echo "<br><br><b>".implode($qs[1])."</b><br>";
+    echo "<br><br><b>".implode($qs[1])."</b><br> ";
     for($i=5;$i<7;$i++){
         $j=implode($ans[$i]);
-        echo "<input type='radio' name='q2' value='$j'> $j";
+        echo "<input type='radio' name='q2' value='$j'> $j"."<br>";
     }
 
     echo "<br><br><b>".implode($qs[2])."</b><br>";
     for($i=7;$i<9;$i++){
         $j=implode($ans[$i]);
-        echo "<input type='radio' name='q3' value='$j'> $j";
+        echo "<input type='radio' name='q3' value='$j'> $j"."</br>";
     }
-    echo "<br><br> <input type='submit' name='submit' value='Next'>";
+    echo "<input type='submit' name='submit' value='Next'>";
 
     if(isset($_POST['submit'])===TRUE){ 
             if(isset($_POST['q1']))
@@ -70,31 +87,33 @@ session_start();
             $qv=implode($qs[$i]);
             $ansv=($i==0)?$GLOBALS['q1']:(($i==1)?$GLOBALS['q2']:$GLOBALS['q3']);
            if($ansv!=null){
-            $query="INSERT INTO answer(surveyID,questionID,offeredAnswerID,hikerID) 
-                    SELECT surveyID, questionID, offeredAnswerID, hikerID
-                    FROM survey,question,offeredAnswer,hikers WHERE surveyType='$surveytype' 
+            $query="INSERT INTO answer(surveyID,questionID,offeredAnswerID,userID) 
+                    SELECT surveyID, questionID, offeredAnswerID, userID
+                    FROM survey,question,offeredAnswer,Users WHERE surveyID='$surveyID' 
                     AND questiontext='$qv' AND 
-                    offeredAnswerText='$ansv' AND hikerID='$usrn'
+                    offeredAnswerText='$ansv' AND userID='$id'
                     AND NOT EXISTS (SELECT * from answer WHERE questionID = (SELECT questionID from question where questionText = '$qv') 
-                    and (hikerID = $usrn) and (surveyID = (SELECT surveyID from survey where surveyType = '$surveytype')) );";
+                    and (userID = $id) and (surveyID =  '$surveyID') );";
                     $rs=$conn->query($query);
                     if(!$rs)
                     die("Error: ".$conn->error);
 
                     $query1="UPDATE answer SET offeredAnswerID =
                     (SELECT offeredAnswerID from offeredAnswer where offeredAnswerText='$ansv')
-                    WHERE (surveyID = (SELECT surveyID from survey where surveyType = '$surveytype')) and
+                    WHERE (surveyID = '$surveyID') and
                     (questionID = (SELECT questionID from question where questionText = '$qv'))and
-                    (hikerID = $usrn);";
+                    (userID ='$id');";
                     $rs1=$conn->query($query1);
                     if(!$rs1)
                     die("Error: ".$conn->error);
             }}
-            header("Location: survey2.php", true, 301);
+            header("Location: survey2.php?surveyID=$surveyID");
     }
 
     $conn->close();
     ?>
 </form>
+</div>
+
 </body>
 </html>

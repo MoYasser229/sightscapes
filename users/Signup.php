@@ -66,7 +66,7 @@ if(isset($_POST['Submit'])){
             $_SESSION['userRole'] = $role;
             if(isset($row['pic']))
               $_SESSION['profilepic'] = $row['pic'];
-            header("Location:../home.php");
+            header("Location:../home/home.php");
         }
     }
     else
@@ -143,7 +143,7 @@ if(isset($_POST['Submit'])){
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/project/home.php">Home</a>
+                <a class="nav-link" href="../home/home.php">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Groups</a>

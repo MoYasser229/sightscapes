@@ -1,21 +1,45 @@
+<link rel="stylesheet" type="text/css" href="../../project/styles/survey.css">
 <?php
 session_start();
 ?>
 <html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="https://kit.fontawesome.com/1d1d7fdffa.js" crossorigin="anonymous"></script>
+        <meta charset="utf-8">
+        <title>Sightscape</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
 <body>
+<style>
+        .background{
+                background-color: #0b1d26;
+                height: 75px;
+        }
+    </style>
+    <?php  
+        include_once"../users/checkLogin.php";
+        checkLogin();
+    ?>
+<div class="backgroundSquare">
+<h1> About your experiences with our services and staff... </h1>
+</div>
+<div class="square">
 <form  method ="POST" action = "">
 <?php
     $q2='';
     $q3='';
-    $usrn=$_SESSION['ID'];
+    $id=$_SESSION['ID'];
     
-    echo "<h1> About your experiences with our services and staff... </h1>";
     
     $conn=new mysqli("localhost","root","","project");
     if($conn->connect_error)
     die ("cannot connect to the database");
 
-    $surveytype='satisfaction survey';
+    $surveyID=$_GET["surveyID"];
     $questionType='services and staff';
     $possibleans='other';
 
@@ -30,7 +54,7 @@ session_start();
     echo "<br><b>".implode($qs[0])."</b><br><br>";
     for($i=2;$i<7;$i++){
         $j=implode($ans[$i]);
-        echo "<input type='checkbox' name='chlist[]' value= '$j'> $j";
+        echo "<input type='checkbox' name='chlist[]' value= '$j'> $j ";
     }
     
     echo "<br><br><b>".implode($qs[1])."</b><br><br>";
@@ -48,7 +72,7 @@ session_start();
         echo "<input type='radio' name='q3' value='$j'> $j | ";
     }
     echo "<p style='display:inline'><i>  Extremely well</i></p>";
-    echo "<br><br> <input type='submit' name='Submit' value='Next '>";
+    echo "<br><br> <input type='submit' name='Submit' value='Next'>";
 
     if(isset($_POST['Submit'])===TRUE){ 
             if(isset($_POST['q2'])&&isset($_POST['q3'])){
@@ -60,7 +84,7 @@ session_start();
                 $ansv=($i==1)?$q2:$q3;
 
             if($ansv==null||(empty($_POST['chlist']))){
-                echo "<h4> Please submit the required fields. <h4>";
+                echo "<h6 style = 'color: red'> Please submit the required fields. <h4>";
                 ?><script>
                     document.getElementById("form").reset();
                 </script><?php
@@ -69,19 +93,19 @@ session_start();
 
             else if($i==0 && (!empty($_POST['chlist']))){
                 $query1="DELETE FROM answer
-                WHERE (surveyID = (SELECT surveyID from survey where surveyType = '$surveytype')) and
+                WHERE (surveyID = (SELECT surveyID from survey where surveyID = '$surveyID')) and
                 (questionID = (SELECT questionID from question where questionText = '$qv')) and
-                (hikerID = $usrn);";
+                (userID = $id);";
                 $rs1=$conn->query($query1);
                 if(!$rs1)
                 die("Error: ".$conn->error);
 
                 foreach($_POST['chlist'] as $ch) {
-                    $query="INSERT IGNORE INTO answer(surveyID,questionID,offeredAnswerID,hikerID) 
-                    SELECT surveyID, questionID, offeredAnswerID, hikerID
-                    FROM survey,question,offeredAnswer,Hikers WHERE surveyType='$surveytype' 
+                    $query="INSERT IGNORE INTO answer(surveyID,questionID,offeredAnswerID,userID) 
+                    SELECT surveyID, questionID, offeredAnswerID, userID
+                    FROM survey,question,offeredAnswer,Users WHERE surveyID='$surveyID' 
                     AND questiontext='$qv' AND 
-                    offeredAnswerText='$ch' AND hikerID='$usrn';";
+                    offeredAnswerText='$ch' AND userID='$id';";
                     $rs=$conn->query($query);
                     if(!$rs)
                     die("Error: ".$conn->error);
@@ -90,27 +114,27 @@ session_start();
             }
 
             else if (($i==1||$i==2) && $ansv!=null){
-                    $query="INSERT INTO answer(surveyID,questionID,offeredAnswerID,hikerID) 
-                    SELECT surveyID, questionID, offeredAnswerID, hikerID
-                    FROM survey,question,offeredAnswer,Hikers WHERE surveyType='$surveytype' 
+                    $query="INSERT INTO answer(surveyID,questionID,offeredAnswerID,userID) 
+                    SELECT surveyID, questionID, offeredAnswerID, userID
+                    FROM survey,question,offeredAnswer,Users WHERE surveyID='$surveyID' 
                     AND questiontext='$qv' AND 
-                    offeredAnswerText='$ansv' AND hikerID='$usrn'
+                    offeredAnswerText='$ansv' AND userID='$id'
                     AND NOT EXISTS (SELECT * from answer WHERE questionID = (SELECT questionID from question where questionText = '$qv') 
-                    and (hikerID = $usrn) and (surveyID = (SELECT surveyID from survey where surveyType = '$surveytype')) );";
+                    and (userID = $id) and (surveyID = '$surveyID') );";
                     $rs=$conn->query($query);
                     if(!$rs)
                     die("Error: ".$conn->error);
 
                     $query1="UPDATE answer SET offeredAnswerID =
                     (SELECT offeredAnswerID from offeredAnswer where offeredAnswerText='$ansv')
-                    WHERE (surveyID = (SELECT surveyID from survey where surveyType = '$surveytype')) and
+                    WHERE (surveyID= '$surveyID') and
                     (questionID = (SELECT questionID from question where questionText = '$qv'))and
-                    (hikerID = $usrn);";
+                    (userID = '$id');";
                     $rs1=$conn->query($query1);
                     if(!$rs1)
                     die("Error: ".$conn->error);
 
-                    header("Location: survey3.php", true, 301);
+                    header("Location: survey3.php?surveyID=$surveyID");
             }
         }
     }
@@ -118,5 +142,7 @@ session_start();
     $conn->close();
 ?>
 </form>
+</div>
+
 </body>
 </html>
