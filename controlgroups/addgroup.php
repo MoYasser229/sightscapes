@@ -69,7 +69,7 @@ if(isset($_POST['Submit'])){ //check if form was submitted
     $sql="INSERT INTO groups(price,Loc,departureTime,arrivalTime,descrip,pic)
     VALUES ('$price','$Loc','$departureTime','$arrivalTime','$descrip','$pic')";
     $result=mysqli_query($conn,$sql) or die($conn->error);
-    header("Location:/project/controlgroups/groupadminview.php");
+    header("Location:../controlgroups/groupadminview.php");
   }
   }
 

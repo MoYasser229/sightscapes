@@ -15,7 +15,7 @@ set_error_handler('loginError',E_ALL);
     </head>
 <body style = 'background-color: #0b1d26'>
 
-<link rel="stylesheet" type= "text/css" href="../../project/styles/profile.css">
+<link rel="stylesheet" type= "text/css" href="../styles/profile.css">
 <style>
   .background{
     background-color: #0b1d26;
@@ -35,7 +35,7 @@ $pw='';
 $id=$_SESSION["ID"];
 $conn=new mysqli("localhost","$un","$pw","$db") or die ("fatal error cannot connect to DB");
 
-  $dir = "/project/users/images/";
+  $dir = "../users/images/";
         $profilePic = $_SESSION['profilepic'];
         $pic=$dir.$profilePic;
   echo "<img src='$pic' width='250' height='250' class = 'roundedProfilePicture' alt = '$pic'>";

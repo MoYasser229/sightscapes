@@ -260,7 +260,7 @@ set_error_handler('customError',E_ALL);
                 $id=$_GET["deleteId"];
                 $query = "DELETE from Groups where GID ='$id'";
                 $results = $conn-> query($query);
-                if($results) echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
+                if($results) echo "<script>window.location.replace('../controlgroups/groupadminview.php')</script>";
             }
         ?>
         </div>
@@ -340,7 +340,7 @@ if(isset($_POST['addSubmit'])){ //check if form was submitted
     $sql="INSERT INTO groups(price,Loc,departureTime,arrivalTime,descrip,pic,distance, diffLevel)
     VALUES ('$price','$Loc','$departureTime','$arrivalTime','$descrip','$pic','$distance','$diffLevel')";
     $result=mysqli_query($conn,$sql) or die($conn->error);
-    echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
+    echo "<script>window.location.replace('../controlgroups/groupadminview.php')</script>";
 }
 }
 if(isset($_POST["editSubmit"])){
@@ -375,25 +375,25 @@ if(isset($_POST["editSubmit"])){
         WHERE GID='$id'";
     }
     $results = $conn-> query($query) or die ($conn->error);
-    echo "<script>window.location.replace('/project/controlgroups/groupadminview.php');</script>";
+    echo "<script>window.location.replace('../controlgroups/groupadminview.php');</script>";
 }
 if(isset($_POST['action'])){
     $conn=new mysqli("localhost","root","","project");
     if($_POST['action']=="Admins")
         {
-        echo "<script>window.location.replace('/project/admincontrol/otheradmin.php');</script>";
+        echo "<script>window.location.replace('../admincontrol/otheradmin.php');</script>";
     }
 
     if($_POST['action']=="Hikers")
     {
-        echo "<script>window.location.replace('/project/admincontrol/hikers.php');</script>";
+        echo "<script>window.location.replace('../admincontrol/hikers.php');</script>";
     }
     
     if($_POST['action']=="Groups"){
-        echo "<script>window.location.replace('/project/controlgroups/groupadminview.php');</script>";
+        echo "<script>window.location.replace('../controlgroups/groupadminview.php');</script>";
     }
     if($_POST['action']=="Orders"){
-        echo "<script>window.location.replace('/project/orders/orders.php');</script>";
+        echo "<script>window.location.replace('../orders/orders.php');</script>";
     }
 }
 ?>

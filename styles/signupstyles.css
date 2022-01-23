@@ -7,7 +7,7 @@ html, body{
 .background{
     margin: 0;
     position: relative;
-    background-image: url("/project/bckgrnd/mountain.png");
+    background-image: url("../bckgrnd/mountain.png");
     background-repeat: no-repeat; 
     background-position:center center fixed; 
     background-size:100% 100vh;

@@ -31,7 +31,7 @@ checkLogin();
 	var errorEmailUsed = false
 	var errorInPicture = false
 </script>
-<link rel="stylesheet" type= "text/css" href="../../project/styles/EditInfo.css">
+<link rel="stylesheet" type= "text/css" href="../styles/EditInfo.css">
 <?php 
 $servername = "localhost";
 $username = "root";

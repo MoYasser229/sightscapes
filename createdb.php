@@ -182,13 +182,5 @@
     if($conn->query($sql)===FALSE)
     die("Error: ".$conn->error);
 
-    $sql="CREATE TABLE IF NOT EXISTS Errors(
-        errorID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        errorMessage VARCHAR(255) NOT NULL,
-        createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-        );";
-    if($conn->query($sql)===FALSE)
-    die("Error: ".$conn->error);
-
     $conn->close();
 ?>

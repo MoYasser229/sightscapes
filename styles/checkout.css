@@ -10,7 +10,7 @@ body {
   width: inherit !important;
   height: 60% !important;
   /*background-color: rgb(172, 28, 117) !important;*/
-  background-image: url(../../project/bckgrnd/ch.jfif) !important;
+  background-image: url(../bckgrnd/ch.jfif) !important;
   background-position-y: 600px;
   background-position-x: center;
   background-size: 42cm;

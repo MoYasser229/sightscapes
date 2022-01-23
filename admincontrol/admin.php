@@ -50,10 +50,10 @@ if($_SESSION['userRole'] === 'admin'){
         }
         
         if($_POST['action']=="Groups"){
-            header("Location: /project/controlgroups/groupadminview.php");
+            header("Location: ../controlgroups/groupadminview.php");
         }
         if($_POST['action']=="Orders"){
-            echo "<script>window.location.replace('/project/orders/orders.php')</script>";
+            echo "<script>window.location.replace('../orders/orders.php')</script>";
         }
     }
 ?>  

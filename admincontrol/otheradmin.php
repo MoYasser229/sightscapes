@@ -224,10 +224,10 @@ checkLogin();
         }
         
         if($_POST['action']=="Groups"){
-            echo "<script>window.location.replace('/project/controlgroups/groupadminview.php')</script>";
+            echo "<script>window.location.replace('../controlgroups/groupadminview.php')</script>";
         }
         if($_POST['action']=="Orders"){
-            echo "<script>window.location.replace('/project/orders/orders.php')</script>";
+            echo "<script>window.location.replace('../orders/orders.php')</script>";
         }
     }
 ?>  

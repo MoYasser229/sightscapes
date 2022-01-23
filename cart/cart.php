@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="../../project/styles/cartStyle.css" type="text/css">
+        <link rel="stylesheet" href="../styles/cartStyle.css" type="text/css">
         <script src="https://kit.fontawesome.com/1d1d7fdffa.js" crossorigin="anonymous"></script>
         <meta charset="utf-8">
         <title>My Cart</title>

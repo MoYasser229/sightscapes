@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../../project/styles/survey.css">
+<link rel="stylesheet" type="text/css" href="../styles/survey.css">
 <?php session_start(); 
 include_once '../errorHandler/errorHandlers.php';
 set_error_handler('customError',E_ALL);
