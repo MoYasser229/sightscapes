@@ -1,8 +1,8 @@
 <?php
-function customError($errorno, $errormsg){
+function customError(){
     header('Location:../home/home.php');
 }
-function loginError($errorno, $errormsg){
+function loginError(){
     header('Location:../users/Login.php');
 }
 ?>

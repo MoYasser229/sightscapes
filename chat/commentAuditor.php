@@ -34,12 +34,5 @@ $auditorComment = '';
             $auditorComment = $_POST['comment'];
         $sql = "UPDATE msg SET auditorComment = '$auditorComment' WHERE msgID = '$msgID'";
         $result=$conn->query($sql) or die("Error: ".$conn->error);
-        // $sql = "SELECT recieverID from chat where chatID = '$chatID'";
-        // $result=$conn->query($sql) or die("Error: ".$conn->error);
-        // $receiverID = '';
-        // if($row = $result->fetch_assoc()){
-        //     $receiverID = $row['receiverID'];
-        // }
     }
-    //reportAdmin($chatID, $auditorComment);
 ?>

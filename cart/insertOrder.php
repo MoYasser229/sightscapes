@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title> Checkout </title>
-<link rel="stylesheet" type="text/css" href="../styles/checkout.css">
+<link rel="stylesheet" type="text/css" href="../../project/styles/checkout.css">
 <meta name = "viewport" content="width= device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -29,13 +29,6 @@ foreach($cart as $cartItem){
 
 
 <script>
-   $(document).ready(function(){
-   $("#flip").click(function(){
-   $("#panel").slideDown("slow");
-});
-});
-
-
 function validateName(FullName){
    if(FullName=='')
       return 'no FullName was entered.\n';

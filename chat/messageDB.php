@@ -51,7 +51,6 @@
     }
     else if(isset($_POST['loc'])&&$_POST['checkForm']==true){
         $admin=$_POST['admin'];
-        //<?php echo "chat.php?admin=$admin&chatType=Group Recommendation"
         $sql = "INSERT INTO chat(senderID,receiverID,chatType)
         VALUES ((SELECT userID from Users where userID='$id'),
         '$admin','Group Recommendation');";
@@ -118,14 +117,19 @@
                 echo "<div class='messageContainerAuditor'>";
                 while($row=$result->fetch_assoc()){
                     if(isset($_POST['auditor'])){
-                        if($_POST['auditor'] === '1' || $_POST['auditor'] === '2'){
+                        if($_POST['auditor'] === '1' || $_POST['auditor'] === '2'){ // 1 => aud 2 => hr
                             $checkAdmin = "SELECT receiverID FROM chat WHERE chatID = '$chatID'";
                             $checkAdminResult = $GLOBALS['conn']->query($checkAdmin);
                             if($checkAdminRow = $checkAdminResult->fetch_assoc()){
                                 if($checkAdminRow['receiverID'] === $row['senderID']){
                                     if($_POST['auditor'] === '1'){
                                         if(empty($row['auditorComment']))
-                                            echo "<div class = 'textMessageAdmin'>{$row['msgText']}<input type='hidden' name = 'commentMsg' value = '{$row['msgID']}'><button onclick = 'onClick(this.id)'  class='auditorButton' type='submit' name = 'submitComment' id = '{$row['msgID']}'><i class='fas fa-pencil-alt'></i></button></div><br><br><br>";
+                                            echo "<div class = 'textMessageAdmin'>{$row['msgText']}
+                                            <input type='hidden' name = 'commentMsg' value = '{$row['msgID']}'>
+                                            <button onclick = 'onClick(this.id)'  class='auditorButton' type='submit' name = 'submitComment' id = '{$row['msgID']}'>
+                                            <i class='fas fa-pencil-alt'></i>
+                                            </button>
+                                            </div><br><br><br>";
                                         else
                                             echo "<div class = 'textMessageAdmin'>{$row['msgText']}<input type='hidden' name = 'commentMsg' value = '{$row['msgID']}'><button onclick = 'onClick(this.id)' class='auditorButton' type='submit' name = 'submitComment' id = '{$row['msgID']}'><i class='fas fa-pencil-alt'></i></button></div><br><br><br><p class = 'textMessageAuditor'>{$row['auditorComment']}</p><br><br><br>";
                                         echo "<div id='divAuditor' class='fixed-bottom'></div>";
@@ -150,7 +154,6 @@
                             } 
                         }
                         else{
-                            //if($row[''])
                             if($row['senderID'] === $admin)
                                 echo "<div class = 'textMessageAdmin'>{$row['msgText']}</div><br><br><br>";
                             else{

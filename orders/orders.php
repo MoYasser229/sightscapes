@@ -46,12 +46,9 @@ if($_SESSION['userRole'] === 'admin'){
                 <?php
                     $conn = new mysqli("localhost" , "root" , "" , "project");
                     $sql = "SELECT * FROM orders";
-                    $groupSql = "SELECT * FROM groups";
-                    $groupsResult = $conn->query($groupSql);
                     $result = $conn->query($sql);
                     $totalItems = 0;
                     $totalRevenue = 0;
-                    
                     while($row = $result->fetch_assoc()) {
                         $totalRevenue += $row['totalPrice'];
                         $totalItems++;

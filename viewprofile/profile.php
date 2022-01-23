@@ -50,12 +50,7 @@ if($row= $result->fetch_array(MYSQLI_ASSOC)){
   <br><br><br><br>
   <form action ='Editinfo.php' method ='post'>
     <button type="submit" class="button" name="Submit" id="Submit"> <i class="fas fa-edit"></i> EDIT </button>
-    <script> document.getElementById('Submit').addEventListener('click',x);
-    function x(){
-      var u=document.getElementById('info');
-      u.style.visibility='hidden';
-    }
-    </script>
+    
 
     
     </form>
@@ -148,9 +143,8 @@ if($row= $result->fetch_array(MYSQLI_ASSOC)){
               let confirmAction = confirm("Are you sure to execute this action?");
               if (confirmAction) {
                 alert("Action successfully executed");
-              location.href = 'deleteAcc.php'; 
+                location.href = 'deleteAcc.php'; 
               } else {
-
                 alert("Action canceled");
               }
             }

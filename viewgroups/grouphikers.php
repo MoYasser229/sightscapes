@@ -119,44 +119,11 @@
 		function timeout(){ $("#Db").fadeOut("slow");}; 
 		$(document).ready(function(){
 		$("button").click(function (){
-			// $("#Db").fadeOut();
 			$("#Db").fadeOut("slow");
-			// $("#Db").fadeOut(3000);
 		});
 		});
 	</script>
 <div id="div1"></div>
-<footer class="container-fluid bg-grey py-5">
-            <div class="container ">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                            <div class="logo-part">
-                                <img src="../bckgrnd/logo.png" class="w-75 logo-footer" >
-                            </div>
-                            </div>
-                            <div class="col-md-6 px-4">
-                            <h6> About Company</h6>
-                            <p>A website that connects all hikers in one place. We are here to give all hikers opportunity to view various hiking groups to different locations.</p>
-                            <p>Our goal is to provide a service that organize hiking trips to all hikers on earth.</p>
-                            </div>
-                        </div>
-                    </div>
-                        <div class="col-md-6">
-                            <h6> Newsletter</h6>
-                            <div class="social">
-                                <a href="https://facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                <a href="https://instagram.com"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                <a href="https://twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                <a href="https://youtube.com"><i class="fa fa-youtube" aria-hidden="true"></i></a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </footer>
 	</body>
 </html>
 <?php

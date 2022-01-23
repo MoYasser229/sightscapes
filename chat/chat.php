@@ -1,7 +1,8 @@
 <?php session_start();
 include_once '../errorHandler/errorHandlers.php';
-set_error_handler('customError',E_ALL);
+set_error_handler('customError',E_WARNING);
 include_once "../users/checkLogin.php"; 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,7 +26,6 @@ function load(checkAuditor){
             $pic = $_FILES['pic']['name'];
             move_uploaded_file($_FILES['pic']['tmp_name'], $dir.$pic);
         }
-        echo $pic; 
         
         ?>";
         link = "<?php echo (isset($_POST['link']))?$_POST['link']:''; ?>";
@@ -33,7 +33,7 @@ function load(checkAuditor){
         admin = "<?php echo (isset($_GET['admin']))?$_GET['admin']:''; ?>";
         checkForm="<?php echo (isset($_POST['loc']))?true:false; ?>";
         $.ajax({
-                type: 'POST',
+                method: 'POST',
                 url: 'messageDB.php',
                 data: { 
                     'chatID':chatID,
@@ -84,7 +84,6 @@ if($_SESSION['userRole'] === 'auditor'){
         
         $conn = new mysqli("localhost" , "root" , "" , "project");
             if(isset($_POST['commentMsg'])){
-                echo "<script> alert('{$_POST['commentMsg']}') </script>";
                 echo "<form action = 'chat.php?chatID=$chatID' method = 'POST'><input type = 'text' name = 'comment'><input type = 'submit' name = 'submitComment' value = {$_POST['commentMsg']}></form>";
             }
             if(isset($_POST['submitComment'])){

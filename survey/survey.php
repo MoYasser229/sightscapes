@@ -31,7 +31,7 @@ $conn = new mysqli("localhost","root","","project");
                     }
                     else if($row['surveyType']=='Post-Trip Survey'){
                         $groupSpecified=$row['GroupSpecified'];
-                        $sql1="SELECT * FROM groups as g, survey as s WHERE g.GID='$groupSpecified'";
+                        $sql1="SELECT * FROM groups as g WHERE g.GID='$groupSpecified'";
                         $resultt=$conn->query($sql1);
                         $row1=$resultt->fetch_assoc();
                         echo "<a style = 'color: white; ' href='2ndsurvey.php?surveyID=$s' >".$row['surveyType']."</a> 

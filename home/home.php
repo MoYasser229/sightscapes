@@ -15,8 +15,6 @@
             //START UP PHP CODE//
       include_once "../createdb.php";//Database code
       session_start();
-      include_once '../errorHandler/errorHandlers.php';
-      set_error_handler('customError',E_ALL);
       include_once "../users/checkLogin.php";//Navigation Bar Function Implementation
       checkLogin();
     ?>
@@ -27,7 +25,7 @@
                 <h1>Let The Journey Begin</h1>
                 <p>ADVENTURE AWAITS</p>
                 <hr>
-                <button class = "button-style"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>  &nbsp SCROLL DOWN</button>
+                <p style='color: white; font-size: 20px;'><i class="fa fa-long-arrow-down"></i>  &nbsp SCROLL DOWN</p>
             </div>
             <div class = "mountain-bck">
                 <div class = "ground-bck"></div>
@@ -73,36 +71,5 @@
             </div>
             <img src="../bckgrnd/m4.jpg" class="image" width="500" height="500"/>
         </section>
-        <footer class="container-fluid bg-grey py-5">
-            <div class="container ">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                            <div class="logo-part">
-                                <img src="../bckgrnd/logo.png" class="w-75 logo-footer" >
-                            </div>
-                            </div>
-                            <div class="col-md-6 px-4">
-                            <h6> About Company</h6>
-                            <p>A website that connects all hikers in one place. We are here to give all hikers opportunity to view various hiking groups to different locations.</p>
-                            <p>Our goal is to provide a service that organize hiking trips to all hikers on earth.</p>
-                            </div>
-                        </div>
-                    </div>
-                        <div class="col-md-6">
-                            <h6> Newsletter</h6>
-                            <div class="social">
-                                <a href="https://facebook.com"><i class="fa fa-facebook"></i></a>
-                                <a href="https://instagram.com"><i class="fa fa-instagram"></i></a>
-                                <a href="https://twitter.com"><i class="fa fa-twitter"></i></a>
-                                <a href="https://youtube.com"><i class="fa fa-youtube"></i></a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </footer>
-        
 </body>
 </html>
